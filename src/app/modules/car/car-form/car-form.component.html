@@ -5,7 +5,7 @@
   </mat-card-header>
   <form name="carForm" (ngSubmit)="onSubmit()" [formGroup]="carForm" >
     <mat-card-content>
-      <div class="contaier">
+
         <div class="row">
           <div class="col">
             <mat-form-field>
@@ -35,7 +35,7 @@
               <mat-hint> Model of the car example Corolla...</mat-hint>
             </mat-form-field>
           </div>
-          <div class="col-2">
+          <div class="col">
             <mat-form-field>
               <input matInput [matDatepicker]="yearMade" placeholder="Year Made"
                     name="yearMade"
@@ -182,8 +182,6 @@
             </mat-form-field>
           </div>
         </div>
-      </div>
-
     </mat-card-content>
   </form>
   <mat-card-actions>

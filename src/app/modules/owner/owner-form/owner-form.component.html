@@ -5,8 +5,7 @@
         <mat-card-subtitle>{{currentAction}}</mat-card-subtitle>
     </mat-card-header>
     <form name="ownerForm" [formGroup]="ownerForm" (ngSubmit)="onSubmit()"  >
-        <mat-card-content >  
-            <div class="container">                  
+        <mat-card-content  class="owners-card-content">               
             <div class="row">
                 <div class="col">
                     <mat-form-field>
@@ -86,7 +85,7 @@
                         </mat-error>
                     </mat-form-field>
                 </div>
-                <div class="col-1">
+                <div class="col">
                     <mat-form-field>
                         <input matInput placeholder="Wereda"
                                 name="wereda"
@@ -100,7 +99,7 @@
                     </mat-form-field>
                 </div>
             </div>
-            </div>
+            
         </mat-card-content>
         <mat-card-actions align="space-around">
             <button mat-button mat-button-raised type="submit" [disabled]="ownerForm.invalid" color="primary" >Save</button>
