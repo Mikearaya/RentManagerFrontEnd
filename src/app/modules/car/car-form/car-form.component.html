@@ -1,3 +1,196 @@
-<p>
-  car-form works!
-</p>
+<mat-card class="mat-elevation-z8">
+  <mat-card-header>
+    <mat-card-title>Car</mat-card-title>
+    <mat-card-subtitle>{{currentAction}}</mat-card-subtitle>
+  </mat-card-header>
+  <form name="carForm" (ngSubmit)="onSubmit()" [formGroup]="carForm" >
+    <mat-card-content>
+      <div class="contaier">
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Car Make or Name"
+                    name="make"
+                    id="make"
+                    required
+                    formControlName="make"
+              >
+              <mat-error *ngIf="carForm.get('make').errors?.required">
+                Car Make is Required
+              </mat-error>
+              <mat-hint> Name of the car example Toyota</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Model"
+                      name="model"
+                      id="model"
+                      required
+                      formControlName="model"
+              >
+              <mat-error *ngIf="carForm.get('model').errors?.required">
+                  Model of Car is Required
+              </mat-error>
+              <mat-hint> Model of the car example Corolla...</mat-hint>
+            </mat-form-field>
+          </div>
+          <div class="col-2">
+            <mat-form-field>
+              <input matInput [matDatepicker]="yearMade" placeholder="Year Made"
+                    name="yearMade"
+                    id="yearMade"
+                    required
+                    formControlName="yearMade"
+              >
+              <mat-error *ngIf="carForm.get('yearMade').errors?.required" >
+                  Year of the car made is Required
+                </mat-error>
+              <mat-datepicker-toggle matSuffix [for]="yearMade"></mat-datepicker-toggle>
+              <mat-datepicker #yearMade></mat-datepicker>
+             
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+            <mat-select placeholder="Color" 
+                        name="color"
+                        id="color"
+                        required
+                        formControlName="color"
+              >
+              <mat-option *ngFor="let color of COLORS" [value]="color">{{color}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="carForm.get('yearMade').errors?.required" >
+              Color is Required
+            </mat-error>
+          </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+            <mat-select placeholder="Type"
+                        name="type"
+                        id="type"
+                        required 
+                        formControlName="type"
+                >
+            <mat-option [value]="carType" *ngFor="let carType of CAR_TYPES ">{{carType}}</mat-option>
+            </mat-select>
+            <mat-error *ngIf="carForm.get('type').errors?.required" >
+                Car type is Required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+            <mat-select placeholder="Fuiel Type"
+                      name="fuielType"
+                      id="fuielType"
+                      required 
+                      formControlName="fuiel"
+                  >
+              <mat-option *ngFor="let fuiel of FUIEL_TYPES" [value]="fuiel">{{fuiel}}</mat-option>
+              
+            </mat-select>
+            <mat-error *ngIf="carForm.get('fuiel').errors?.required" >
+                Car type is Required
+            </mat-error>
+          </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Chassis Number"
+                    name="chassisNo"
+                    id="chassisNo"
+                    required
+                    formControlName="chassisNo"
+                >
+                <mat-error *ngIf="carForm.get('chassisNo').errors?.required" >
+                    Chassis Number is Required
+                </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Motor Number"
+                    name="motorNo"
+                    id="motorNo"
+                    required
+                    formControlName="motorNo"
+                  >
+                  <mat-error *ngIf="carForm.get('motorNo').errors?.required" >
+                      Motor Number is Required
+                  </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="CC"
+                    name="cc"
+                    id="cc"
+                    required
+                    formControlName="cc"
+                >
+            <mat-error *ngIf="carForm.get('cc').errors?.required" >
+                CC Number is Required
+            </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+              <mat-form-field>
+                <input matInput placeholder="Passanger Capacity"
+                      name="totalPassanger"
+                      id="totalPassanger"
+                      required
+                      formControlName="totalPassanger"
+                  >
+              <mat-error *ngIf="carForm.get('totalPassanger').errors?.required" >
+                  Passanger Number is Required
+              </mat-error>
+              </mat-form-field>
+            </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Cylinder"
+                    name="cylinder"
+                    id="cylinder"
+                    required
+                    formControlName="cylinder"
+                >
+                <mat-error *ngIf="carForm.get('cylinder').errors?.required" >
+                    Cylinder Number is Required
+                </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Libre Number"
+                    name="libre"
+                    id="libre"
+                    required
+                    formControlName="libre"
+                >
+                <mat-error *ngIf="carForm.get('libre').errors?.required" >
+                    Libre Number is Required
+                </mat-error>
+            </mat-form-field>
+          </div>
+        </div>
+      </div>
+
+    </mat-card-content>
+  </form>
+  <mat-card-actions>
+    <button mat-button mat-button-raised type="submit" color="primary">Save</button>
+    <button mat-button mat-button-raised color="warn">Cancel</button>
+    </mat-card-actions>
+    <mat-card-footer>
+      {{carForm.value | json}}
+    </mat-card-footer>
+</mat-card>

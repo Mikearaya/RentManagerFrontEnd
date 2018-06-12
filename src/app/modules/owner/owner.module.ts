@@ -11,7 +11,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 @NgModule({
   imports: [
     CommonModule,
-    OwnerRoutingModule,
     MatTableModule,
     ReactiveFormsModule,
     MatPaginatorModule,
@@ -22,7 +21,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatIconModule,
     MatSelectModule,
     MatButtonModule,
-    MatCardModule
+    OwnerRoutingModule,
   ],
   declarations: [OwnerFormComponent, OwnerListComponent]
 })

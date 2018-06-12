@@ -3,7 +3,7 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { OwnerListDataSource } from './owner-list-datasource';
 
 @Component({
-  selector: 'owner/owner-list',
+  selector: 'app-owner-list',
   templateUrl: './owner-list.component.html',
   styleUrls: ['./owner-list.component.css']
 })
