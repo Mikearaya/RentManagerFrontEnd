@@ -6,12 +6,14 @@ import { OwnerFormComponent } from './owner-form/owner-form.component';
 import { OwnerListComponent } from './owner-list/owner-list.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, MatCardModule, MatInputModule,
    MatIconModule, MatSelectModule, MatButtonModule } from '@angular/material';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
     OwnerRoutingModule,
     MatTableModule,
+    ReactiveFormsModule,
     MatPaginatorModule,
     MatSortModule,
     MatFormFieldModule,
@@ -19,7 +21,8 @@ import { MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, 
     MatInputModule,
     MatIconModule,
     MatSelectModule,
-    MatButtonModule
+    MatButtonModule,
+    MatCardModule
   ],
   declarations: [OwnerFormComponent, OwnerListComponent]
 })
