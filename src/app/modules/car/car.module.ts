@@ -1,3 +1,4 @@
+import { CarService } from './car.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
@@ -7,6 +8,7 @@ import { MatTableModule, MatSortModule, MatPaginatorModule, MatCardModule, MatFo
   MatSelectModule, MatIconModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule } from '@angular/material';
 import { CarListComponent } from './car-list/car-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
@@ -16,6 +18,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatCardModule,
     MatFormFieldModule,
     ReactiveFormsModule,
+    HttpClientModule,
     MatInputModule,
     MatSelectModule,
     MatIconModule,
@@ -26,6 +29,7 @@ import { ReactiveFormsModule } from '@angular/forms';
     CarRoutingModule
   ],
   declarations: [CarFormComponent, CarListComponent],
-  exports: []
+  exports: [],
+  providers: [CarService]
 })
 export class CarModule { }

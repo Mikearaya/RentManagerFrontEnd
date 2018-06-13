@@ -1,3 +1,4 @@
+import { Car } from './../car.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { CarService } from '../car.service';
@@ -9,10 +10,15 @@ import { ActivatedRoute } from '@angular/router';
   styleUrls: ['./car-form.component.css']
 })
 export class CarFormComponent implements OnInit {
+  private car: Car;
+  private id: number;
+
   COLORS = ['Red', 'Green', 'Blue', 'White', 'Silver' , 'Brown', 'Black'];
   CAR_TYPES = ['Automobile', '4 Wheel Drive', 'Sedan', 'Hatch Back', 'Limosine', 'Pickup'];
   FUIEL_TYPES = ['Bensine', 'Dissel'];
   carForm: FormGroup;
+  isUpdate: Boolean = false;
+  currentAction: String = 'Add New';
 
   constructor(private carService: CarService,
               private formBuilder: FormBuilder,
@@ -21,9 +27,17 @@ export class CarFormComponent implements OnInit {
               this.generateForm();
             }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.id = + this.activatedRoute.snapshot.paramMap.get('id');
+    if (this.id) {
+      this.isUpdate = true;
+      this.currentAction = 'Update';
+       this.carService.getCar(this.id).subscribe((result) => this.generateForm(result[0]));
+    }
+  }
 
-  generateForm(currentCar: any = '') {
+  generateForm(currentCar: Car = null) {
+    this.car = currentCar;
     this.carForm = this.formBuilder.group({
       make: ['', Validators.required],
       model: ['', Validators.required],
@@ -40,5 +54,40 @@ export class CarFormComponent implements OnInit {
     });
   }
 
-  onSubmit() { }
+  prepareDataModel(carInfo: any): Car {
+      const dataModel = {
+          CAR_ID: this.id,
+          OWNER_ID: this.car.OWNER_ID,
+          make: carInfo.make,
+          model: carInfo.model,
+          year_made: carInfo.yearMade,
+          color: carInfo.color,
+          type: carInfo.type,
+          chassis_number: carInfo.chassisMp,
+          motor_number: carInfo.motorNo,
+          fuiel_type: carInfo.fuiel,
+          cc: carInfo.cc,
+          total_passanger: carInfo.totalPassanger,
+          cylinder_count: carInfo.cylinder,
+          libre_no: carInfo.libre
+      };
+    return dataModel;
+  }
+
+  handelResponse(result: any) {
+    if (result) {
+      alert('success');
+    } else {
+      alert('failed');
+    }
+  }
+
+  onSubmit() {
+    this.car = this.prepareDataModel(this.carForm);
+    if (this.isUpdate) {
+    this.carService.updateCar(this.car).subscribe((result) => this.handelResponse(result));
+    } else {
+      this.carService.saveCar(this.car).subscribe((result) => this.handelResponse(result));
+    }
+  }
 }

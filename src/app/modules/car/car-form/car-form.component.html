@@ -48,14 +48,14 @@
                 </mat-error>
               <mat-datepicker-toggle matSuffix [for]="yearMade"></mat-datepicker-toggle>
               <mat-datepicker #yearMade></mat-datepicker>
-             
+
             </mat-form-field>
           </div>
         </div>
         <div class="row">
           <div class="col">
             <mat-form-field>
-            <mat-select placeholder="Color" 
+            <mat-select placeholder="Color"
                         name="color"
                         id="color"
                         required
@@ -73,7 +73,7 @@
             <mat-select placeholder="Type"
                         name="type"
                         id="type"
-                        required 
+                        required
                         formControlName="type"
                 >
             <mat-option [value]="carType" *ngFor="let carType of CAR_TYPES ">{{carType}}</mat-option>
@@ -88,11 +88,11 @@
             <mat-select placeholder="Fuiel Type"
                       name="fuielType"
                       id="fuielType"
-                      required 
+                      required
                       formControlName="fuiel"
                   >
               <mat-option *ngFor="let fuiel of FUIEL_TYPES" [value]="fuiel">{{fuiel}}</mat-option>
-              
+
             </mat-select>
             <mat-error *ngIf="carForm.get('fuiel').errors?.required" >
                 Car type is Required

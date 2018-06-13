@@ -5,14 +5,14 @@
         <mat-card-subtitle>{{currentAction}}</mat-card-subtitle>
     </mat-card-header>
     <form name="ownerForm" [formGroup]="ownerForm" (ngSubmit)="onSubmit()"  >
-        <mat-card-content  class="owners-card-content">               
+        <mat-card-content  class="owners-card-content">
             <div class="row">
                 <div class="col">
                     <mat-form-field>
                         <input matInput placeholder="First Name"
                                 name="firstName"
                                 id="firstName"
-                                required 
+                                required
                                 formControlName="firstName"
                         >
                         <mat-error *ngIf="ownerForm.get('firstName').errors?.required">
@@ -46,15 +46,6 @@
                         <mat-error  *ngIf="ownerForm.get('mobilePhone').errors?.required">
                         Main Mobile Number is Required
                         </mat-error>
-                    </mat-form-field>
-                </div>
-                <div class="col">
-                    <mat-form-field>
-                        <input matInput placeholder="Other Phone"
-                                name="otherPhone"
-                                id="otherPhone"
-                                formControlName="otherPhone"
-                        >
                     </mat-form-field>
                 </div>
             </div>
@@ -99,12 +90,12 @@
                     </mat-form-field>
                 </div>
             </div>
-            
+
         </mat-card-content>
         <mat-card-actions align="space-around">
             <button mat-button mat-button-raised type="submit" [disabled]="ownerForm.invalid" color="primary" >Save</button>
             <button mat-button mat-button-raised color="warn" >Cancel</button>
-            
+
         </mat-card-actions>
     </form>
     <mat-card-footer>
