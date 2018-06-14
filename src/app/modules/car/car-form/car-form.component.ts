@@ -50,26 +50,31 @@ export class CarFormComponent implements OnInit {
       cc: ['', Validators.required],
       totalPassanger: ['', Validators.required],
       cylinder: ['', Validators.required],
-      libre: ['', Validators.required]
+      libre: ['', Validators.required],
+      plateCode: ['', Validators.required],
+      plateNumber: ['', Validators.required]
     });
   }
 
   prepareDataModel(carInfo: any): Car {
       const dataModel = {
           CAR_ID: this.id,
-          OWNER_ID: this.car.OWNER_ID,
+          OWNER_ID: 3,
           make: carInfo.make,
           model: carInfo.model,
           year_made: carInfo.yearMade,
           color: carInfo.color,
           type: carInfo.type,
-          chassis_number: carInfo.chassisMp,
+          chassis_number: carInfo.chassisNo,
           motor_number: carInfo.motorNo,
           fuiel_type: carInfo.fuiel,
           cc: carInfo.cc,
           total_passanger: carInfo.totalPassanger,
           cylinder_count: carInfo.cylinder,
-          libre_no: carInfo.libre
+          libre_no: carInfo.libre,
+          plate_code: carInfo.plateCode,
+          plate_number: carInfo.plateNumber
+
       };
     return dataModel;
   }
@@ -83,7 +88,7 @@ export class CarFormComponent implements OnInit {
   }
 
   onSubmit() {
-    this.car = this.prepareDataModel(this.carForm);
+    this.car = this.prepareDataModel(this.carForm.value);
     if (this.isUpdate) {
     this.carService.updateCar(this.car).subscribe((result) => this.handelResponse(result));
     } else {

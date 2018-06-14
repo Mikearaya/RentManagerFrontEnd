@@ -19,20 +19,20 @@ export class Car {
   total_passanger: number;
   cylinder_count: number;
   libre_no: string;
+  plate_code: number;
+  plate_number: string;
 }
 
 
 @Injectable()
 export class CarService {
-  private url = 'http://localhost/rent_manager/index.php/car';
+  private url = 'http://localhost/rent_manager/index.php/vehicle';
   private httpBody: URLSearchParams;
   private header: HttpHeaders;
 
   constructor(private httpClient: HttpClient) {
-      this.header = new HttpHeaders();
+      this.header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       this.httpBody = new URLSearchParams();
-      this.header.set('Content-Type', 'application/x-www-form-urlencoded');
-
    }
 
     getCar(id: number = 0): Observable<Car[]> {
@@ -77,6 +77,8 @@ export class CarService {
             requestBody.set('total_passanger', `${currentCar.total_passanger}`);
             requestBody.set('cylinder_count', `${currentCar.cylinder_count}`);
             requestBody.set('libre_no', `${currentCar.libre_no}`);
+            requestBody.set('plate_code', `${currentCar.plate_code}`);
+            requestBody.set('plate_number', `${currentCar.plate_number}`);
       return requestBody;
 
     }

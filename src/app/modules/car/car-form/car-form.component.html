@@ -101,6 +101,37 @@
           </div>
         </div>
         <div class="row">
+          <div class="col-2">
+            <mat-form-field>
+              <mat-select placeholder="Plate Code"
+                          name="plateCode"
+                          id="plateCode"
+                          formControlName="plateCode"
+                          required
+                          >
+                <mat-option value="2">2</mat-option>
+                <mat-option value="3">3</mat-option>
+              </mat-select>
+              <mat-error *ngIf="carForm.get('plateCode').errors?.required">
+                Plate Code is required
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+            <mat-form-field appearance="ouline">
+              <mat-form-field>
+                <input matInput placeholder="Plate Number"
+                      name="plateNumber"
+                      id="plateNumber"
+                      formControlName="plateNumber"
+                      required
+                    >
+                <mat-error *ngIf="carForm.get('plateNumber').errors?.required">
+                  Plate Number is Required
+                </mat-error>
+              </mat-form-field>
+            </mat-form-field>
+          </div>
           <div class="col">
             <mat-form-field>
               <input matInput placeholder="Chassis Number"
@@ -183,11 +214,12 @@
           </div>
         </div>
     </mat-card-content>
-  </form>
-  <mat-card-actions>
-    <button mat-button mat-button-raised type="submit" color="primary">Save</button>
-    <button mat-button mat-button-raised color="warn">Cancel</button>
+    <mat-card-actions>
+        <button mat-button mat-button-raised type="submit" color="primary">Save</button>
+        <button mat-button mat-button-raised color="warn">Cancel</button>
     </mat-card-actions>
+  </form>
+
     <mat-card-footer>
       {{carForm.value | json}}
     </mat-card-footer>
