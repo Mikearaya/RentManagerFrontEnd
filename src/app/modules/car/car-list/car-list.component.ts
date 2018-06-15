@@ -26,7 +26,8 @@ export class CarListComponent implements OnInit, AfterViewInit {
 
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['select', 'VEHICLE_ID', 'make'];
+  displayedColumns = ['select', 'make', 'model', 'color',  'type', 'fuiel_type', 'plate_code', 'plate_number',
+                        'cc', 'total_passanger'];
     constructor(private activatedRoute: ActivatedRoute,
                 private carService: CarService) {
 
@@ -58,12 +59,12 @@ export class CarListComponent implements OnInit, AfterViewInit {
 }
   deleteCar(deletedCars: Car[]) {
     const deletedId = [];
-    deletedCars.forEach((car) => deletedId.push(`${car.CAR_ID}`));
+    deletedCars.forEach((car) => deletedId.push(`${car.VEHICLE_ID}`));
     this.carService.deleteCar(deletedId).subscribe((result) => console.log(result));
   }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
-    const numRows = this.dataSource.data.length;
+    const numRows = 0;
     return numSelected === numRows;
   }
   displayVehicles() {
@@ -78,8 +79,6 @@ export class CarListComponent implements OnInit, AfterViewInit {
 
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
-    this.isAllSelected() ?
-        this.selection.clear() :
-        this.dataSource.data.forEach(row => this.selection.select(row));
+
   }
 }

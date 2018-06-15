@@ -7,7 +7,7 @@ import { map } from 'rxjs/operators';
 
 
 export class Car {
-  CAR_ID?: number;
+  VEHICLE_ID?: number;
   OWNER_ID: number;
   make: string;
   model: string;
@@ -54,15 +54,15 @@ export class CarService {
     updateCar(oldCar: Car): Observable<Boolean> {
       const requestOption =  { 'headers' : this.header  };
             this.httpBody = this.prepareRequestBody(oldCar);
-      return this.httpClient.post<Boolean>(`${this.url}/${oldCar.CAR_ID}`, this.httpBody.toString(), requestOption );
+      return this.httpClient.post<Boolean>(`${this.url}/${oldCar.VEHICLE_ID}`, this.httpBody.toString(), requestOption );
     }
 
     deleteCar(carIds: number[]): Observable<Boolean> {
       const requestOption =  { 'headers' : this.header  };
-      carIds.forEach((id) => this.httpBody.append('CAR_ID', `${id}` ));
+      carIds.forEach((id) => this.httpBody.append('VEHICLE_ID', `${id}` ));
       return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString(), requestOption);
     }
-    displayVehicles(id: number, filter = '', sortOrder = 'asc', pageNumber = 0, pageSize = 3): Observable<Car[]> {
+    displayVehicles(id: number, filter = '', sortOrder = 'asc', pageNumber = 0, pageSize = 1): Observable<Car[]> {
       return this.httpClient.get(`${this.url}`, {
         params: new HttpParams()
                 .set('VEHICLE_ID', id.toString())
@@ -77,7 +77,7 @@ export class CarService {
     }
     prepareRequestBody(currentCar: Car): URLSearchParams {
       const requestBody = new URLSearchParams();
-            requestBody.set('CAR_ID', `${currentCar.CAR_ID}`);
+            requestBody.set('VEHICLE_ID', `${currentCar.VEHICLE_ID}`);
             requestBody.set('OWNER_ID', `${currentCar.OWNER_ID}`);
             requestBody.set('make', `${currentCar.make}`);
             requestBody.set('model', `${currentCar.model}`);

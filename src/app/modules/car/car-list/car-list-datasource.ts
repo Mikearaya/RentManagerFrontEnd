@@ -1,14 +1,14 @@
 import { CarService, Car } from './../car.service';
 import { DataSource, CollectionViewer } from '@angular/cdk/collections';
-import { MatPaginator, MatSort } from '@angular/material';
 import { catchError, finalize } from 'rxjs/operators';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 
 export class VehicleDataSource extends DataSource<Car> {
-  data: Car[];
   private vehiclesSubject = new BehaviorSubject<Car[]>([]);
   private loadingSubject = new BehaviorSubject<boolean>(false);
+  private countingSubject = new BehaviorSubject<number>(0);
   public loading$ = this.loadingSubject.asObservable();
+  public length$ = this.countingSubject.asObservable();
 
   constructor(private carService: CarService) {
     super();
@@ -37,6 +37,16 @@ this.carService.displayVehicles(courseId, filter, sortDirection, pageIndex, page
                           catchError(() => of([])),
                           finalize(() => this.loadingSubject.next(false))
                           )
-                          .subscribe(vehicles => this.vehiclesSubject.next(vehicles));
+                          .subscribe(vehicles => {
+
+                            this.countingSubject.next(vehicles.length);
+                            if ( pageIndex === 0) {
+                              vehicles.splice(pageSize);
+
+                            } else {
+                              vehicles.splice(pageIndex * pageSize);
+                            }
+                            this.vehiclesSubject.next(vehicles);
+                          });
   }
 }
