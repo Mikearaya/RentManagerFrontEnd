@@ -1,6 +1,8 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { map } from 'rxjs/operators';
+
 
 
 
@@ -60,7 +62,19 @@ export class CarService {
       carIds.forEach((id) => this.httpBody.append('CAR_ID', `${id}` ));
       return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString(), requestOption);
     }
+    displayVehicles(id: number, filter = '', sortOrder = 'asc', pageNumber = 0, pageSize = 3): Observable<Car[]> {
+      return this.httpClient.get(`${this.url}`, {
+        params: new HttpParams()
+                .set('VEHICLE_ID', id.toString())
+                .set('filter', filter)
+                .set('sortOrder', sortOrder)
+                .set('pageNumber', pageNumber.toString())
+                .set('pageSize', pageSize.toString())
 
+      }).pipe(
+        map((cars: Car[]) => cars)
+      );
+    }
     prepareRequestBody(currentCar: Car): URLSearchParams {
       const requestBody = new URLSearchParams();
             requestBody.set('CAR_ID', `${currentCar.CAR_ID}`);

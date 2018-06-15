@@ -1,26 +1,69 @@
 <div class="mat-elevation-z8" style="padding: 1px;">
-  <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
+  <mat-form-field>
+    <input matInput placeholder="Search Vehicle" #input>
+  </mat-form-field>
+    <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+        <mat-spinner></mat-spinner>
+</div>
+  <mat-table #table [dataSource]="dataSource" aria-label="Vehicles"
+  matSort matSortActive="make" matSortDirection="asc" matSortDisableClear>
+    <!-- Selection Checkboxes -->
+    <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
 
     <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+    <ng-container matColumnDef="VEHICLE_ID">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Vehicle ID</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.VEHICLE_ID}}</mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+    <!-- Make Column -->
+    <ng-container matColumnDef="make">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Make</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.make}}</mat-cell>
     </ng-container>
+    <!-- Model Column -->
+    <ng-container matColumnDef="model">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.model}}</mat-cell>
+    </ng-container>
+    <!-- Year Made Column -->
+    <ng-container matColumnDef="year_made">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>Year Made</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.year_made}}</mat-cell>
+    </ng-container>
+    <!-- Color Column -->
+    <ng-container matColumnDef="color">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Color</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.color}}</mat-cell>
+      </ng-container>
+      <!-- Plate Number -->
+    <ng-container matColumnDef="plate_number">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>Plate Number</mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.plate_code}}-{{row.plate_number}}</mat-cell>
+      </ng-container>
+
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
   <mat-paginator #paginator
-    [length]="dataSource.data.length"
+    [length]="dataSource?.length"
     [pageIndex]="0"
     [pageSize]="50"
-    [pageSizeOptions]="[25, 50, 100, 250]">
+    [pageSizeOptions]="[3, 5, 10, 25]">
   </mat-paginator>
 </div>
