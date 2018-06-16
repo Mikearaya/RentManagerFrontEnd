@@ -35,7 +35,7 @@ export class CarListComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.car = this.activatedRoute.snapshot.data['owenerId'];
     this.dataSource = new VehicleDataSource(this.carService);
-    this.dataSource.loadVehicles(1);
+    this.dataSource.loadVehicles();
     this.selection = new SelectionModel<Car>(allowMultiSelect, initialSelection);
   }
   ngAfterViewInit() {
@@ -46,14 +46,14 @@ export class CarListComponent implements OnInit, AfterViewInit {
         distinctUntilChanged(),
         tap(() => {
             this.paginator.pageIndex = 0;
-            this.displayVehicles();
+            this.viewVehicles();
         })
     )
 .subscribe();
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     merge(this.sort.sortChange, this.paginator.page)
         .pipe(
-            tap(() => this.displayVehicles())
+            tap(() => this.viewVehicles())
         )
         .subscribe();
 }
@@ -67,11 +67,12 @@ export class CarListComponent implements OnInit, AfterViewInit {
     const numRows = 0;
     return numSelected === numRows;
   }
-  displayVehicles() {
+    viewVehicles() {
     this.dataSource.loadVehicles(
       0,
       this.input.nativeElement.value,
       this.sort.direction,
+      this.sort.active,
       this.paginator.pageIndex,
       this.paginator.pageSize
     );

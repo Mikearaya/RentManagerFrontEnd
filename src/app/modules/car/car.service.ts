@@ -62,7 +62,7 @@ export class CarService {
       carIds.forEach((id) => this.httpBody.append('VEHICLE_ID', `${id}` ));
       return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString(), requestOption);
     }
-    displayVehicles(id: number, filter = '', sortOrder = 'asc', pageNumber = 0, pageSize = 1): Observable<Car[]> {
+    displayVehicles(id: number, filter = '', sortOrder = 'asc', sortColumn = '', pageNumber = 0, pageSize = 1): Observable<Car[]> {
       return this.httpClient.get(`${this.url}`, {
         params: new HttpParams()
                 .set('VEHICLE_ID', id.toString())
@@ -70,10 +70,15 @@ export class CarService {
                 .set('sortOrder', sortOrder)
                 .set('pageNumber', pageNumber.toString())
                 .set('pageSize', pageSize.toString())
+                .set('sortColumn', sortColumn)
 
       }).pipe(
         map((cars: Car[]) => cars)
       );
+    }
+
+    totalVehicles(): Observable<number> {
+      return this.httpClient.get<number>(`${this.url}`);
     }
     prepareRequestBody(currentCar: Car): URLSearchParams {
       const requestBody = new URLSearchParams();
