@@ -9,9 +9,8 @@
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
       <a mat-list-item routerLink="owners/" routerLinkActive="active">Partners</a>
-      <a mat-list-item routerLink="manage/owner" routerLinkActive="active" >Manage Owner</a>
-      <a mat-list-item routerLink="cars/" routerLinkActive="active" >Cars</a>
-      <a mat-list-item routerLink="manage/car" routerLinkActive="active" >Manage Car</a>
+      <mat-divider ></mat-divider>
+      <a mat-list-item routerLink="vehicles/" routerLinkActive="active" >Vehicles</a>
     </mat-nav-list>
   </mat-sidenav>
   <mat-sidenav-content>
@@ -26,8 +25,8 @@
       </button>
       <span>Application Title</span>
     </mat-toolbar>
-  
+
     <router-outlet></router-outlet>
-  
+
   </mat-sidenav-content>
 </mat-sidenav-container>

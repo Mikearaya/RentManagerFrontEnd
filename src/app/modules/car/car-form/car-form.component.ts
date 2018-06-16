@@ -11,54 +11,56 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CarFormComponent implements OnInit {
   private car: Car;
-  private id: number;
+  private currentId: number;
 
   COLORS = ['Red', 'Green', 'Blue', 'White', 'Silver' , 'Brown', 'Black'];
   CAR_TYPES = ['Automobile', '4 Wheel Drive', 'Sedan', 'Hatch Back', 'Limosine', 'Pickup'];
   FUIEL_TYPES = ['Bensine', 'Dissel'];
   carForm: FormGroup;
-  isUpdate: Boolean = false;
-  currentAction: String = 'Add New';
+  private isUpdate: Boolean = false;
+  title: String = 'Add New';
 
-  constructor(private carService: CarService,
-              private formBuilder: FormBuilder,
-              private activatedRoute: ActivatedRoute
+  constructor(  private activatedRoute: ActivatedRoute,
+                private carService: CarService,
+              private formBuilder: FormBuilder
             ) {
               this.generateForm();
             }
 
   ngOnInit() {
-    this.id = + this.activatedRoute.snapshot.paramMap.get('id');
-    if (this.id) {
+    this.currentId = + this.activatedRoute.snapshot.paramMap.get('vehicleId');
+
+
+    this.title = this.activatedRoute.snapshot.data['title'];
+    if (this.currentId) {
       this.isUpdate = true;
-      this.currentAction = 'Update';
-       this.carService.getCar(this.id).subscribe((result) => this.generateForm(result[0]));
+       this.carService.getCar(this.currentId).subscribe((car: any) => this.generateForm(car));
     }
   }
 
-  generateForm(currentCar: Car = null) {
-    this.car = currentCar;
+  generateForm(currentVehicle: any = '') {
+    this.car = currentVehicle;
     this.carForm = this.formBuilder.group({
-      make: ['', Validators.required],
-      model: ['', Validators.required],
-      yearMade: ['', Validators.required],
-      color: ['', Validators.required],
-      type: ['', Validators.required],
-      chassisNo: ['', Validators.required],
-      motorNo: ['', Validators.required],
-      fuiel: ['', Validators.required],
-      cc: ['', Validators.required],
-      totalPassanger: ['', Validators.required],
-      cylinder: ['', Validators.required],
-      libre: ['', Validators.required],
-      plateCode: ['', Validators.required],
-      plateNumber: ['', Validators.required]
+      make: this.buildControl(currentVehicle.make, true),
+      model: this.buildControl(currentVehicle.model, true),
+      yearMade: this.buildControl(currentVehicle.year_made, true),
+      color: this.buildControl(currentVehicle.color, true),
+      type: this.buildControl(currentVehicle.type, true),
+      chassisNo: this.buildControl(currentVehicle.chassis_number, true),
+      motorNo: this.buildControl(currentVehicle.motor_number, true),
+      fuiel: this.buildControl(currentVehicle.fuiel_type, true),
+      cc: this.buildControl(currentVehicle.cc, true),
+      totalPassanger: this.buildControl(currentVehicle.total_passanger, true),
+      cylinder: this.buildControl(currentVehicle.cylinder_count, true),
+      libre: this.buildControl(currentVehicle.libre_no, true),
+      plateCode: this.buildControl(currentVehicle.plate_code, true),
+      plateNumber: this.buildControl(currentVehicle.plate_number, true),
     });
   }
 
   prepareDataModel(carInfo: any): Car {
       const dataModel = {
-          CAR_ID: this.id,
+          VEHICLE_ID: this.currentId,
           OWNER_ID: 3,
           make: carInfo.make,
           model: carInfo.model,
@@ -77,6 +79,10 @@ export class CarFormComponent implements OnInit {
 
       };
     return dataModel;
+  }
+
+  buildControl(value = '', required = false) {
+    return (required) ? [value, Validators.required] : value;
   }
 
   handelResponse(result: any) {

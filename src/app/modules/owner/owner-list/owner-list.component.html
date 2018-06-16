@@ -5,7 +5,7 @@
         <div class="spinner-container" *ngIf="dataSource.loading$ | async">
             <mat-spinner></mat-spinner>
     </div>
-  <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
+  <mat-table #table [dataSource]="dataSource" matSort aria-label="Vehicle Owners">
 
     <!-- Id Column -->
     <ng-container matColumnDef="OWNER_ID">
@@ -53,7 +53,7 @@
   </mat-table>
 
   <mat-paginator #paginator
-    [length]="dataSource.totalOwners$"
-    [pageSizeOptions]="[25, 50, 100, 250]">
+    [length]="dataSource.totalOwners$ | async"
+    [pageSizeOptions]="[3,5, 10, 20, 30]">
   </mat-paginator>
 </div>

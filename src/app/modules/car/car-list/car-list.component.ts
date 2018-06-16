@@ -22,6 +22,9 @@ export class CarListComponent implements OnInit, AfterViewInit {
   @ViewChild('input') input: ElementRef;
   dataSource: VehicleDataSource;
   selection: SelectionModel<Car>;
+  private currentId: number;
+  private isUpdate = false;
+  title = '';
 
 
 
@@ -29,11 +32,11 @@ export class CarListComponent implements OnInit, AfterViewInit {
   displayedColumns = ['select', 'make', 'model', 'color',  'type', 'fuiel_type', 'plate_code', 'plate_number',
                         'cc', 'total_passanger'];
     constructor(private activatedRoute: ActivatedRoute,
-                private carService: CarService) {
+                private carService: CarService, private router: Router) {
 
                 }
   ngOnInit() {
-    this.car = this.activatedRoute.snapshot.data['owenerId'];
+    this.title = this.activatedRoute.snapshot.data['title'];
     this.dataSource = new VehicleDataSource(this.carService);
     this.dataSource.loadVehicles();
     this.selection = new SelectionModel<Car>(allowMultiSelect, initialSelection);
@@ -62,12 +65,9 @@ export class CarListComponent implements OnInit, AfterViewInit {
     deletedCars.forEach((car) => deletedId.push(`${car.VEHICLE_ID}`));
     this.carService.deleteCar(deletedId).subscribe((result) => console.log(result));
   }
-  isAllSelected() {
-    const numSelected = this.selection.selected.length;
-    const numRows = 0;
-    return numSelected === numRows;
-  }
+
     viewVehicles() {
+      this.selection.clear();
     this.dataSource.loadVehicles(
       0,
       this.input.nativeElement.value,
@@ -78,8 +78,22 @@ export class CarListComponent implements OnInit, AfterViewInit {
     );
   }
 
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
   /** Selects all rows if they are not all selected; otherwise clear selection. */
   masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() : this.dataSource.data.forEach((row) => this.selection.select(row));
+
+  }
+  editVehicle(selectedVehicle: Car) {
+    this.router.navigate([`/manage/vehicle/${selectedVehicle.VEHICLE_ID}`]);
+  }
+
+  deleteVehicles(deletedVehicles: Car[]) {
 
   }
 }

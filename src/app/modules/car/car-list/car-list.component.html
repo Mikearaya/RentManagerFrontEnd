@@ -1,12 +1,35 @@
 <div class="mat-elevation-z8" style="padding: 1px;">
+    <div class="container">
+      <div class="row">
+        <div class="col">
+          <button mat-raised-button color="accent" [disabled]="selection.selected.length != 1">Rent</button>
+        </div>
+        <div class="col">
+          <button mat-raised-button color="primary" routerLink="manage/vehicle">New</button>
+        </div>
+        <div class="col" >
+          <button mat-raised-button color="primary" (click)="editVehicle(selection.selected[0]);   "
+          [disabled]="selection.selected.length != 1">Edit</button>
+        </div>
+        <div class="col" >
+          <button mat-raised-button color="warn"
+                [disabled]="selection.selected.length == 0"
+                (click)="deleteVehicles(selection.selected);" >Delete</button>
+        </div>
+      </div>
+    </div>
   <mat-form-field>
     <input matInput placeholder="Search Vehicle" #input>
   </mat-form-field>
-    <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-        <mat-spinner></mat-spinner>
-</div>
+  <div class="row " *ngIf="dataSource.loading$ | async">
+        <div class="col text-center"><mat-spinner></mat-spinner> </div>
+  </div>
+
+
+
+
   <mat-table #table [dataSource]="dataSource" aria-label="Vehicles"
-  matSort matSortActive="make" matSortDirection="asc" matSortDisableClear>
+  matSort  matSortDirection="asc" matSortDisableClear>
     <!-- Selection Checkboxes -->
     <ng-container matColumnDef="select">
         <mat-header-cell *matHeaderCellDef>

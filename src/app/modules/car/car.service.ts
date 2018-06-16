@@ -8,7 +8,7 @@ import { map } from 'rxjs/operators';
 
 export class Car {
   VEHICLE_ID?: number;
-  OWNER_ID: number;
+  OWNER_ID?: number;
   make: string;
   model: string;
   year_made: string;

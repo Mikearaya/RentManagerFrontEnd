@@ -9,6 +9,7 @@ export class VehicleDataSource extends DataSource<Car> {
       private countingSubject = new BehaviorSubject<number>(0);
       public loading$ = this.loadingSubject.asObservable();
       public length$ = this.countingSubject.asObservable();
+      public data: Car[];
 
         constructor(private carService: CarService) {
           super();
@@ -25,12 +26,12 @@ export class VehicleDataSource extends DataSource<Car> {
           this.countingSubject.complete();
         }
 
-        loadVehicles(courseId: number = 0, filter = '',
+        loadVehicles(ownerId: number = 0, filter = '',
         sortDirection = 'asc', sortColumn = '', pageIndex = 0, pageSize = 3) {
 
         this.loadingSubject.next(true);
 
-              this.carService.displayVehicles(courseId, filter, sortDirection, sortColumn, pageIndex, pageSize).pipe(
+              this.carService.displayVehicles(ownerId, filter, sortDirection, sortColumn, pageIndex, pageSize).pipe(
                                 catchError(() => of([])),
                                 finalize(() => this.loadingSubject.next(false))
                                 )
@@ -43,6 +44,7 @@ export class VehicleDataSource extends DataSource<Car> {
                                   } else {
                                     vehicles.splice(pageIndex * pageSize);
                                   }
+                                  this.data = vehicles;
                                   this.vehiclesSubject.next(vehicles);
                                 });
       }

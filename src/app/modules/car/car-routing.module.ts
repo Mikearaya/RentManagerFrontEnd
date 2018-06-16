@@ -4,8 +4,11 @@ import { CarListComponent } from './car-list/car-list.component';
 import { CarFormComponent } from './car-form/car-form.component';
 
 const routes: Routes = [
-  {path: 'cars', component: CarListComponent },
-  {path: 'manage/car', component: CarFormComponent}
+  {path: 'vehicles', component: CarListComponent, data : {title: 'Vehicles List'} },
+  {path: 'manage/vehicle/:vehicleId', component: CarFormComponent, data : {title: 'Update Vehicle'}},
+  {path: 'manage/vehicle', component: CarFormComponent, data : {title: 'Add New Vehicle'}},
+
+
 ];
 
 @NgModule({

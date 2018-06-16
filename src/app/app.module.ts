@@ -5,7 +5,7 @@ import { AppComponent } from './app.component';
 import { NavigationComponent } from './components/navigation/navigation.component';
 
 import { MatToolbarModule, MatButtonModule, MatSidenavModule, MatIconModule, MatListModule, MatGridListModule,
-  MatCardModule, MatMenuModule, MatExpansionModule} from '@angular/material';
+  MatCardModule, MatMenuModule, MatExpansionModule, MatDividerModule} from '@angular/material';
 import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LayoutModule } from '@angular/cdk/layout';
 import { OwnerModule } from './modules/owner/owner.module';
@@ -21,6 +21,7 @@ import { AppRoutingModule } from './app-routing.module';
     BrowserAnimationsModule,
     MatToolbarModule,
     MatButtonModule,
+    MatDividerModule,
     MatSidenavModule,
     MatIconModule,
     MatListModule,
