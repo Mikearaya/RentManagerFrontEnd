@@ -1,6 +1,6 @@
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpHeaders, HttpClient } from '@angular/common/http';
+import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
 
 
 
@@ -65,5 +65,17 @@ export class OwnerService {
     return requestBody;
 
   }
+
+    displayOwners(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<Owner[]> {
+      return this.httpClient.get<Owner[]>(`${this.url}`,
+                                            {params : new HttpParams()
+                                                          .set('filter', filter)
+                                                          .set('pageIndex', pageIndex.toString() )
+                                                          .set('pageSize', pageSize.toString())
+                                                          .set('sortOrder', sortOrder)
+                                                          .set('sortColumn', sortColumn)
+                                                        }
+                                                      );
+    }
 
 }

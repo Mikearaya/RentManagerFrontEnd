@@ -22,6 +22,7 @@ export class VehicleDataSource extends DataSource<Car> {
         disconnect(collectionViewer: CollectionViewer) {
           this.vehiclesSubject.complete();
           this.loadingSubject.complete();
+          this.countingSubject.complete();
         }
 
         loadVehicles(courseId: number = 0, filter = '',

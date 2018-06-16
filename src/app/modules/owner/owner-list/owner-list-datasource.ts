@@ -1,7 +1,7 @@
-import { DataSource } from '@angular/cdk/collections';
-import { MatPaginator, MatSort } from '@angular/material';
-import { map } from 'rxjs/operators';
-import { Observable, of as observableOf, merge } from 'rxjs';
+import { OwnerService , Owner} from './../owner.service';
+import { DataSource, CollectionViewer } from '@angular/cdk/collections';
+import { catchError, finalize } from 'rxjs/operators';
+import { Observable, BehaviorSubject, of } from 'rxjs';
 
 // TODO: Replace this with your own data model type
 export interface OwnerListItem {
@@ -9,100 +9,42 @@ export interface OwnerListItem {
   id: number;
 }
 
-// TODO: replace this with real data from your application
-const EXAMPLE_DATA: OwnerListItem[] = [
-  {id: 1, name: 'Hydrogen'},
-  {id: 2, name: 'Helium'},
-  {id: 3, name: 'Lithium'},
-  {id: 4, name: 'Beryllium'},
-  {id: 5, name: 'Boron'},
-  {id: 6, name: 'Carbon'},
-  {id: 7, name: 'Nitrogen'},
-  {id: 8, name: 'Oxygen'},
-  {id: 9, name: 'Fluorine'},
-  {id: 10, name: 'Neon'},
-  {id: 11, name: 'Sodium'},
-  {id: 12, name: 'Magnesium'},
-  {id: 13, name: 'Aluminum'},
-  {id: 14, name: 'Silicon'},
-  {id: 15, name: 'Phosphorus'},
-  {id: 16, name: 'Sulfur'},
-  {id: 17, name: 'Chlorine'},
-  {id: 18, name: 'Argon'},
-  {id: 19, name: 'Potassium'},
-  {id: 20, name: 'Calcium'},
-];
+export class OwnerDataSource extends DataSource<Owner> {
+  private ownerSubject = new BehaviorSubject<Owner[]>([]);
+  private countingSubject = new BehaviorSubject<number>(0);
+  private loadingSubject = new BehaviorSubject<Boolean>(false);
+  public loading$ = this.loadingSubject.asObservable();
+  public totalOwners$ = this.countingSubject.asObservable();
 
-/**
- * Data source for the OwnerList view. This class should
- * encapsulate all logic for fetching and manipulating the displayed data
- * (including sorting, pagination, and filtering).
- */
-export class OwnerListDataSource extends DataSource<OwnerListItem> {
-  data: OwnerListItem[] = EXAMPLE_DATA;
-
-  constructor(private paginator: MatPaginator, private sort: MatSort) {
+  constructor(private ownerService: OwnerService) {
     super();
   }
 
-  /**
-   * Connect this data source to the table. The table will only update when
-   * the returned stream emits new items.
-   * @returns A stream of the items to be rendered.
-   */
-  connect(): Observable<OwnerListItem[]> {
-    // Combine everything that affects the rendered data into one update
-    // stream for the data-table to consume.
-    const dataMutations = [
-      observableOf(this.data),
-      this.paginator.page,
-      this.sort.sortChange
-    ];
-
-    // Set the paginators length
-    this.paginator.length = this.data.length;
-
-    return merge(...dataMutations).pipe(map(() => {
-      return this.getPagedData(this.getSortedData([...this.data]));
-    }));
+  connect(collectionViewer: CollectionViewer): Observable<Owner[]> {
+    return this.ownerSubject.asObservable();
   }
 
-  /**
-   *  Called when the table is being destroyed. Use this function, to clean up
-   * any open connections or free any held resources that were set up during connect.
-   */
-  disconnect() {}
-
-  /**
-   * Paginate the data (client-side). If you're using server-side pagination,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
-  private getPagedData(data: OwnerListItem[]) {
-    const startIndex = this.paginator.pageIndex * this.paginator.pageSize;
-    return data.splice(startIndex, this.paginator.pageSize);
+  disconnect() {
+    this.ownerSubject.complete();
+    this.loadingSubject.complete();
+    this.countingSubject.complete();
   }
 
-  /**
-   * Sort the data (client-side). If you're using server-side sorting,
-   * this would be replaced by requesting the appropriate data from the server.
-   */
-  private getSortedData(data: OwnerListItem[]) {
-    if (!this.sort.active || this.sort.direction === '') {
-      return data;
-    }
 
-    return data.sort((a, b) => {
-      const isAsc = this.sort.direction === 'asc';
-      switch (this.sort.active) {
-        case 'name': return compare(a.name, b.name, isAsc);
-        case 'id': return compare(+a.id, +b.id, isAsc);
-        default: return 0;
-      }
+  loadOwners(filter = '', pageIndex = 0, pageSize = 10, sortOrder = 'asc', sortColumn = 'first_name') {
+    this.loadingSubject.next(true);
+    this.ownerService.displayOwners(filter, pageIndex, pageSize, sortOrder, sortColumn).pipe(
+      catchError(() => of([])),
+      finalize(() => this.loadingSubject.next(false))
+    ).subscribe((owner) => {
+          this.countingSubject.next(owner.length);
+          if ( pageIndex === 0) {
+            owner.splice(pageSize);
+
+          } else {
+            owner.splice(pageIndex * pageSize);
+          }
+          this.ownerSubject.next(owner);
     });
   }
-}
-
-/** Simple sort comparator for example ID/Name columns (for client-side sorting). */
-function compare(a, b, isAsc) {
-  return (a < b ? -1 : 1) * (isAsc ? 1 : -1);
 }

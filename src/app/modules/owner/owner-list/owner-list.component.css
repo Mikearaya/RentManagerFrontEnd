@@ -1,3 +1,7 @@
 div.mat-elevation-z8 {
     margin: 10px;
 }
+
+div.spinner-container {
+  text-align: center;
+}
