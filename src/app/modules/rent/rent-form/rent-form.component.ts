@@ -15,6 +15,7 @@ export class RentFormComponent implements OnInit {
    rentForm: FormGroup;
   private rent: Rent;
   private rentId: number;
+  rentDetail: FormGroup;
   CARS: Car[];
   private vehicleId: number;
    isUpdate: Boolean = false;
@@ -65,6 +66,7 @@ export class RentFormComponent implements OnInit {
   private prepateDataModel(form: FormGroup): Rent {
     const formModel = form.value;
     const dataModel: Rent =  {
+      RENT_ID: this.rentId,
       VEHICLE_ID: formModel.vehicleId,
       start_date: formModel.startDate,
       return_date: formModel.returnDate,
@@ -92,6 +94,20 @@ export class RentFormComponent implements OnInit {
   }
   onSubmit() {
     this.rent = this.prepateDataModel(this.rentForm);
+    if (this.isUpdate) {
+      this.rentService.updateRent(this.rent).subscribe((result) => this.handelResponse(result));
+    } else {
+      this.rentService.saveRent(this.rent).subscribe((result) => this.handelResponse(result));
+    }
   }
+
+  handelResponse(result: any) {
+    if (result) {
+      alert('success');
+    } else {
+      alert('failed');
+    }
+  }
+
 
 }

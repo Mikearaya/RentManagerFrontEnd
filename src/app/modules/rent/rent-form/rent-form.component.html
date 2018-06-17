@@ -7,178 +7,186 @@
     <form name="rentForm" [formGroup]="rentForm" (ngSubmit)="onSubmit()">
       <mat-card-content>
         <div class="container">
-        <mat-horizontal-stepper [linear]="true">
-    <mat-step>
-          <div class="row">
-            <div class="col">
-              <mat-form-field>
-                <mat-label>Vehicle</mat-label>
-                <mat-select placeholder="Vehicles List" id="vehicleId" name="vehicleId" formControlName="vehicleId" required>
-                  <mat-option *ngFor="let car of CARS" [value]="car.VEHICLE_ID">{{car.plate_code}}-{{car.plate_number}}</mat-option>
-                </mat-select>
-                <mat-error></mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="First Name" name="firstName" id="firstName" formControlName="firstName" required autocomplete="on"/>
-                <mat-error *ngIf="rentForm.get('firstName').errors?.required"></mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="Last Name" id="lastName" name="lastName" formControlName="lastName" required autocomplete="on">
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <mat-form-field>
-                <mat-label>Id Type</mat-label>
-                <mat-select placeholder="Id Type" name="idType" id="idType" formControlName="idType" required>
-                  <mat-option *ngFor="let id of IDENTIFICATIONS" [value]="id.type">{{id.type}}</mat-option>
-                </mat-select>
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="ID Number" name="idNumber" id="idNumber" formControlName="idNumber" required autocomplete="on">
-                <mat-error>
+          <mat-horizontal-stepper [linear]="true">
+            <mat-step label="Renter Basic Information">
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <mat-label>Vehicle</mat-label>
+                    <mat-select placeholder="Vehicles List" id="vehicleId" name="vehicleId" formControlName="vehicleId" required>
+                      <mat-option *ngFor="let car of CARS" [value]="car.VEHICLE_ID">{{car.plate_code}}-{{car.plate_number}}</mat-option>
+                    </mat-select>
+                    <mat-error></mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="First Name" name="firstName" id="firstName" formControlName="firstName" required autocomplete="on"
+                    />
+                    <mat-error *ngIf="rentForm.get('firstName').errors?.required"></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="Last Name" id="lastName" name="lastName" formControlName="lastName" required autocomplete="on">
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <mat-label>Id Type</mat-label>
+                    <mat-select placeholder="Id Type" name="idType" id="idType" formControlName="idType" required>
+                      <mat-option *ngFor="let id of IDENTIFICATIONS" [value]="id.type">{{id.type}}</mat-option>
+                    </mat-select>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="ID Number" name="idNumber" id="idNumber" formControlName="idNumber" required autocomplete="on">
+                    <mat-error>
 
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="Nationality" id="nationality" name="nationality" formControlName="nationality" required autocomplete="on">
-                <mat-error>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="Nationality" id="nationality" name="nationality" formControlName="nationality" required autocomplete="on">
+                    <mat-error>
 
-                </mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="Country" name="country" id="country" formControlName="country" required autocomplete="on">
-                <mat-hint>Current Country where they live</mat-hint>
-                <mat-error>
-                </mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="City" name="city" id="city" formControlName="city" required autocomplete="on">
-                <mat-hint>Permanent Residence</mat-hint>
-                <mat-error></mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="House Number" id="houseNo" name="houseNo" formControlName="houseNo" required autocomplete="on">
-                <mat-hint>Permanent Address</mat-hint>
-                <mat-error></mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="Main Mobile Number" name="mobileNumber" id="mobileNumber" formControlName="mobileNumber" required autocomplete="on">
-                <mat-hint>The phone they currently use</mat-hint>
-                <mat-error></mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="Alternative Phonenumber" name="otherPhone" id="otherPhone" formControlName="otherPhone" required autocomplete="on">
-                <mat-hint>Alternative phone they currently use</mat-hint>
-                <mat-error></mat-error>
-              </mat-form-field>
-            </div>
-          </div>
-          <div>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="Country" name="country" id="country" formControlName="country" required autocomplete="on">
+                    <mat-hint>Current Country where they live</mat-hint>
+                    <mat-error>
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="City" name="city" id="city" formControlName="city" required autocomplete="on">
+                    <mat-hint>Permanent Residence</mat-hint>
+                    <mat-error></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="House Number" id="houseNo" name="houseNo" formControlName="houseNo" required autocomplete="on">
+                    <mat-hint>Permanent Address</mat-hint>
+                    <mat-error></mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="Main Mobile Number" name="mobileNumber" id="mobileNumber" formControlName="mobileNumber" required
+                      autocomplete="on">
+                    <mat-hint>The phone they currently use</mat-hint>
+                    <mat-error></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="Alternative Phonenumber" name="otherPhone" id="otherPhone" formControlName="otherPhone" required
+                      autocomplete="on">
+                    <mat-hint>Alternative phone they currently use</mat-hint>
+                    <mat-error></mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div>
 
-         <button mat-button mat-raised-button type="button" matStepperNext>Next</button>
-          </div>
-          </mat-step>
-          <mat-step>
+                <button mat-button mat-raised-button type="button" color="accent" matStepperNext>Next</button>
+              </div>
+            </mat-step>
+            <mat-step formGroupName="rentForm" label="Rent Detail" [stepControl]="rentDetail">
 
-          <fieldset formGroupName="rentDetail">
-          <div class="row">
-            <div class="col">
-              <mat-form-field>
-                <input matInput [matDatepicker]="rentedOn" placeholder="Rent Start Date" required autocomplete="off">
-                <mat-datepicker-toggle matSuffix [for]="rentedOn"></mat-datepicker-toggle>
-                <mat-datepicker #rentedOn></mat-datepicker>
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field>
-                <input matInput [matDatepicker]="returnedBy" placeholder="Rent End Date" required autocomplete="off">
-                <mat-datepicker-toggle required matSuffix [for]="returnedBy"></mat-datepicker-toggle>
-                <mat-datepicker #returnedBy></mat-datepicker>
-              </mat-form-field>
-            </div>
-          </div>
-          <div class="row">
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="Owner Renting Price per day"
-                        name="ownerPrice"
-                        id="ownerPrice"
-                        formControlName="ownerRentingPrice"
-                        required
-                        autocomplete="off"
-                        >
-                <mat-hint>The price you got the car</mat-hint>
-                <mat-error></mat-error>
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="Renting Price per day"
-                      id="rentingPrice"
-                      name="rentingPrice"
-                      formControlName="rentedPrice"
-                      required
-                      autocomplete="off"
-                      >
-                  <mat-hint>The price the renter will pay per day</mat-hint>
-              </mat-form-field>
-            </div>
-            <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="Initial payment collected"
-                      name="initialPayment"
-                      id="initialPayment"
-                      formControlName="initialPayment"
-                      required
-                      autocomplete="off"
-                      >
-                <mat-error></mat-error>
-                <mat-hint>total Money paid by the client </mat-hint>
-              </mat-form-field>
 
-            </div>
-          </div>
-          </fieldset>
-          <mat-divider></mat-divider>
-          <div>
-          <button mat-button mat-raised-button type="button" matStepperPrevious>Back</button>
-          <button  mat-raised-button type="submit" color="primary" mat-button-raised >Save</button>
-          <button mat-button mat-raised-button type="button" color="warn">Cancel</button>
-          </div>
-        </mat-step>
-        </mat-horizontal-stepper>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="rentedOn" placeholder="Rent Start Date" required autocomplete="off">
+                    <mat-datepicker-toggle matSuffix [for]="rentedOn"></mat-datepicker-toggle>
+                    <mat-datepicker #rentedOn></mat-datepicker>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput [matDatepicker]="returnedBy" placeholder="Rent End Date" required autocomplete="off">
+                    <mat-datepicker-toggle required matSuffix [for]="returnedBy"></mat-datepicker-toggle>
+                    <mat-datepicker #returnedBy></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div class="row">
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="Owner Renting Price per day" name="ownerPrice" id="ownerPrice" formControlName="ownerRentingPrice"
+                      required autocomplete="off">
+                    <mat-hint>The price you got the car</mat-hint>
+                    <mat-error></mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="Renting Price per day" id="rentingPrice" name="rentingPrice" formControlName="rentedPrice" required
+                      autocomplete="off">
+                    <mat-hint>The price the renter will pay per day</mat-hint>
+                  </mat-form-field>
+                </div>
+                <div class="col">
+                  <mat-form-field>
+                    <input matInput placeholder="Initial payment collected" name="initialPayment" id="initialPayment" formControlName="initialPayment"
+                      required autocomplete="off">
+                    <mat-error></mat-error>
+                    <mat-hint>total Money paid by the client </mat-hint>
+                  </mat-form-field>
+
+                </div>
+              </div>
+              <mat-divider></mat-divider>
+              <div class="row">
+                <div class="col">
+                  <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
+
+                </div>
+                <div class="col">
+                  <button mat-button mat-raised-button type="button" color="warn">Cancel</button>
+                </div>
+                <div class="col">
+                  <button mat-raised-button type="button" matStepperNext color="primary" mat-button-raised>Next</button>
+                </div>
+
+              </div>
+            </mat-step>
+            <mat-step label="Done">
+              <div class="row">
+                <div class="col">
+                  <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
+                </div>
+                <div class="col">
+                  <button mat-raised-button type="submit" color="primary" mat-button-raised>Save</button>
+                </div>
+                <div class="col">
+                  <button mat-button mat-raised-button type="button" color="warn">Cancel</button>
+                </div>
+              </div>
+            </mat-step>
+          </mat-horizontal-stepper>
         </div>
-        </mat-card-content>
+      </mat-card-content>
 
-      </form>
-     {{rentForm.value | json}}
+    </form>
+    {{rentForm.value | json}}
   </mat-card>
 </div>
