@@ -5,7 +5,7 @@
           <button mat-raised-button color="accent" [disabled]="selection.selected.length != 1">Rent</button>
         </div>
         <div class="col">
-          <button mat-raised-button color="primary" routerLink="manage/vehicle">New</button>
+          <button mat-raised-button color="primary" routerLink="/manage/vehicle">New</button>
         </div>
         <div class="col" >
           <button mat-raised-button color="primary" (click)="editVehicle(selection.selected[0]);   "

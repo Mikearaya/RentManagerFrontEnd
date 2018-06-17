@@ -11,12 +11,14 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { OwnerModule } from './modules/owner/owner.module';
 import { CarModule } from './modules/car/car.module';
 import { AppRoutingModule } from './app-routing.module';
+import { RentModule } from './modules/rent/rent.module';
 
 @NgModule({
   imports: [
     BrowserModule,
     OwnerModule,
     CarModule,
+    RentModule,
     LayoutModule,
     BrowserAnimationsModule,
     MatToolbarModule,
