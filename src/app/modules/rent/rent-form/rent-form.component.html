@@ -25,7 +25,7 @@
                   <mat-form-field>
                     <input matInput placeholder="First Name" name="firstName" id="firstName" formControlName="firstName" required autocomplete="on"
                     />
-                    <mat-error *ngIf="rentForm.get('firstName').errors?.required"></mat-error>
+                    <mat-error ></mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col">
@@ -109,20 +109,20 @@
                 <button mat-button mat-raised-button type="button" color="accent" matStepperNext>Next</button>
               </div>
             </mat-step>
-            <mat-step formGroupName="rentForm" label="Rent Detail" [stepControl]="rentDetail">
+            <mat-step formGroupName="rentDetail" label="Rent Detail" >
 
 
               <div class="row">
                 <div class="col">
                   <mat-form-field>
-                    <input matInput [matDatepicker]="rentedOn" placeholder="Rent Start Date" required autocomplete="off">
+                    <input matInput [matDatepicker]="rentedOn" placeholder="Rent Start Date" formControlName="startDate" required autocomplete="off">
                     <mat-datepicker-toggle matSuffix [for]="rentedOn"></mat-datepicker-toggle>
                     <mat-datepicker #rentedOn></mat-datepicker>
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field>
-                    <input matInput [matDatepicker]="returnedBy" placeholder="Rent End Date" required autocomplete="off">
+                    <input matInput [matDatepicker]="returnedBy" placeholder="Rent End Date" formControlName="returnDate" required autocomplete="off">
                     <mat-datepicker-toggle required matSuffix [for]="returnedBy"></mat-datepicker-toggle>
                     <mat-datepicker #returnedBy></mat-datepicker>
                   </mat-form-field>

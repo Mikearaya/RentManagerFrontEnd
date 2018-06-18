@@ -43,12 +43,24 @@ export class RentService {
   prepareRequestBody(currentOwner: Rent): URLSearchParams {
     const requestBody = new URLSearchParams();
           requestBody.set('RENT_ID', `${currentOwner.RENT_ID}`);
+          requestBody.set('VEHICLE_ID', `${currentOwner.VEHICLE_ID}`);
           requestBody.set('start_date', `${currentOwner.start_date}`);
           requestBody.set('return_date', `${currentOwner.return_date}`);
           requestBody.set('initial_payment', `${currentOwner.initial_payment}`);
+          requestBody.set('initial_payment', `${currentOwner.initial_payment}`);
           requestBody.set('owner_renting_price', `${currentOwner.owner_renting_price}`);
           requestBody.set('rented_price', `${currentOwner.rented_price}`);
-          requestBody.set('customer', `${currentOwner.customer}`);
+          requestBody.set('customer[CUSTOMER_ID]', `${currentOwner.customer.CUSTOMER_ID}`);
+          requestBody.set('customer[first_name]', `${currentOwner.customer.first_name}`);
+          requestBody.set('customer[last_name]', `${currentOwner.customer.last_name}`);
+          requestBody.set('customer[id_type]', `${currentOwner.customer.id_type}`);
+          requestBody.set('customer[id_number]', `${currentOwner.customer.id_number}`);
+          requestBody.set('customer[nationality]', `${currentOwner.customer.nationality}`);
+          requestBody.set('customer[country]', `${currentOwner.customer.country}`);
+          requestBody.set('customer[city]', `${currentOwner.customer.city}`);
+          requestBody.set('customer[house_no]', `${currentOwner.customer.house_no}`);
+          requestBody.set('customer[mobile_number]', `${currentOwner.customer.mobile_number}`);
+          requestBody.set('customer[other_phone]', `${currentOwner.customer.other_phone}`);
     return requestBody;
 
   }

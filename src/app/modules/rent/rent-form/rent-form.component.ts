@@ -68,11 +68,11 @@ export class RentFormComponent implements OnInit {
     const dataModel: Rent =  {
       RENT_ID: this.rentId,
       VEHICLE_ID: formModel.vehicleId,
-      start_date: formModel.startDate,
-      return_date: formModel.returnDate,
-      owner_renting_price: formModel.ownerRentingPrice,
-      rented_price: formModel.rentedPrice,
-      initial_payment: formModel.initialPayment,
+      start_date: formModel.rentDetail.startDate,
+      return_date: formModel.rentDetail.returnDate,
+      owner_renting_price: formModel.rentDetail.ownerRentingPrice,
+      rented_price: formModel.rentDetail.rentedPrice,
+      initial_payment: formModel.rentDetail.initialPayment,
       customer: {
           first_name: formModel.firstName,
           last_name: formModel.lastName,
