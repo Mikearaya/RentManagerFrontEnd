@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import {  RentViewDataModel } from './rent-view/rent-view-datasource';
 
 @Injectable()
 export class RentService {
@@ -47,7 +48,6 @@ export class RentService {
           requestBody.set('start_date', `${currentOwner.start_date}`);
           requestBody.set('return_date', `${currentOwner.return_date}`);
           requestBody.set('initial_payment', `${currentOwner.initial_payment}`);
-          requestBody.set('initial_payment', `${currentOwner.initial_payment}`);
           requestBody.set('owner_renting_price', `${currentOwner.owner_renting_price}`);
           requestBody.set('rented_price', `${currentOwner.rented_price}`);
           requestBody.set('customer[CUSTOMER_ID]', `${currentOwner.customer.CUSTOMER_ID}`);
@@ -65,7 +65,17 @@ export class RentService {
 
   }
 
-
+  displayRents(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<RentViewDataModel[]> {
+    return this.httpClient.get<RentViewDataModel[]>(`${this.url}`,
+                                          {params : new HttpParams()
+                                                        .set('filter', filter)
+                                                        .set('pageIndex', pageIndex.toString() )
+                                                        .set('pageSize', pageSize.toString())
+                                                        .set('sortOrder', sortOrder)
+                                                        .set('sortColumn', sortColumn)
+                                                      }
+                                                    );
+  }
 }
 
 export class Customer {

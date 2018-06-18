@@ -1,26 +1,66 @@
 <div class="mat-elevation-z8">
-  <mat-table #table [dataSource]="dataSource" matSort aria-label="Elements">
+    <mat-form-field>
+        <input matInput placeholder="Search Rent" #input>
+      </mat-form-field>
+        <div class="spinner-container" *ngIf="dataSource.loading$ | async">
+            <mat-spinner></mat-spinner>
+    </div>
+  <mat-table #table [dataSource]="dataSource" matSort aria-label="Rent List">
+    <!-- Selection Checkboxes -->
+    <ng-container matColumnDef="select">
+        <mat-header-cell *matHeaderCellDef>
+          <mat-checkbox (change)="$event ? masterToggle() : null"
+                        [checked]="selection.hasValue() && isAllSelected()"
+                        [indeterminate]="selection.hasValue() && !isAllSelected()">
+          </mat-checkbox>
+        </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+          <mat-checkbox (click)="$event.stopPropagation()"
+                        (change)="$event ? selection.toggle(row) : null"
+                        [checked]="selection.isSelected(row)">
+          </mat-checkbox>
+        </mat-cell>
+      </ng-container>
 
     <!-- Id Column -->
-    <ng-container matColumnDef="id">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Id</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.id}}</mat-cell>
+    <ng-container matColumnDef="number">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
+      <mat-cell *matCellDef="let row; let i = index;">{{i}}</mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
-    <ng-container matColumnDef="name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.name}}</mat-cell>
+    <!-- plate number Column -->
+    <ng-container matColumnDef="plate_number">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>PLATE #</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{row.plate_number}}</mat-cell>
     </ng-container>
 
+    <!-- Rent Start Column -->
+    <ng-container matColumnDef="start_date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>RENTED ON </mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.start_date}}</mat-cell>
+      </ng-container>
+
+      <!-- Rent  return date Column -->
+    <ng-container matColumnDef="return_date">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>RENTED ON </mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.return_date}}</mat-cell>
+      </ng-container>
+
+      <!-- Rent  renter full name Column -->
+    <ng-container matColumnDef="rented_by">
+        <mat-header-cell *matHeaderCellDef mat-sort-header>RENTED BY </mat-header-cell>
+        <mat-cell *matCellDef="let row">{{row.rented_by}}</mat-cell>
+      </ng-container>
+<!-- Rent payment staus Column -->
+<ng-container matColumnDef="payment_status">
+    <mat-header-cell *matHeaderCellDef mat-sort-header>PAYMENT STATUS </mat-header-cell>
+    <mat-cell *matCellDef="let row">{{row.first_name}}&nbsp;{{row.last_name}}</mat-cell>
+  </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
-
   <mat-paginator #paginator
-    [length]="dataSource.data.length"
-    [pageIndex]="0"
-    [pageSize]="50"
-    [pageSizeOptions]="[25, 50, 100, 250]">
+    [length]="dataSource.totalRents$ | async"
+    [pageSizeOptions]="[3,5, 10, 20, 30]">
   </mat-paginator>
 </div>

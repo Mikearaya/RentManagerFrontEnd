@@ -6,7 +6,8 @@ import { CommonModule } from '@angular/common';
 import { RentRoutingModule } from './rent-routing.module';
 import { RentFormComponent } from './rent-form/rent-form.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule, MatStepperModule,
-          MatIconModule, MatNativeDateModule, MatDatepickerModule, MatSelectModule, MatCardModule, MatButtonModule, MatDividerModule
+          MatIconModule, MatNativeDateModule, MatDatepickerModule, MatSelectModule, MatCardModule, MatButtonModule,
+           MatDividerModule, MatProgressSpinnerModule, MatCheckboxModule
         } from '@angular/material';
 import { RentViewComponent } from './rent-view/rent-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -23,6 +24,7 @@ import { RentService } from './rent.service';
     MatStepperModule,
     MatInputModule,
     MatIconModule,
+    MatProgressSpinnerModule,
     MatDividerModule,
     MatButtonModule,
     MatNativeDateModule,
@@ -30,6 +32,7 @@ import { RentService } from './rent.service';
     HttpClientModule,
     MatSelectModule,
     MatCardModule,
+    MatCheckboxModule,
     ReactiveFormsModule,
     CarModule
   ],
