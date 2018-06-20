@@ -15,7 +15,7 @@ export class OwnerDataSource extends DataSource<Owner> {
   private loadingSubject = new BehaviorSubject<Boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
   public totalOwners$ = this.countingSubject.asObservable();
-  public data;
+  public data: Owner[];
 
   constructor(private ownerService: OwnerService) {
     super();
@@ -39,7 +39,7 @@ export class OwnerDataSource extends DataSource<Owner> {
       finalize(() => this.loadingSubject.next(false))
     ).subscribe((data: OwnerDataModel) => {
           this.countingSubject.next(data.total);
-          this.data = data;
+          this.data = data.owners;
           this.ownerSubject.next(data.owners);
     });
   }

@@ -6,6 +6,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
 import { tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { merge, fromEvent } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 const initialSelection = [];
 const allowMultiSelect = true;
@@ -22,6 +23,7 @@ export class CarListComponent implements OnInit, AfterViewInit {
   @ViewChild('input') input: ElementRef;
   dataSource: VehicleDataSource;
   selection: SelectionModel<Car>;
+  selectedColumns: FormControl;
   private currentId: number;
   private isUpdate = false;
   title = '';
@@ -29,11 +31,21 @@ export class CarListComponent implements OnInit, AfterViewInit {
 
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['select', 'make', 'model', 'color',  'type', 'fuiel_type', 'plate_code', 'plate_number',
+  vehicleColumns = [{key: 'make', humanReadable : 'Make'},
+                    {key: 'model', humanReadable : 'Model'},
+                    {key: 'color', humanReadable : 'Color'},
+                    {key: 'type', humanReadable : 'Type'},
+                    {key: 'fuiel_type', humanReadable : 'Fuiel Type'},
+                    {key: 'plate_number', humanReadable : 'Plate Number'},
+                    {key: 'cc', humanReadable : 'C.C.'},
+                    {key: 'total_passanger', humanReadable : 'Passanger Capacity'}
+                  ];
+  displayedColumns = ['select', 'make', 'model', 'color',  'type', 'fuiel_type', 'plate_number',
                         'cc', 'total_passanger'];
     constructor(private activatedRoute: ActivatedRoute,
-                private carService: CarService, private router: Router) {
-
+                private carService: CarService,
+                private router: Router) {
+                  this.selectedColumns = new FormControl(this.displayedColumns);
                 }
   ngOnInit() {
     this.title = this.activatedRoute.snapshot.data['title'];
@@ -60,6 +72,8 @@ export class CarListComponent implements OnInit, AfterViewInit {
         )
         .subscribe();
 }
+
+manageView(filteredColumns) {this.displayedColumns = filteredColumns; }
   deleteCar(deletedCars: Car[]) {
     const deletedId = [];
     deletedCars.forEach((car) => deletedId.push(`${car.VEHICLE_ID}`));

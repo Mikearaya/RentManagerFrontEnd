@@ -2,6 +2,14 @@
     <mat-form-field>
         <input matInput placeholder="Search Rent" #input>
       </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Filter Columns"
+                    [formControl]="selectedColumns"
+                    [multiple]="true"
+                    (selectionChange)="manageView(selectedColumns.value)">
+          <mat-option *ngFor="let column of rentDetailColumns" [value]="column.key">{{column.humanReadable}}</mat-option>
+        </mat-select>
+      </mat-form-field>
         <div class="spinner-container" *ngIf="dataSource.loading$ | async">
             <mat-spinner></mat-spinner>
     </div>
@@ -22,40 +30,12 @@
         </mat-cell>
       </ng-container>
 
-    <!-- Id Column -->
-    <ng-container matColumnDef="number">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
-      <mat-cell *matCellDef="let row; let i = index;">{{i}}</mat-cell>
+    <!-- display all rent related columns dynamically-->
+    <ng-container [matColumnDef]="column.key" *ngFor="let column of rentDetailColumns">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.humanReadable }}</mat-header-cell>
+      <mat-cell *matCellDef="let row;">{{ row[column.key] }}</mat-cell>
     </ng-container>
 
-    <!-- plate number Column -->
-    <ng-container matColumnDef="plate_number">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>PLATE #</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.plate_number}}</mat-cell>
-    </ng-container>
-
-    <!-- Rent Start Column -->
-    <ng-container matColumnDef="start_date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>RENTED ON </mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.start_date}}</mat-cell>
-      </ng-container>
-
-      <!-- Rent  return date Column -->
-    <ng-container matColumnDef="return_date">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>RENTED ON </mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.return_date}}</mat-cell>
-      </ng-container>
-
-      <!-- Rent  renter full name Column -->
-    <ng-container matColumnDef="rented_by">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>RENTED BY </mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.rented_by}}</mat-cell>
-      </ng-container>
-<!-- Rent payment staus Column -->
-<ng-container matColumnDef="payment_status">
-    <mat-header-cell *matHeaderCellDef mat-sort-header>PAYMENT STATUS </mat-header-cell>
-    <mat-cell *matCellDef="let row">{{row.first_name}}&nbsp;{{row.last_name}}</mat-cell>
-  </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>

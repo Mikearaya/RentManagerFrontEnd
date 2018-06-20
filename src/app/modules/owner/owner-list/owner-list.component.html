@@ -18,6 +18,12 @@
     <mat-form-field>
         <input matInput placeholder="Search Vehicle" #input>
       </mat-form-field>
+      <mat-form-field>
+        <mat-select placeholder="Filter Columns" [formControl]="selectedColumns" [multiple]="true"
+                    name="column-filter" (selectionChange)="manageView(selectedColumns.value)">
+          <mat-option *ngFor="let col of ownerColumns" [value]="col.key">{{col.humanReadable}}</mat-option>
+        </mat-select>
+      </mat-form-field>
         <div class="spinner-container" *ngIf="dataSource.loading$ | async">
             <mat-spinner></mat-spinner>
     </div>
@@ -37,47 +43,11 @@
       </mat-checkbox>
     </mat-cell>
   </ng-container>
-    <!-- Id Column -->
-    <ng-container matColumnDef="number">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>#</mat-header-cell>
-      <mat-cell *matCellDef="let row; let i = index">{{i + 1}}</mat-cell>
+    <!-- Create all owner related columns dynamically -->
+    <ng-container [matColumnDef]="column.key" *ngFor="let column of ownerColumns">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{column.humanReadable}}</mat-header-cell>
+      <mat-cell *matCellDef="let row;">{{row[column.key]}}</mat-cell>
     </ng-container>
-
-    <!--First Name Column -->
-    <ng-container matColumnDef="first_name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>First Name</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.first_name}}</mat-cell>
-    </ng-container>
-      <!--Last Name Column -->
-    <ng-container matColumnDef="last_name">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Last Name</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.last_name}}</mat-cell>
-    </ng-container>
-    <!--Mobile Number Column -->
-    <ng-container matColumnDef="mobile_number">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Mobile</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.mobile_number}}</mat-cell>
-    </ng-container>
-    <!--city Column -->
-    <ng-container matColumnDef="city">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>city</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.city}}</mat-cell>
-    </ng-container>
-      <!--Sub City Column -->
-    <ng-container matColumnDef="sub_city">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Sub City</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.sub_city}}</mat-cell>
-    </ng-container>
-      <!--Wereda Column -->
-      <ng-container matColumnDef="wereda">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Wereda</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.wereda}}</mat-cell>
-      </ng-container>
-      <!--Registered On Column -->
-      <ng-container matColumnDef="Registered_on">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Registered On</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.Registered_on}}</mat-cell>
-      </ng-container>
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>

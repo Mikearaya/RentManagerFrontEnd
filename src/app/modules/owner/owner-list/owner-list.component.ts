@@ -6,6 +6,7 @@ import { MatPaginator, MatSort } from '@angular/material';
 import { OwnerDataSource } from './owner-list-datasource';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fromEvent, merge } from 'rxjs';
+import { FormControl } from '@angular/forms';
 
 
 const initialSelection = [];
@@ -22,13 +23,24 @@ export class OwnerListComponent implements OnInit, AfterViewInit {
   dataSource: OwnerDataSource;
   private owner: Owner;
   selection: SelectionModel<Owner>;
+  selectedColumns: FormControl;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['select', 'number', 'first_name', 'last_name', 'mobile_number', 'city', 'sub_city', 'wereda'];
+  ownerColumns = [
+                  {key: 'index', humanReadable: '#'},
+                  {key: 'first_name', humanReadable: 'First Name'},
+                  {key: 'last_name', humanReadable: 'Last Name'},
+                  {key: 'mobile_number', humanReadable: 'Mobile'},
+                  {key: 'city', humanReadable: 'City'},
+                  {key: 'sub_city', humanReadable: 'Sub-City'},
+                  {key: 'wereda', humanReadable: 'Wereda'}
+                ];
+  displayedColumns = ['select',  'first_name', 'last_name', 'mobile_number', 'city', 'sub_city', 'wereda'];
 
   constructor(private activatedRoute: ActivatedRoute,
                private ownerService: OwnerService,
               private router: Router) {
+this.selectedColumns = new FormControl(this.displayedColumns);
 
   }
 
@@ -38,6 +50,8 @@ export class OwnerListComponent implements OnInit, AfterViewInit {
     this.dataSource.loadOwners();
     this.selection = new SelectionModel<Owner>(allowMultiSelect, initialSelection);
   }
+
+  manageView(filteredColumns) {this.displayedColumns = filteredColumns; }
   ngAfterViewInit() {
     fromEvent(this.input.nativeElement, 'keyup').pipe(
       debounceTime(500),
@@ -87,7 +101,7 @@ export class OwnerListComponent implements OnInit, AfterViewInit {
     this.router.navigate([`/manage/owner/${selectedOwner.OWNER_ID}`]);
   }
 
-  deleteVehicles(deletedVehicles: Owner[]) {
+  deleteOwner(deletedVehicles: Owner[]) {
 
   }
 

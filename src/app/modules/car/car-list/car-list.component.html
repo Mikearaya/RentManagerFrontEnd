@@ -1,137 +1,88 @@
 <div class="mat-elevation-z8" style="padding: 1px;">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          <button mat-raised-button color="accent" (click)="rentVehicle(selection.selected[0])" [disabled]="selection.selected.length != 1">Rent</button>
-        </div>
-        <div class="col">
-          <button mat-raised-button color="primary" routerLink="/manage/vehicle">New</button>
-        </div>
-        <div class="col" >
-          <button mat-raised-button color="primary" (click)="editVehicle(selection.selected[0]);   "
-          [disabled]="selection.selected.length != 1">Edit</button>
-        </div>
-        <div class="col" >
-          <button mat-raised-button color="warn"
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <button mat-raised-button color="accent"
+                (click)="rentVehicle(selection.selected[0])"
+                [disabled]="selection.selected.length != 1">
+                Rent
+        </button>
+      </div>
+      <div class="col">
+        <button
+                mat-raised-button color="primary"
+                routerLink="/manage/vehicle">
+                New
+        </button>
+      </div>
+      <div class="col">
+        <button
+                mat-raised-button color="primary"
+                (click)="editVehicle(selection.selected[0]);"
+                [disabled]="selection.selected.length != 1">
+                Edit
+        </button>
+      </div>
+      <div class="col">
+        <button
+                mat-raised-button color="warn"
                 [disabled]="selection.selected.length == 0"
-                (click)="deleteVehicles(selection.selected);" >Delete</button>
-        </div>
+                (click)="deleteVehicles(selection.selected);">
+                Delete
+        </button>
       </div>
     </div>
+  </div>
   <mat-form-field>
     <input matInput placeholder="Search Vehicle" #input>
   </mat-form-field>
+  <mat-form-field>
+    <mat-select placeholder="Filter Columns"
+                [formControl]="selectedColumns"
+                [multiple]="true"
+                (selectionChange)="manageView(selectedColumns.value)">
+      <mat-option *ngFor="let column of vehicleColumns" [value]="column.key">{{column.humanReadable}}</mat-option>
+    </mat-select>
+  </mat-form-field>
   <div class="row " *ngIf="dataSource.loading$ | async">
-        <div class="col text-center"><mat-spinner></mat-spinner> </div>
+    <div class="col text-center">
+      <mat-spinner></mat-spinner>
+    </div>
   </div>
 
-
-
-
-  <mat-table #table [dataSource]="dataSource" aria-label="Vehicles"
-  matSort  matSortDirection="asc" matSortDisableClear>
+  <mat-table #table
+            [dataSource]="dataSource"
+            aria-label="Vehicles"
+            matSort
+            matSortDirection="asc"
+            matSortDisableClear
+            >
     <!-- Selection Checkboxes -->
     <ng-container matColumnDef="select">
-        <mat-header-cell *matHeaderCellDef>
-          <mat-checkbox (change)="$event ? masterToggle() : null"
-                        [checked]="selection.hasValue() && isAllSelected()"
-                        [indeterminate]="selection.hasValue() && !isAllSelected()">
-          </mat-checkbox>
-        </mat-header-cell>
-        <mat-cell *matCellDef="let row">
-          <mat-checkbox (click)="$event.stopPropagation()"
-                        (change)="$event ? selection.toggle(row) : null"
-                        [checked]="selection.isSelected(row)">
-          </mat-checkbox>
-        </mat-cell>
-      </ng-container>
-
-    <!-- Id Column -->
-    <ng-container matColumnDef="VEHICLE_ID">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Vehicle ID</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.VEHICLE_ID}}</mat-cell>
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox
+                      (change)="$event ? masterToggle() : null"
+                      [checked]="selection.hasValue() && isAllSelected()"
+                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox
+                      (click)="$event.stopPropagation()"
+                      (change)="$event ? selection.toggle(row) : null"
+                      [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
     </ng-container>
-
-    <!-- Make Column -->
-    <ng-container matColumnDef="make">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Make</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.make}}</mat-cell>
+    <ng-container [matColumnDef]="column.key" *ngFor="let column of vehicleColumns">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{column.humanReadable}}</mat-header-cell>
+      <mat-cell *matCellDef="let row">{{ row[column.key] }}</mat-cell>
     </ng-container>
-    <!-- Model Column -->
-    <ng-container matColumnDef="model">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Model</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.model}}</mat-cell>
-    </ng-container>
-    <!-- Year Made Column -->
-    <ng-container matColumnDef="year_made">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Year Made</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.year_made}}</mat-cell>
-    </ng-container>
-    <!-- Color Column -->
-    <ng-container matColumnDef="color">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Color</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.color}}</mat-cell>
-      </ng-container>
-          <!-- Plate code -->
-    <ng-container matColumnDef="plate_code">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>Code</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.plate_code}}</mat-cell>
-      </ng-container>
-      <!-- Plate Number -->
-    <ng-container matColumnDef="plate_number">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Plate Number</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.plate_number}}</mat-cell>
-    </ng-container>
-    <!-- Vehicle type -->
-    <ng-container matColumnDef="type">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Type</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.type}}</mat-cell>
-    </ng-container>
-    <!-- Fuiel type -->
-    <ng-container matColumnDef="fuiel_type">
-      <mat-header-cell *matHeaderCellDef mat-sort-header>Fuel</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.fuiel_type}}</mat-cell>
-    </ng-container>
-    <!-- Chassis Number -->
-    <ng-container matColumnDef="chassis_number">
-      <mat-header-cell *matHeaderCellDef >Chassis No.</mat-header-cell>
-      <mat-cell *matCellDef="let row">{{row.chassis_number}}</mat-cell>
-    </ng-container>
-    <!-- Motor Number -->
-    <ng-container matColumnDef="motor_number">
-        <mat-header-cell *matHeaderCellDef >Motor No.</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.motor_number}}</mat-cell>
-      </ng-container>
-    <!-- CC -->
-    <ng-container matColumnDef="cc">
-        <mat-header-cell *matHeaderCellDef mat-sort-header>C.C.</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.cc}}</mat-cell>
-      </ng-container>
-      <!-- Libre number -->
-    <ng-container matColumnDef="libre_no">
-        <mat-header-cell *matHeaderCellDef >Libre No.</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.libre_no}}</mat-cell>
-      </ng-container>
-    <!-- cylinder -->
-    <ng-container matColumnDef="cylinder_count">
-        <mat-header-cell *matHeaderCellDef >Cylinder</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.cylinder_count}}</mat-cell>
-      </ng-container>
-      <!-- passenger count -->
-    <ng-container matColumnDef="total_passanger">
-        <mat-header-cell *matHeaderCellDef >Passanger No.</mat-header-cell>
-        <mat-cell *matCellDef="let row">{{row.total_passanger}}</mat-cell>
-      </ng-container>
-
-
-
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-paginator #paginator
-    [length]="dataSource.length$ | async"
-    [pageSizeOptions]="[3, 5, 10, 25]">
+  <mat-paginator #paginator [length]="dataSource.length$ | async" [pageSizeOptions]="[3, 5, 10,15,20, 25]">
   </mat-paginator>
 </div>

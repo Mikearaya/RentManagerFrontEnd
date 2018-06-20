@@ -6,6 +6,7 @@ import { RentService, Rent } from '../rent.service';
 import { fromEvent, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { SelectionModel } from '@angular/cdk/collections';
+import { FormControl } from '@angular/forms';
 
 const allowMultiSelect = true;
 const initialSelection = [];
@@ -21,14 +22,25 @@ export class RentViewComponent implements OnInit, AfterViewInit {
   selection: SelectionModel<RentView>;
   dataSource: RentDataSource;
   private rent: RentView;
+  selectedColumns: FormControl;
 
   constructor(private activatedRoute: ActivatedRoute,
     private rentService: RentService,
   private router: Router) {
+    this.selectedColumns = new FormControl(this.displayedColumns);
 
 }
+
+  rentDetailColumns = [
+                        {key: 'plate_number', humanReadable: 'Plate Number' },
+                        {key: 'start_date', humanReadable: 'Rented On' },
+                        {key: 'return_date', humanReadable: 'Rent End' },
+                        {key: 'rented_by', humanReadable: 'Rented By' },
+                        {key: 'paid', humanReadable: 'Payment Status' },
+                        {key: 'rented_By', humanReadable: 'Rent/Day' },
+                      ];
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['select', 'number', 'plate_number', 'start_date', 'return_date', 'rented_by'];
+  displayedColumns = ['select', 'rented_by', 'plate_number', 'start_date', 'return_date' ];
 
   ngOnInit() {
     this.dataSource = new RentDataSource(this.rentService);
@@ -54,8 +66,8 @@ export class RentViewComponent implements OnInit, AfterViewInit {
     .subscribe();
 
   } /* ngAfterViewInit End */
-
-  deleteOwners(deletedRents: Rent[]) {
+  manageView(filteredColumns) { this.displayedColumns = filteredColumns; }
+  deleteRents(deletedRents: Rent[]) {
     const deletedIds = [];
     deletedRents.forEach((rent: Rent) => deletedIds.push(`${rent.RENT_ID}`));
     this.rentService.deleteRent(deletedIds).subscribe((result) => console.log(result));
