@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { RentDataSource, RentViewDataModel } from './rent-view-datasource';
+import { RentDataSource, RentView } from './rent-view-datasource';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RentService, Rent } from '../rent.service';
 import { fromEvent, merge } from 'rxjs';
@@ -18,9 +18,9 @@ export class RentViewComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('input') input: ElementRef;
-  selection: SelectionModel<RentViewDataModel>;
+  selection: SelectionModel<RentView>;
   dataSource: RentDataSource;
-  private rent: RentViewDataModel;
+  private rent: RentView;
 
   constructor(private activatedRoute: ActivatedRoute,
     private rentService: RentService,
@@ -34,7 +34,7 @@ export class RentViewComponent implements OnInit, AfterViewInit {
     this.dataSource = new RentDataSource(this.rentService);
     this.rent = this.activatedRoute.snapshot.data['rent'];
     this.dataSource.loadRents();
-    this.selection = new SelectionModel<RentViewDataModel>(allowMultiSelect, initialSelection);
+    this.selection = new SelectionModel<RentView>(allowMultiSelect, initialSelection);
   }
   ngAfterViewInit() {
     fromEvent(this.input.nativeElement, 'keyup').pipe(
@@ -81,11 +81,11 @@ export class RentViewComponent implements OnInit, AfterViewInit {
         this.selection.clear() : this.dataSource.data.forEach((row) => this.selection.select(row));
 
   }
-  editRent(selectedVehicle: RentViewDataModel) {
+  editRent(selectedVehicle: RentView) {
     this.router.navigate([`/manage/vehicle/${selectedVehicle.VEHICLE_ID}`]);
   }
 
-  deleteVehicles(deletedVehicles: RentViewDataModel[]) {
+  deleteVehicles(deletedVehicles: RentView[]) {
 
   }
 }

@@ -96,4 +96,8 @@ export class CarListComponent implements OnInit, AfterViewInit {
   deleteVehicles(deletedVehicles: Car[]) {
 
   }
+
+  rentVehicle(selectedVehicle: Car) {
+    this.router.navigate([`rent/vehicle/${selectedVehicle.VEHICLE_ID}`]);
+  }
 }

@@ -4,9 +4,9 @@ import { catchError, finalize } from 'rxjs/operators';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 
 // TODO: Replace this with your own data model type
-export interface OwnerListItem {
-  name: string;
-  id: number;
+export interface OwnerDataModel {
+  owners: Owner[];
+  total: number;
 }
 
 export class OwnerDataSource extends DataSource<Owner> {
@@ -15,6 +15,7 @@ export class OwnerDataSource extends DataSource<Owner> {
   private loadingSubject = new BehaviorSubject<Boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
   public totalOwners$ = this.countingSubject.asObservable();
+  public data;
 
   constructor(private ownerService: OwnerService) {
     super();
@@ -31,20 +32,15 @@ export class OwnerDataSource extends DataSource<Owner> {
   }
 
 
-  loadOwners(filter = '', pageIndex = 0, pageSize = 10, sortOrder = 'asc', sortColumn = 'first_name') {
+  loadOwners(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = 'first_name') {
     this.loadingSubject.next(true);
     this.ownerService.displayOwners(filter, pageIndex, pageSize, sortOrder, sortColumn).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
-    ).subscribe((owner) => {
-          this.countingSubject.next(owner.length);
-          if ( pageIndex === 0) {
-            owner.splice(pageSize);
-
-          } else {
-            owner.splice(pageIndex * pageSize);
-          }
-          this.ownerSubject.next(owner);
+    ).subscribe((data: OwnerDataModel) => {
+          this.countingSubject.next(data.total);
+          this.data = data;
+          this.ownerSubject.next(data.owners);
     });
   }
 }

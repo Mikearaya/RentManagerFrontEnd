@@ -3,21 +3,25 @@ import { catchError, finalize } from 'rxjs/operators';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 import {RentService } from '../rent.service';
 
+export interface RentDataModel {
+  rents: RentView[];
+  total: number;
+}
 
 
-export class RentDataSource extends DataSource<RentViewDataModel> {
-  private rentSubject = new BehaviorSubject<RentViewDataModel[]>([]);
+export class RentDataSource extends DataSource<RentView> {
+  private rentSubject = new BehaviorSubject<RentView[]>([]);
   private countingSubject = new BehaviorSubject<number>(0);
   private loadingSubject = new BehaviorSubject<Boolean>(false);
   public loading$ = this.loadingSubject.asObservable();
   public totalRents$ = this.countingSubject.asObservable();
-  public data: RentViewDataModel[];
+  public data: RentView[];
 
   constructor(private rentService: RentService) {
     super();
   }
 
-  connect(collectionViewer: CollectionViewer): Observable<RentViewDataModel[]> {
+  connect(collectionViewer: CollectionViewer): Observable<RentView[]> {
     return this.rentSubject.asObservable();
   }
 
@@ -28,28 +32,22 @@ export class RentDataSource extends DataSource<RentViewDataModel> {
   }
 
 
-  loadRents(filter = '', pageIndex = 0, pageSize = 10, sortOrder = 'asc', sortColumn = 'first_name') {
+  loadRents(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = 'first_name') {
     this.loadingSubject.next(true);
     this.rentService.displayRents(filter, pageIndex, pageSize, sortOrder, sortColumn).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
-    ).subscribe((rent) => {
-          this.countingSubject.next(rent.length);
-          if ( pageIndex === 0) {
-            rent.splice(pageSize);
-
-          } else {
-            rent.splice(pageIndex * pageSize);
-          }
-          this.data = rent;
-          this.rentSubject.next(rent);
+    ).subscribe((data: RentDataModel) => {
+          this.countingSubject.next(data.total);
+          this.data = data.rents;
+          this.rentSubject.next(data.rents);
     });
   }
 
 }
 
 
-export class RentViewDataModel {
+export class RentView {
   VEHICLE_ID: number;
   rented_by: string;
   start_date: string;

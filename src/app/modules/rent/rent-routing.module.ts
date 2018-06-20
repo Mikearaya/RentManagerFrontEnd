@@ -5,8 +5,8 @@ import { RentFormComponent } from './rent-form/rent-form.component';
 
 const routes: Routes = [
   {path: 'rents', component: RentViewComponent, data: { title: 'Rents'}},
-  {path: 'rent/form', component: RentFormComponent, data: { title: 'New Rent Form'}},
-  {path: 'rent/form/:id', component: RentFormComponent, data: { title: 'Update Rent Details'} }
+  {path: 'rent/vehicle', component: RentFormComponent, data: { title: 'New Rent Form'}},
+  {path: 'rent/vehicle/:vehicleId', component: RentFormComponent, data: { title: 'Update Rent Details'} }
 ];
 
 @NgModule({

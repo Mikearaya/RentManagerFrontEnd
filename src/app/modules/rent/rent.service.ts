@@ -1,7 +1,7 @@
 import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import {  RentViewDataModel } from './rent-view/rent-view-datasource';
+import { RentDataModel } from './rent-view/rent-view-datasource';
 
 @Injectable()
 export class RentService {
@@ -15,14 +15,12 @@ export class RentService {
       this.httpBody = new URLSearchParams();
   }
 
-  getRent(rentId: number = 0): Observable<Rent[]> {
-      if (rentId === 0) {
-        return this.httpClient.get<Rent[]>(`${this.url}`);
-      } else {
-        return this.httpClient.get<Rent[]>(`${this.url}/${rentId}`);
-      }
+  getRent(rentId: number): Observable<Rent> {
+        return this.httpClient.get<Rent>(`${this.url}/${rentId}`);
   }
-
+  getAllRents(): Observable<Rent[]> {
+      return this.httpClient.get<Rent[]>(`${this.url}`);
+  }
   saveRent(newRent: Rent): Observable<Rent> {
     const requestOption =  { 'headers' : this.header  };
       this.httpBody = this.prepareRequestBody(newRent);
@@ -65,8 +63,8 @@ export class RentService {
 
   }
 
-  displayRents(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<RentViewDataModel[]> {
-    return this.httpClient.get<RentViewDataModel[]>(`${this.url}`,
+  displayRents(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<RentDataModel> {
+    return this.httpClient.get<RentDataModel>(`${this.url}`,
                                           {params : new HttpParams()
                                                         .set('filter', filter)
                                                         .set('pageIndex', pageIndex.toString() )

@@ -5,8 +5,8 @@ import { OwnerFormComponent } from './owner-form/owner-form.component';
 
 const routes: Routes = [
   {path: 'owners', component : OwnerListComponent },
-  {path: 'manage/owner/:id', component: OwnerFormComponent },
-  {path: 'manage/owner', component: OwnerFormComponent }
+  {path: 'manage/owner', component: OwnerFormComponent },
+  {path: 'manage/owner/:id', component: OwnerFormComponent }
 
 ];
 

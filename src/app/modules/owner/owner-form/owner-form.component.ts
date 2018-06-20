@@ -13,7 +13,7 @@ export class OwnerFormComponent implements OnInit {
 
   ownerForm: FormGroup;
   private owner: Owner;
-  private id: number;
+  private currentOwnerId: number;
   currentAction = 'Add New';
   private isUpdate: Boolean = false;
   constructor(private ownerService: OwnerService,
@@ -23,30 +23,33 @@ export class OwnerFormComponent implements OnInit {
               }
 
     ngOnInit() {
-      this.id = + this.activatedRoute.snapshot.paramMap.get('id');
-    if (this.id) {
+      this.currentOwnerId = + this.activatedRoute.snapshot.paramMap.get('id');
+    if (this.currentOwnerId) {
       this.isUpdate = true;
       this.currentAction = 'Update';
-       this.ownerService.getOwner(this.id).subscribe((result) => this.generateForm(result[0]));
+       this.ownerService.getOwner(this.currentOwnerId).subscribe((owner: Owner) => this.generateForm(owner));
     }
     }
 
     generateForm(currentOwner: any = '') {
+      if (currentOwner instanceof Owner ) {
+        this.owner = currentOwner;
+      }
       this.ownerForm = this.formBuilder.group({
-        'firstName': ['', Validators.required],
-        'lastName': ['', Validators.required],
-        'mobilePhone': ['', Validators.required],
-        'otherPhone': [''],
-        'city': ['', Validators.required],
-        'subCity': ['', Validators.required],
-        'wereda': ['', Validators.required]
-
+        'firstName': this.buildControl(currentOwner.first_name, true),
+        'lastName': this.buildControl(currentOwner.last_name, true),
+        'mobilePhone': this.buildControl(currentOwner.mobile_number, true),
+        'otherPhone': this.buildControl(currentOwner.other_phones),
+        'city': this.buildControl(currentOwner.city, true),
+        'subCity': this.buildControl(currentOwner.sub_city, true),
+        'wereda': this.buildControl(currentOwner.wereda, true)
       });
     }
 
     prepareDataModel(ownerInfo: any): Owner {
+
       const dataModel = {
-          OWNER_ID: this.id,
+          OWNER_ID: this.currentOwnerId,
           first_name: ownerInfo.firstName,
           last_name: ownerInfo.lastName,
           mobile_number: ownerInfo.mobilePhone,
@@ -76,6 +79,9 @@ export class OwnerFormComponent implements OnInit {
     } else {
       this.ownerService.saveOwner(this.owner).subscribe((result) => this.handelResponse(result));
     }
+    }
+    buildControl(value = '', required = false) {
+      return (required) ? [value, Validators.required] : value;
     }
 
 }

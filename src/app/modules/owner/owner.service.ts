@@ -1,3 +1,4 @@
+import { OwnerDataModel } from './owner-list/owner-list-datasource';
 import { Observable } from 'rxjs';
 import { Injectable } from '@angular/core';
 import { HttpHeaders, HttpClient, HttpParams } from '@angular/common/http';
@@ -27,12 +28,14 @@ export class OwnerService {
                   .set('Content-Type', 'application/x-www-form-urlencoded');
     this.httpBody = new URLSearchParams();
    }
-   getOwner(id: number = 0): Observable<Owner[]> {
-    if (id) {
-      return this.httpClient.get<Owner[]>(`${this.url}/${id}`);
-    } else {
+
+
+   getOwner(id: number): Observable<Owner> {
+      return this.httpClient.get<Owner>(`${this.url}/${id}`);
+   }
+
+   getAllOwners(): Observable<Owner[]> {
       return this.httpClient.get<Owner[]>(`${this.url}`);
-    }
   }
 
   saveOwner(newOwner: Owner): Observable<Boolean> {
@@ -66,8 +69,8 @@ export class OwnerService {
 
   }
 
-    displayOwners(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<Owner[]> {
-      return this.httpClient.get<Owner[]>(`${this.url}`,
+    displayOwners(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<OwnerDataModel> {
+      return this.httpClient.get<OwnerDataModel>(`${this.url}`,
                                             {params : new HttpParams()
                                                           .set('filter', filter)
                                                           .set('pageIndex', pageIndex.toString() )

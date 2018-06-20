@@ -1,11 +1,15 @@
+import { SelectionModel } from '@angular/cdk/collections';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { OwnerService, Owner } from './../owner.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
 import { OwnerDataSource } from './owner-list-datasource';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { fromEvent, merge } from 'rxjs';
 
+
+const initialSelection = [];
+const allowMultiSelect = true;
 @Component({
   selector: 'app-owner-list',
   templateUrl: './owner-list.component.html',
@@ -17,12 +21,14 @@ export class OwnerListComponent implements OnInit, AfterViewInit {
   @ViewChild('input') input: ElementRef;
   dataSource: OwnerDataSource;
   private owner: Owner;
+  selection: SelectionModel<Owner>;
 
   /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
-  displayedColumns = ['OWNER_ID', 'first_name', 'last_name', 'mobile_number', 'city', 'sub_city', 'wereda'];
+  displayedColumns = ['select', 'number', 'first_name', 'last_name', 'mobile_number', 'city', 'sub_city', 'wereda'];
 
   constructor(private activatedRoute: ActivatedRoute,
-               private ownerService: OwnerService) {
+               private ownerService: OwnerService,
+              private router: Router) {
 
   }
 
@@ -30,6 +36,7 @@ export class OwnerListComponent implements OnInit, AfterViewInit {
     this.dataSource = new OwnerDataSource(this.ownerService);
     this.owner = this.activatedRoute.snapshot.data['owner'];
     this.dataSource.loadOwners();
+    this.selection = new SelectionModel<Owner>(allowMultiSelect, initialSelection);
   }
   ngAfterViewInit() {
     fromEvent(this.input.nativeElement, 'keyup').pipe(
@@ -64,4 +71,24 @@ export class OwnerListComponent implements OnInit, AfterViewInit {
                               this.sort.active
                                 );
   }
+
+  isAllSelected() {
+    const numSelected = this.selection.selected.length;
+    const numRows = this.dataSource.data.length;
+    return numSelected === numRows;
+  }
+  /** Selects all rows if they are not all selected; otherwise clear selection. */
+  masterToggle() {
+    this.isAllSelected() ?
+        this.selection.clear() : this.dataSource.data.forEach((row) => this.selection.select(row));
+
+  }
+  editOwner(selectedOwner: Owner) {
+    this.router.navigate([`/manage/owner/${selectedOwner.OWNER_ID}`]);
+  }
+
+  deleteVehicles(deletedVehicles: Owner[]) {
+
+  }
+
 }

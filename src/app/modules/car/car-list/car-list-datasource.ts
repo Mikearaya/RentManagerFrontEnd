@@ -3,6 +3,11 @@ import { DataSource, CollectionViewer } from '@angular/cdk/collections';
 import { catchError, finalize } from 'rxjs/operators';
 import { Observable, BehaviorSubject, of } from 'rxjs';
 
+export interface VehicleDataModel {
+  vehicles: Car[];
+  total: number;
+}
+
 export class VehicleDataSource extends DataSource<Car> {
       private vehiclesSubject = new BehaviorSubject<Car[]>([]);
       private loadingSubject = new BehaviorSubject<boolean>(false);
@@ -35,17 +40,12 @@ export class VehicleDataSource extends DataSource<Car> {
                                 catchError(() => of([])),
                                 finalize(() => this.loadingSubject.next(false))
                                 )
-                                .subscribe(vehicles => {
+                                .subscribe((data: VehicleDataModel) => {
 
-                                  this.countingSubject.next(vehicles.length);
-                                  if ( pageIndex === 0) {
-                                    vehicles.splice(pageSize);
+                                  this.countingSubject.next(data.total);
 
-                                  } else {
-                                    vehicles.splice(pageIndex * pageSize);
-                                  }
-                                  this.data = vehicles;
-                                  this.vehiclesSubject.next(vehicles);
+                                  this.data = data.vehicles;
+                                  this.vehiclesSubject.next(data.vehicles);
                                 });
       }
 }
