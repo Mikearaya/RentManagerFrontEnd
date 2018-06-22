@@ -13,8 +13,8 @@
                 <div class="col">
                   <mat-form-field>
                     <mat-label>Vehicle</mat-label>
-                    <mat-select placeholder="Vehicles List" id="vehicleId" name="vehicleId" formControlName="vehicleId" required>
-                      <mat-option *ngFor="let car of CARS" (onSelectionChange)="car.VEHICLE_ID == selectedCar" [value]="car.VEHICLE_ID">{{car.plate_code}}-{{car.plate_number}}</mat-option>
+                    <mat-select placeholder="Vehicles List"  id="vehicleId" name="vehicleId" formControlName="vehicleId" required>
+                      <mat-option *ngFor="let car of CARS" ng-selected="true" [value]="car.VEHICLE_ID">{{car.plate_code}}-{{car.plate_number}}</mat-option>
                     </mat-select>
                     <mat-error></mat-error>
                   </mat-form-field>

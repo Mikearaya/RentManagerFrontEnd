@@ -104,3 +104,29 @@ export class Rent {
   updated_on?: string;
   customer: Customer;
 }
+
+export class RentCondition {
+CONDITION_ID?: number;
+RENT_ID?: number;
+window_controller: number;
+seat_belt: number;
+spare_tire: number;
+wiper: number;
+crick_wrench: number;
+dashboard_close: boolean;
+mude_protecter: number;
+spokio_outer: number;
+spokio_inner: number;
+sub_visor: number;
+mat_inner: number;
+wind_protector: number;
+blinker: number;
+radio: string;
+fuiel_level: string;
+fuiel_lid: number;
+cigaret_lighter: number;
+radiator_lid: number;
+crick: number;
+comment: number;
+
+}

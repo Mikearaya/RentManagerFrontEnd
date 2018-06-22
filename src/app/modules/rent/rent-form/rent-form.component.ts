@@ -1,7 +1,7 @@
 import { CarService, Car } from './../../car/car.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { RentService, Rent } from 'src/app/modules/rent/rent.service';
 
 @Component({
@@ -12,6 +12,7 @@ import { RentService, Rent } from 'src/app/modules/rent/rent.service';
 export class RentFormComponent implements OnInit {
    title: string;
    rentForm: FormGroup;
+
   private rent: Rent;
   private rentId: number;
   rentDetail: FormGroup;
@@ -33,10 +34,10 @@ export class RentFormComponent implements OnInit {
     this.vehicleId = + this.activatedRoute.snapshot.paramMap.get('vehicleId');
     this.rentId = + this.activatedRoute.snapshot.paramMap.get('rentId');
     this.title = this.activatedRoute.snapshot.data['title'];
+
       if (this.vehicleId) {
+        this.selectedCar = this.vehicleId;
         this.isUpdate = true;
-        this.rentService.getRent(this.rentId).subscribe((rent: Rent) => this.generateForm(rent));
-        this.carService.getCar(this.vehicleId).subscribe((car: any) => this.selectedCar = car.VEHICLE_ID);
       }
   }
 

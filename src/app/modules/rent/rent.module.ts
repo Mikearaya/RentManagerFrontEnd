@@ -12,6 +12,7 @@ import { MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatF
 import { RentViewComponent } from './rent-view/rent-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RentService } from './rent.service';
+import { RentConditionFormComponent } from './rent-condition-form/rent-condition-form.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { RentService } from './rent.service';
     ReactiveFormsModule,
     CarModule
   ],
-  declarations: [RentFormComponent, RentViewComponent],
+  declarations: [RentFormComponent, RentViewComponent, RentConditionFormComponent],
   providers: [RentService]
 })
 export class RentModule { }
