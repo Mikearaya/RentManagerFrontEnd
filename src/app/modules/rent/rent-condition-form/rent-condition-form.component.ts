@@ -15,6 +15,7 @@ export class RentConditionFormComponent implements OnInit {
   private isUpdate: Boolean = false;
   @Input('rentId') rentId: number;
   @Input('conditionId') conditionId: number;
+  NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
   constructor(private formBuilder: FormBuilder,
               private activatedRoute: ActivatedRoute,
@@ -50,7 +51,7 @@ export class RentConditionFormComponent implements OnInit {
         radio: this.buildControl(condition.radio, true),
         fuielLevel: this.buildControl(condition.fuiel_level, true),
         cigaretLighter: this.buildControl(condition.cigaret_lighter, true),
-        fuilLid: this.buildControl(condition.fuielLid, true),
+        fuielLid: this.buildControl(condition.fuielLid, true),
         radiatorLid: this.buildControl(condition.radiator_lid, true),
         comment: this.buildControl(condition.comment, true)
       });

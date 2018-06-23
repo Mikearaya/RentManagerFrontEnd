@@ -65,7 +65,7 @@ export class CarService {
     }
     displayVehicles(id: number, filter = '', sortOrder = 'asc', sortColumn = '',
                        pageNumber = 0, pageSize = 3): Observable<VehicleDataModel> {
-      return this.httpClient.get(`${this.url}`, {
+      return this.httpClient.get(`${this.url}/filter`, {
         params: new HttpParams()
                 .set('VEHICLE_ID', id.toString())
                 .set('filter', filter)

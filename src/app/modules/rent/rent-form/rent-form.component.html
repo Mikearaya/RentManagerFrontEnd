@@ -38,14 +38,14 @@
                 <div class="col">
                   <mat-form-field>
                     <mat-label>Id Type</mat-label>
-                    <mat-select placeholder="Id Type" name="idType" id="idType" formControlName="idType" required>
+                    <mat-select placeholder="Id Type" name="idType" id="idType" formControlName="passportNumber" required>
                       <mat-option *ngFor="let id of IDENTIFICATIONS" [value]="id.type">{{id.type}}</mat-option>
                     </mat-select>
                   </mat-form-field>
                 </div>
                 <div class="col">
                   <mat-form-field>
-                    <input matInput placeholder="ID Number" name="idNumber" id="idNumber" formControlName="idNumber" required autocomplete="on">
+                    <input matInput placeholder="ID Number" name="idNumber" id="idNumber" formControlName="drivingLicenseId" required autocomplete="on">
                     <mat-error>
 
                     </mat-error>
@@ -170,6 +170,7 @@
               </div>
             </mat-step>
             <mat-step label="Done">
+                <app-rent-condition-form></app-rent-condition-form>
               <div class="row">
                 <div class="col">
                   <output></output>

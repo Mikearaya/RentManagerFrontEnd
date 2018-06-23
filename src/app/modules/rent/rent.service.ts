@@ -51,8 +51,8 @@ export class RentService {
           requestBody.set('customer[CUSTOMER_ID]', `${currentOwner.customer.CUSTOMER_ID}`);
           requestBody.set('customer[first_name]', `${currentOwner.customer.first_name}`);
           requestBody.set('customer[last_name]', `${currentOwner.customer.last_name}`);
-          requestBody.set('customer[id_type]', `${currentOwner.customer.id_type}`);
-          requestBody.set('customer[id_number]', `${currentOwner.customer.id_number}`);
+          requestBody.set('customer[driving_licence_id]', `${currentOwner.customer.driving_licence_id}`);
+          requestBody.set('customer[passport_number]', `${currentOwner.customer.passport_number}`);
           requestBody.set('customer[nationality]', `${currentOwner.customer.nationality}`);
           requestBody.set('customer[country]', `${currentOwner.customer.country}`);
           requestBody.set('customer[city]', `${currentOwner.customer.city}`);
@@ -80,11 +80,13 @@ export class Customer {
   CUSTOMER_ID?: number;
   first_name: string;
   last_name: string;
-  id_type: string;
-  id_number: string;
+  driving_licence_id: string;
+  passport_number?: string;
   nationality: string;
   country: string;
   city: string;
+  hotel_name?: string;
+  hotel_phone?: string;
   house_no: string;
   mobile_number: string;
   other_phone: string;
