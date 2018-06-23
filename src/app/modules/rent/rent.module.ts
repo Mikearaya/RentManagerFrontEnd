@@ -28,7 +28,6 @@ import { RentConditionFormComponent } from './rent-condition-form/rent-condition
     MatProgressSpinnerModule,
     MatDividerModule,
     MatButtonModule,
-    MatNativeDateModule,
     MatDatepickerModule,
     HttpClientModule,
     MatSelectModule,

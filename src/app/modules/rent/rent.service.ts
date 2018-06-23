@@ -40,11 +40,15 @@ export class RentService {
   }
 
   prepareRequestBody(currentRent: Rent): URLSearchParams {
+
+    const rentStart = this.formatDate(new Date(currentRent.start_date));
+    const rentEnd = this.formatDate(new Date(currentRent.return_date));
+
     const requestBody = new URLSearchParams();
           requestBody.set('RENT_ID', `${currentRent.RENT_ID}`);
           requestBody.set('VEHICLE_ID', `${currentRent.VEHICLE_ID}`);
-          requestBody.set('start_date', `${currentRent.start_date}`);
-          requestBody.set('return_date', `${currentRent.return_date}`);
+          requestBody.set('start_date', rentStart ) ,
+          requestBody.set('return_date', rentEnd ),
           requestBody.set('initial_payment', `${currentRent.initial_payment}`);
           requestBody.set('owner_renting_price', `${currentRent.owner_renting_price}`);
           requestBody.set('rented_price', `${currentRent.rented_price}`);
@@ -77,6 +81,7 @@ export class RentService {
           requestBody.set('condition[cigaret_lighter]', `${currentRent.condition.cigaret_lighter}`);
           requestBody.set('condition[fuiel_lid]', `${currentRent.condition.fuiel_lid}`);
           requestBody.set('condition[crick]', `${currentRent.condition.crick}`);
+          requestBody.set('condition[radiator_lid]', `${currentRent.condition.radiator_lid}`);
           requestBody.set('condition[comment]', `${currentRent.condition.comment}`);
 
     return requestBody;
@@ -93,6 +98,14 @@ export class RentService {
                                                         .set('sortColumn', sortColumn)
                                                       }
                                                     );
+  }
+
+  private formatDate(date: Date): string {
+      const day = date.getUTCDate();
+      const month = date.getUTCMonth() + 1;
+      const year = date.getFullYear();
+
+    return  `${year}-${month}-${day}`;
   }
 }
 

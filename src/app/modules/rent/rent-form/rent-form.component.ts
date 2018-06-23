@@ -4,6 +4,7 @@ import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { RentService, Rent } from 'src/app/modules/rent/rent.service';
+import { DateAdapter } from '@angular/material/core';
 
 @Component({
   selector: 'app-rent-form',
