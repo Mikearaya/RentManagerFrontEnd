@@ -1,0 +1,46 @@
+<section>
+  <form [formGroup]="form" name="rentDetail">
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input matInput [matDatepicker]="rentedOn" placeholder="Rent Start Date" formControlName="startDate" required autocomplete="off">
+          <mat-datepicker-toggle matSuffix [for]="rentedOn"></mat-datepicker-toggle>
+          <mat-datepicker #rentedOn></mat-datepicker>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput [matDatepicker]="returnedBy" placeholder="Rent End Date" formControlName="returnDate" required autocomplete="off">
+          <mat-datepicker-toggle required matSuffix [for]="returnedBy"></mat-datepicker-toggle>
+          <mat-datepicker #returnedBy></mat-datepicker>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Owner Renting Price per day" name="ownerPrice" id="ownerPrice" formControlName="ownerRentingPrice"
+            required autocomplete="off">
+          <mat-hint>The price you got the car</mat-hint>
+          <mat-error></mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Renting Price per day" id="rentingPrice" name="rentingPrice" formControlName="rentedPrice" required
+            autocomplete="off">
+          <mat-hint>The price the renter will pay per day</mat-hint>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Initial payment collected" name="initialPayment" id="initialPayment" formControlName="initialPayment"
+            required autocomplete="off">
+          <mat-error></mat-error>
+          <mat-hint>total Money paid by the client </mat-hint>
+        </mat-form-field>
+
+      </div>
+    </div>
+  </form>
+</section>

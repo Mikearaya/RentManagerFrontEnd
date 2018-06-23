@@ -137,7 +137,7 @@ export class Rent {
   initial_payment: number;
   added_on?: string;
   updated_on?: string;
-  customer: Customer;
+  customer?: Customer;
   condition?: RentCondition;
 }
 

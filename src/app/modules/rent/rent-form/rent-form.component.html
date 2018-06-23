@@ -13,7 +13,7 @@
                 <div class="col">
                   <mat-form-field>
                     <mat-label>Vehicle</mat-label>
-                    <mat-select placeholder="Vehicles List"  id="vehicleId" name="vehicleId" formControlName="vehicleId" required>
+                    <mat-select placeholder="Vehicles List" id="vehicleId" name="vehicleId" formControlName="vehicleId" required>
                       <mat-option *ngFor="let car of CARS" ng-selected="true" [value]="car.VEHICLE_ID">{{car.plate_code}}-{{car.plate_number}}</mat-option>
                     </mat-select>
                     <mat-error></mat-error>
@@ -25,7 +25,7 @@
                   <mat-form-field>
                     <input matInput placeholder="First Name" name="firstName" id="firstName" formControlName="firstName" required autocomplete="on"
                     />
-                    <mat-error ></mat-error>
+                    <mat-error></mat-error>
                   </mat-form-field>
                 </div>
                 <div class="col">
@@ -109,68 +109,17 @@
                 <button mat-button mat-raised-button type="button" color="accent" matStepperNext>Next</button>
               </div>
             </mat-step>
-            <mat-step formGroupName="rentDetail" label="Rent Detail" >
-
-
-              <div class="row">
-                <div class="col">
-                  <mat-form-field>
-                    <input matInput [matDatepicker]="rentedOn" placeholder="Rent Start Date" formControlName="startDate" required autocomplete="off">
-                    <mat-datepicker-toggle matSuffix [for]="rentedOn"></mat-datepicker-toggle>
-                    <mat-datepicker #rentedOn></mat-datepicker>
-                  </mat-form-field>
-                </div>
-                <div class="col">
-                  <mat-form-field>
-                    <input matInput [matDatepicker]="returnedBy" placeholder="Rent End Date" formControlName="returnDate" required autocomplete="off">
-                    <mat-datepicker-toggle required matSuffix [for]="returnedBy"></mat-datepicker-toggle>
-                    <mat-datepicker #returnedBy></mat-datepicker>
-                  </mat-form-field>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <mat-form-field>
-                    <input matInput placeholder="Owner Renting Price per day" name="ownerPrice" id="ownerPrice" formControlName="ownerRentingPrice"
-                      required autocomplete="off">
-                    <mat-hint>The price you got the car</mat-hint>
-                    <mat-error></mat-error>
-                  </mat-form-field>
-                </div>
-                <div class="col">
-                  <mat-form-field>
-                    <input matInput placeholder="Renting Price per day" id="rentingPrice" name="rentingPrice" formControlName="rentedPrice" required
-                      autocomplete="off">
-                    <mat-hint>The price the renter will pay per day</mat-hint>
-                  </mat-form-field>
-                </div>
-                <div class="col">
-                  <mat-form-field>
-                    <input matInput placeholder="Initial payment collected" name="initialPayment" id="initialPayment" formControlName="initialPayment"
-                      required autocomplete="off">
-                    <mat-error></mat-error>
-                    <mat-hint>total Money paid by the client </mat-hint>
-                  </mat-form-field>
-
-                </div>
-              </div>
-              <mat-divider></mat-divider>
-              <div class="row">
-                <div class="col">
-                  <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
-
-                </div>
-                <div class="col">
-                  <button mat-button mat-raised-button type="button" color="warn">Cancel</button>
-                </div>
-                <div class="col">
-                  <button mat-raised-button type="button" matStepperNext color="primary" mat-button-raised>Next</button>
-                </div>
-
-              </div>
+            <mat-step  label="Rent Detail">
+              <app-rent-detail-form></app-rent-detail-form>
+              <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
+              <button mat-button mat-raised-button type="button" color="accent" matStepperNext>Next</button>
+            </mat-step>
+            <mat-step  label="Vehicle Conditions">
+              <app-rent-condition-form></app-rent-condition-form>
+              <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
+              <button mat-button mat-raised-button type="button" color="accent" matStepperNext>Next</button>
             </mat-step>
             <mat-step label="Done">
-                <app-rent-condition-form ></app-rent-condition-form>
               <div class="row">
                 <div class="col">
                   <output></output>

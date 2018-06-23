@@ -13,6 +13,7 @@ import { RentViewComponent } from './rent-view/rent-view.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { RentService } from './rent.service';
 import { RentConditionFormComponent } from './rent-condition-form/rent-condition-form.component';
+import { RentDetailFormComponent } from './rent-detail-form/rent-detail-form.component';
 
 @NgModule({
   imports: [
@@ -36,7 +37,7 @@ import { RentConditionFormComponent } from './rent-condition-form/rent-condition
     ReactiveFormsModule,
     CarModule
   ],
-  declarations: [RentFormComponent, RentViewComponent, RentConditionFormComponent],
+  declarations: [RentFormComponent, RentViewComponent, RentConditionFormComponent, RentDetailFormComponent],
   providers: [RentService]
 })
 export class RentModule { }

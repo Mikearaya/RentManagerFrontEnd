@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { RentService, Rent } from 'src/app/modules/rent/rent.service';
 import { DateAdapter } from '@angular/material/core';
+import { RentDetailFormComponent } from '../rent-detail-form/rent-detail-form.component';
 
 @Component({
   selector: 'app-rent-form',
@@ -15,12 +16,13 @@ export class RentFormComponent implements OnInit, AfterViewInit {
    title: string;
    rentForm: FormGroup;
    @ViewChild(RentConditionFormComponent) conditionComponent: RentConditionFormComponent;
+   @ViewChild(RentDetailFormComponent) rentDetailComponent: RentDetailFormComponent;
 
   private rent: Rent;
   private rentId: number;
-  rentDetail: FormGroup;
-  CARS: Car[];
+  rentDetailForm: FormGroup;
   vehicleConditionForm: FormGroup;
+  CARS: Car[];
   selectedCar: number;
   private vehicleId: number;
    isUpdate: Boolean = false;
@@ -47,18 +49,12 @@ export class RentFormComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {
       this.vehicleConditionForm = this.conditionComponent.rentConditionForm;
+      this.rentDetailForm = this.rentDetailComponent.form;
   }
 
   private generateForm(currentRent: any = '') {
     this.rent = (currentRent) ? (<Rent>currentRent) : null;
     this.rentForm = this.formBuilder.group({
-      rentDetail: this.formBuilder.group({
-        returnDate: this.buildControl(currentRent.return_date, true),
-        startDate: this.buildControl(currentRent.start_date, true),
-        initialPayment: this.buildControl(currentRent.initial_payment, true),
-        ownerRentingPrice: this.buildControl(currentRent.owner_renting_price, true),
-        rentedPrice: this.buildControl(currentRent.rented_price, true),
-      }),
       vehicleId: this.buildControl(currentRent.vehicle, true),
       firstName: this.buildControl(currentRent.first_name, true),
       lastName: this.buildControl(currentRent.last_name, true),
@@ -77,15 +73,10 @@ export class RentFormComponent implements OnInit, AfterViewInit {
   private prepateDataModel(form: FormGroup): Rent {
     const formModel = form.value;
     const conditionDataModel = this.conditionComponent.prepareDataModel(this.vehicleConditionForm);
-    const dataModel: Rent =  {
-      RENT_ID: this.rentId,
-      VEHICLE_ID: formModel.vehicleId,
-      start_date: formModel.rentDetail.startDate,
-      return_date: formModel.rentDetail.returnDate,
-      owner_renting_price: formModel.rentDetail.ownerRentingPrice,
-      rented_price: formModel.rentDetail.rentedPrice,
-      initial_payment: formModel.rentDetail.initialPayment,
-      customer: {
+    const detailDataModel = this.rentDetailComponent.prepareDataModel(this.rentDetailForm);
+    detailDataModel.VEHICLE_ID = formModel.vehicleId;
+    detailDataModel.RENT_ID = this.rentId;
+    detailDataModel.customer = {
           first_name: formModel.firstName,
           last_name: formModel.lastName,
           passport_number: formModel.passportNumber,
@@ -96,12 +87,10 @@ export class RentFormComponent implements OnInit, AfterViewInit {
           house_no: formModel.houseNo,
           mobile_number: formModel.mobileNumber,
           other_phone: formModel.otherPhone
-      },
-      condition: conditionDataModel
+      };
+    detailDataModel.condition = conditionDataModel;
 
-    };
-    console.log(dataModel);
-    return dataModel;
+    return detailDataModel;
   }
 
   private buildControl(value = '', required = false) {
