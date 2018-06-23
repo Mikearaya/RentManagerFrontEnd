@@ -1,7 +1,7 @@
 import { RentService } from 'src/app/modules/rent/rent.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnChanges } from '@angular/core';
 import { RentCondition } from '../rent.service';
 
 @Component({
@@ -9,12 +9,14 @@ import { RentCondition } from '../rent.service';
   templateUrl: './rent-condition-form.component.html',
   styleUrls: ['./rent-condition-form.component.css']
 })
-export class RentConditionFormComponent implements OnInit {
+export class RentConditionFormComponent implements OnInit, OnChanges {
   rentConditionForm: FormGroup;
   private vehicleCondition: RentCondition;
   private isUpdate: Boolean = false;
   @Input('rentId') rentId: number;
   @Input('conditionId') conditionId: number;
+
+
   NUMBERS = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20];
 
   constructor(private formBuilder: FormBuilder,
@@ -30,6 +32,11 @@ export class RentConditionFormComponent implements OnInit {
       this.isUpdate = true;
     }
   }
+  ngOnChanges() {
+
+  }
+
+  get vehicleContitionForm() { return this.rentConditionForm.value; }
 
   generateForm(condition: any = '') {
     this.vehicleCondition = (condition instanceof RentCondition) ? <RentCondition>condition : null;

@@ -1,7 +1,8 @@
+import { RentConditionFormComponent } from './../rent-condition-form/rent-condition-form.component';
 import { CarService, Car } from './../../car/car.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
 import { RentService, Rent } from 'src/app/modules/rent/rent.service';
 
 @Component({
@@ -9,14 +10,16 @@ import { RentService, Rent } from 'src/app/modules/rent/rent.service';
   templateUrl: './rent-form.component.html',
   styleUrls: ['./rent-form.component.css']
 })
-export class RentFormComponent implements OnInit {
+export class RentFormComponent implements OnInit, AfterViewInit {
    title: string;
    rentForm: FormGroup;
+   @ViewChild(RentConditionFormComponent) conditionComponent: RentConditionFormComponent;
 
   private rent: Rent;
   private rentId: number;
   rentDetail: FormGroup;
   CARS: Car[];
+  vehicleConditionForm: FormGroup;
   selectedCar: number;
   private vehicleId: number;
    isUpdate: Boolean = false;
@@ -28,6 +31,7 @@ export class RentFormComponent implements OnInit {
               private activatedRoute: ActivatedRoute) {
                 this.generateForm();
                 this.carService.getAllCars().subscribe((cars: Car[]) => this.CARS = cars);
+
               }
 
   ngOnInit() {
@@ -39,6 +43,9 @@ export class RentFormComponent implements OnInit {
         this.selectedCar = this.vehicleId;
         this.isUpdate = true;
       }
+  }
+  ngAfterViewInit() {
+      this.vehicleConditionForm = this.conditionComponent.rentConditionForm;
   }
 
   private generateForm(currentRent: any = '') {
@@ -63,10 +70,12 @@ export class RentFormComponent implements OnInit {
       mobileNumber: this.buildControl(currentRent.mobile_number, true),
       otherPhone: this.buildControl(currentRent.other_phone, true)
     });
+
   }
 
   private prepateDataModel(form: FormGroup): Rent {
     const formModel = form.value;
+    const conditionDataModel = this.conditionComponent.prepareDataModel(this.vehicleConditionForm);
     const dataModel: Rent =  {
       RENT_ID: this.rentId,
       VEHICLE_ID: formModel.vehicleId,
@@ -86,8 +95,11 @@ export class RentFormComponent implements OnInit {
           house_no: formModel.houseNo,
           mobile_number: formModel.mobileNumber,
           other_phone: formModel.otherPhone
-      }
+      },
+      condition: conditionDataModel
+
     };
+    console.log(dataModel);
     return dataModel;
   }
 

@@ -39,26 +39,46 @@ export class RentService {
     return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString(), requestOption);
   }
 
-  prepareRequestBody(currentOwner: Rent): URLSearchParams {
+  prepareRequestBody(currentRent: Rent): URLSearchParams {
     const requestBody = new URLSearchParams();
-          requestBody.set('RENT_ID', `${currentOwner.RENT_ID}`);
-          requestBody.set('VEHICLE_ID', `${currentOwner.VEHICLE_ID}`);
-          requestBody.set('start_date', `${currentOwner.start_date}`);
-          requestBody.set('return_date', `${currentOwner.return_date}`);
-          requestBody.set('initial_payment', `${currentOwner.initial_payment}`);
-          requestBody.set('owner_renting_price', `${currentOwner.owner_renting_price}`);
-          requestBody.set('rented_price', `${currentOwner.rented_price}`);
-          requestBody.set('customer[CUSTOMER_ID]', `${currentOwner.customer.CUSTOMER_ID}`);
-          requestBody.set('customer[first_name]', `${currentOwner.customer.first_name}`);
-          requestBody.set('customer[last_name]', `${currentOwner.customer.last_name}`);
-          requestBody.set('customer[driving_licence_id]', `${currentOwner.customer.driving_licence_id}`);
-          requestBody.set('customer[passport_number]', `${currentOwner.customer.passport_number}`);
-          requestBody.set('customer[nationality]', `${currentOwner.customer.nationality}`);
-          requestBody.set('customer[country]', `${currentOwner.customer.country}`);
-          requestBody.set('customer[city]', `${currentOwner.customer.city}`);
-          requestBody.set('customer[house_no]', `${currentOwner.customer.house_no}`);
-          requestBody.set('customer[mobile_number]', `${currentOwner.customer.mobile_number}`);
-          requestBody.set('customer[other_phone]', `${currentOwner.customer.other_phone}`);
+          requestBody.set('RENT_ID', `${currentRent.RENT_ID}`);
+          requestBody.set('VEHICLE_ID', `${currentRent.VEHICLE_ID}`);
+          requestBody.set('start_date', `${currentRent.start_date}`);
+          requestBody.set('return_date', `${currentRent.return_date}`);
+          requestBody.set('initial_payment', `${currentRent.initial_payment}`);
+          requestBody.set('owner_renting_price', `${currentRent.owner_renting_price}`);
+          requestBody.set('rented_price', `${currentRent.rented_price}`);
+          requestBody.set('customer[CUSTOMER_ID]', `${currentRent.customer.CUSTOMER_ID}`);
+          requestBody.set('customer[first_name]', `${currentRent.customer.first_name}`);
+          requestBody.set('customer[last_name]', `${currentRent.customer.last_name}`);
+          requestBody.set('customer[driving_licence_id]', `${currentRent.customer.driving_licence_id}`);
+          requestBody.set('customer[passport_number]', `${currentRent.customer.passport_number}`);
+          requestBody.set('customer[nationality]', `${currentRent.customer.nationality}`);
+          requestBody.set('customer[country]', `${currentRent.customer.country}`);
+          requestBody.set('customer[city]', `${currentRent.customer.city}`);
+          requestBody.set('customer[house_no]', `${currentRent.customer.house_no}`);
+          requestBody.set('customer[mobile_number]', `${currentRent.customer.mobile_number}`);
+          requestBody.set('customer[other_phone]', `${currentRent.customer.other_phone}`);
+          requestBody.set('condition[window_controller]', `${currentRent.condition.window_controller}`);
+          requestBody.set('condition[wiper]', `${currentRent.condition.wiper}`);
+          requestBody.set('condition[seat_belt]', `${currentRent.condition.seat_belt}`);
+          requestBody.set('condition[spare_tire]', `${currentRent.condition.spare_tire}`);
+          requestBody.set('condition[crick_wrench]', `${currentRent.condition.crick_wrench}`);
+          requestBody.set('condition[dashboard_close]', `${currentRent.condition.dashboard_close}`);
+          requestBody.set('condition[mude_protecter]', `${currentRent.condition.mude_protecter}`);
+          requestBody.set('condition[spokio_outer]', `${currentRent.condition.spokio_outer}`);
+          requestBody.set('condition[spokio_inner]', `${currentRent.condition.spokio_inner}`);
+          requestBody.set('condition[sun_visor]', `${currentRent.condition.sub_visor}`);
+          requestBody.set('condition[mat_inner]', `${currentRent.condition.mat_inner}`);
+          requestBody.set('condition[wind_protecter]', `${currentRent.condition.wind_protector}`);
+          requestBody.set('condition[blinker]', `${currentRent.condition.blinker}`);
+          requestBody.set('condition[radio]', `${currentRent.condition.radio}`);
+          requestBody.set('condition[fuiel_level]', `${currentRent.condition.fuiel_level}`);
+          requestBody.set('condition[cigaret_lighter]', `${currentRent.condition.cigaret_lighter}`);
+          requestBody.set('condition[fuiel_lid]', `${currentRent.condition.fuiel_lid}`);
+          requestBody.set('condition[crick]', `${currentRent.condition.crick}`);
+          requestBody.set('condition[comment]', `${currentRent.condition.comment}`);
+
     return requestBody;
 
   }
@@ -105,6 +125,7 @@ export class Rent {
   added_on?: string;
   updated_on?: string;
   customer: Customer;
+  condition?: RentCondition;
 }
 
 export class RentCondition {
