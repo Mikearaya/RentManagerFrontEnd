@@ -40,7 +40,9 @@ CustomDatePickerModule,
     ReactiveFormsModule,
     CarModule
   ],
-  declarations: [RentFormComponent, RentViewComponent, RentConditionFormComponent, RentDetailFormComponent, RentContratComponent, CustomerFormComponent],
+  declarations: [ RentFormComponent, RentViewComponent,
+                  RentConditionFormComponent, RentDetailFormComponent,
+                  RentContratComponent, CustomerFormComponent],
   providers: [RentService]
 })
 export class RentModule { }

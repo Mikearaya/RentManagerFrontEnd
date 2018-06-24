@@ -22,7 +22,7 @@ export class RentFormComponent implements OnInit, AfterViewInit {
    @ViewChild(CustomerFormComponent) customerComponent: CustomerFormComponent;
 
   private rent: Rent;
-  private rentId: number;
+  rentId: number;
   rentDetailForm: FormGroup;
   vehicleConditionForm: FormGroup;
   CARS: Car[];
@@ -88,7 +88,8 @@ export class RentFormComponent implements OnInit, AfterViewInit {
 
   handelResponse(result: any) {
     if (result) {
-      alert('success');
+      console.log(result);
+      this.rentId = result;
     } else {
       alert('failed');
     }

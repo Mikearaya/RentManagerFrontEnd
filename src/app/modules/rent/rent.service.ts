@@ -57,6 +57,8 @@ export class RentService {
           requestBody.set('customer[last_name]', `${currentRent.customer.last_name}`);
           requestBody.set('customer[driving_licence_id]', `${currentRent.customer.driving_licence_id}`);
           requestBody.set('customer[passport_number]', `${currentRent.customer.passport_number}`);
+          requestBody.set('customer[hotel_name]', `${currentRent.customer.hotel_name}`);
+          requestBody.set('customer[hotel_phone]', `${currentRent.customer.hotel_phone}`);
           requestBody.set('customer[nationality]', `${currentRent.customer.nationality}`);
           requestBody.set('customer[country]', `${currentRent.customer.country}`);
           requestBody.set('customer[city]', `${currentRent.customer.city}`);
@@ -100,6 +102,9 @@ export class RentService {
                                                     );
   }
 
+  getRentContratData(rentId: number): any {
+    return this.httpClient.get<any>(`${this.url}/contrat_info/${rentId}`);
+  }
   private formatDate(date: Date): string {
       const day = date.getUTCDate();
       const month = date.getUTCMonth() + 1;

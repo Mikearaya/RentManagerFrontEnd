@@ -38,7 +38,7 @@
                   <button mat-raised-button type="submit" color="primary" mat-button-raised>Save</button>
                 </div>
                 <div class="col">
-                  <button mat-button mat-raised-button type="button" color="warn">Cancel</button>
+                  <button mat-button mat-raised-button routerLink="/rent/contrat/{{rentId}}" [disabled]="!rentId" type="button" color="warn">print</button>
                 </div>
               </div>
             </mat-step>
