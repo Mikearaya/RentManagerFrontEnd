@@ -47,8 +47,8 @@ export class RentService {
     const requestBody = new URLSearchParams();
           requestBody.set('RENT_ID', `${currentRent.RENT_ID}`);
           requestBody.set('VEHICLE_ID', `${currentRent.VEHICLE_ID}`);
-          requestBody.set('start_date', rentStart ) ,
-          requestBody.set('return_date', rentEnd ),
+          requestBody.set('start_date', rentStart) ,
+          requestBody.set('return_date', rentEnd),
           requestBody.set('initial_payment', `${currentRent.initial_payment}`);
           requestBody.set('owner_renting_price', `${currentRent.owner_renting_price}`);
           requestBody.set('rented_price', `${currentRent.rented_price}`);

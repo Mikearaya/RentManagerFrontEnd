@@ -1,3 +1,4 @@
+import { CustomDatePickerModule } from './../custom-date-picker/custom-date-picker.module';
 import { CarModule } from './../car/car.module';
 import { HttpClientModule } from '@angular/common/http';
 import { NgModule } from '@angular/core';
@@ -14,6 +15,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RentService } from './rent.service';
 import { RentConditionFormComponent } from './rent-condition-form/rent-condition-form.component';
 import { RentDetailFormComponent } from './rent-detail-form/rent-detail-form.component';
+import { RentContratComponent } from './rent-contrat/rent-contrat.component';
+import { CustomerFormComponent } from './customer-form/customer-form.component';
 
 @NgModule({
   imports: [
@@ -27,7 +30,7 @@ import { RentDetailFormComponent } from './rent-detail-form/rent-detail-form.com
     MatInputModule,
     MatIconModule,
     MatProgressSpinnerModule,
-    MatDividerModule,
+CustomDatePickerModule,
     MatButtonModule,
     MatDatepickerModule,
     HttpClientModule,
@@ -37,7 +40,7 @@ import { RentDetailFormComponent } from './rent-detail-form/rent-detail-form.com
     ReactiveFormsModule,
     CarModule
   ],
-  declarations: [RentFormComponent, RentViewComponent, RentConditionFormComponent, RentDetailFormComponent],
+  declarations: [RentFormComponent, RentViewComponent, RentConditionFormComponent, RentDetailFormComponent, RentContratComponent, CustomerFormComponent],
   providers: [RentService]
 })
 export class RentModule { }

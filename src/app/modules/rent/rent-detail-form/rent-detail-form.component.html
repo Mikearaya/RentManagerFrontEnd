@@ -1,16 +1,25 @@
 <section>
   <form [formGroup]="form" name="rentDetail">
     <div class="row">
+        <div class="col">
+            <mat-form-field>
+              <mat-label>Vehicle</mat-label>
+              <mat-select placeholder="Vehicles List" id="vehicleId" name="vehicleId" formControlName="vehicleId" required>
+                <mat-option *ngFor="let car of CARS" [value]="car.VEHICLE_ID">{{car.plate_code}}-{{car.plate_number}}</mat-option>
+              </mat-select>
+              <mat-error></mat-error>
+            </mat-form-field>
+          </div>
       <div class="col">
         <mat-form-field>
-          <input matInput [matDatepicker]="rentedOn" placeholder="Rent Start Date" formControlName="startDate" required autocomplete="off">
+          <input matInput [matDatepicker]="rentedOn" placeholder="Rent Start Date" [min]="minDate" formControlName="startDate" required autocomplete="off">
           <mat-datepicker-toggle matSuffix [for]="rentedOn"></mat-datepicker-toggle>
           <mat-datepicker #rentedOn></mat-datepicker>
         </mat-form-field>
       </div>
       <div class="col">
         <mat-form-field>
-          <input matInput [matDatepicker]="returnedBy" placeholder="Rent End Date" formControlName="returnDate" required autocomplete="off">
+          <input matInput [matDatepicker]="returnedBy" placeholder="Rent End Date" [min]="minDate" formControlName="returnDate" required autocomplete="off">
           <mat-datepicker-toggle required matSuffix [for]="returnedBy"></mat-datepicker-toggle>
           <mat-datepicker #returnedBy></mat-datepicker>
         </mat-form-field>

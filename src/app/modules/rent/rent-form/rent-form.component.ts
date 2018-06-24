@@ -1,3 +1,4 @@
+import { CustomerFormComponent } from './../customer-form/customer-form.component';
 import { RentConditionFormComponent } from './../rent-condition-form/rent-condition-form.component';
 import { CarService, Car } from './../../car/car.service';
 import { ActivatedRoute } from '@angular/router';
@@ -15,8 +16,10 @@ import { RentDetailFormComponent } from '../rent-detail-form/rent-detail-form.co
 export class RentFormComponent implements OnInit, AfterViewInit {
    title: string;
    rentForm: FormGroup;
+  customerForm: FormGroup;
    @ViewChild(RentConditionFormComponent) conditionComponent: RentConditionFormComponent;
    @ViewChild(RentDetailFormComponent) rentDetailComponent: RentDetailFormComponent;
+   @ViewChild(CustomerFormComponent) customerComponent: CustomerFormComponent;
 
   private rent: Rent;
   private rentId: number;
@@ -26,14 +29,12 @@ export class RentFormComponent implements OnInit, AfterViewInit {
   selectedCar: number;
   private vehicleId: number;
    isUpdate: Boolean = false;
-   IDENTIFICATIONS = [{type: 'Driver Licence'}, {type: 'Passport'}, {type: 'Local ID'}];
 
   constructor(private rentService: RentService,
               private formBuilder: FormBuilder,
               private carService: CarService,
               private activatedRoute: ActivatedRoute) {
                 this.generateForm();
-                this.carService.getAllCars().subscribe((cars: Car[]) => this.CARS = cars);
 
               }
 
@@ -50,22 +51,13 @@ export class RentFormComponent implements OnInit, AfterViewInit {
   ngAfterViewInit() {
       this.vehicleConditionForm = this.conditionComponent.rentConditionForm;
       this.rentDetailForm = this.rentDetailComponent.form;
+      this.customerForm = this.customerComponent.form;
   }
 
   private generateForm(currentRent: any = '') {
     this.rent = (currentRent) ? (<Rent>currentRent) : null;
     this.rentForm = this.formBuilder.group({
-      vehicleId: this.buildControl(currentRent.vehicle, true),
-      firstName: this.buildControl(currentRent.first_name, true),
-      lastName: this.buildControl(currentRent.last_name, true),
-      passportNumber: this.buildControl(currentRent.passport_number, true),
-      drivingLicenceId: this.buildControl(currentRent.driving_licence_id, true),
-      nationality: this.buildControl(currentRent.nationality, true),
-      country: this.buildControl(currentRent.country, true),
-      city: this.buildControl(currentRent.city, true),
-      houseNo: this.buildControl(currentRent.house_no, true),
-      mobileNumber: this.buildControl(currentRent.mobile_number, true),
-      otherPhone: this.buildControl(currentRent.other_phone, true)
+      vehicleId: this.buildControl(currentRent.vehicle, true)
     });
 
   }
@@ -73,21 +65,10 @@ export class RentFormComponent implements OnInit, AfterViewInit {
   private prepateDataModel(form: FormGroup): Rent {
     const formModel = form.value;
     const conditionDataModel = this.conditionComponent.prepareDataModel(this.vehicleConditionForm);
+    const customerDataModel = this.customerComponent.prepareDataModel(this.customerForm);
     const detailDataModel = this.rentDetailComponent.prepareDataModel(this.rentDetailForm);
-    detailDataModel.VEHICLE_ID = formModel.vehicleId;
     detailDataModel.RENT_ID = this.rentId;
-    detailDataModel.customer = {
-          first_name: formModel.firstName,
-          last_name: formModel.lastName,
-          passport_number: formModel.passportNumber,
-          driving_licence_id: formModel.drivingLicenceId,
-          nationality: formModel.nationality,
-          country: formModel.country,
-          city: formModel.city,
-          house_no: formModel.houseNo,
-          mobile_number: formModel.mobileNumber,
-          other_phone: formModel.otherPhone
-      };
+    detailDataModel.customer = customerDataModel;
     detailDataModel.condition = conditionDataModel;
 
     return detailDataModel;

@@ -1,8 +1,9 @@
 import { ActivatedRoute } from '@angular/router';
 import { RentService } from 'src/app/modules/rent/rent.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { Rent } from '../rent.service';
+import { Car, CarService } from '../../car/car.service';
 
 @Component({
   selector: 'app-rent-detail-form',
@@ -11,23 +12,31 @@ import { Rent } from '../rent.service';
 })
 export class RentDetailFormComponent implements OnInit {
   form: FormGroup;
+  minDate: Date;
   currentDetail: Rent;
-  private rentId: number;
+  @Input('rentId') rentId: number;
   private isUpdate: Boolean = false;
+  vehicleId: number;
+  CARS: Car[];
 
   constructor(private formBuilder: FormBuilder,
               private rentService: RentService,
+              private carService: CarService,
               private activatedRoute: ActivatedRoute) {
                 this.generateForm();
+                this.carService.getAllCars().subscribe((cars: Car[]) => this.CARS = cars);
               }
 
   ngOnInit() {
+    this.minDate = new Date();
+    this.vehicleId = + this.activatedRoute.snapshot.paramMap.get('vehicleId');
   }
 
   private generateForm(currentRent: any = '') {
     this.currentDetail = (currentRent) ? (<Rent>currentRent) : null;
 
       this.form = this.formBuilder.group({
+        vehicleId: this.buildControl(`${this.vehicleId}`, true),
         returnDate: this.buildControl(currentRent.return_date, true),
         startDate: this.buildControl(currentRent.start_date, true),
         initialPayment: this.buildControl(currentRent.initial_payment, true),
