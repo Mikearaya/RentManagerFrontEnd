@@ -74,7 +74,7 @@ export class RentService {
           requestBody.set('condition[mude_protecter]', `${currentRent.condition.mude_protecter}`);
           requestBody.set('condition[spokio_outer]', `${currentRent.condition.spokio_outer}`);
           requestBody.set('condition[spokio_inner]', `${currentRent.condition.spokio_inner}`);
-          requestBody.set('condition[sun_visor]', `${currentRent.condition.sub_visor}`);
+          requestBody.set('condition[sun_visor]', `${currentRent.condition.sun_visor}`);
           requestBody.set('condition[mat_inner]', `${currentRent.condition.mat_inner}`);
           requestBody.set('condition[wind_protecter]', `${currentRent.condition.wind_protector}`);
           requestBody.set('condition[blinker]', `${currentRent.condition.blinker}`);
@@ -158,7 +158,7 @@ dashboard_close: boolean;
 mude_protecter: number;
 spokio_outer: number;
 spokio_inner: number;
-sub_visor: number;
+sun_visor: number;
 mat_inner: number;
 wind_protector: number;
 blinker: number;

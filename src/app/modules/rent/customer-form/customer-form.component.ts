@@ -49,14 +49,16 @@ prepareDataModel(form: FormGroup): Customer {
   const  dataModel: Customer =  {
         first_name: formModel.firstName,
         last_name: formModel.lastName,
-        passport_number: formModel.passportNumber,
+        passport_number: (formModel.passportNumber.trim()) ? formModel.passportNumber : '',
         driving_licence_id: formModel.drivingLicenceId,
+        hotel_phone: (formModel.hotelPhone.trim()) ? formModel.hotelPhone : '' ,
+        hotel_name: (formModel.hotelName.trim()) ? formModel.hotel_name : '' ,
         nationality: formModel.nationality,
         country: formModel.country,
         city: formModel.city,
         house_no: formModel.houseNo,
         mobile_number: formModel.mobileNumber,
-        other_phone: formModel.otherPhone
+        other_phone: (formModel.otherPhone.trim()) ? formModel.otherPhone : ''
     };
   return dataModel;
 }

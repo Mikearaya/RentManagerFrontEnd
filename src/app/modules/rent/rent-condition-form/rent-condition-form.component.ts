@@ -78,7 +78,7 @@ export class RentConditionFormComponent implements OnInit, OnChanges {
       mude_protecter: formModel.mudeProtecter,
       spokio_outer: formModel.spokioOuter,
       spokio_inner: formModel.spokioInner,
-      sub_visor: formModel.sunVisor,
+      sun_visor: formModel.sunVisor,
       mat_inner: formModel.matInner,
       wind_protector: formModel.windProtecter,
       blinker: formModel.blinker,
