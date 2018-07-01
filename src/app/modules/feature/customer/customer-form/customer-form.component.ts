@@ -1,7 +1,8 @@
-import { Customer, RentService } from './../rent.service';
+
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
+import { Customer } from '../customer.service';
 
 @Component({
   selector: 'app-customer-form',

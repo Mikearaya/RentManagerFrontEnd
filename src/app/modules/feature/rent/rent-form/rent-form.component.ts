@@ -1,4 +1,4 @@
-import { CustomerFormComponent } from './../customer-form/customer-form.component';
+
 import { RentConditionFormComponent } from './../rent-condition-form/rent-condition-form.component';
 import { CarService, Car } from './../../car/car.service';
 import { ActivatedRoute } from '@angular/router';
@@ -6,6 +6,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { RentDetailFormComponent } from '../rent-detail-form/rent-detail-form.component';
 import { RentService, Rent } from '../rent.service';
+import { CustomerFormComponent } from '../../customer/customer-form/customer-form.component';
 
 @Component({
   selector: 'app-rent-form',
@@ -88,7 +89,7 @@ export class RentFormComponent implements OnInit, AfterViewInit {
   handelResponse(result: any) {
     if (result) {
       console.log(result);
-      this.rentId = result;
+      this.rentId = 0;
     } else {
       alert('failed');
     }

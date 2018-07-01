@@ -80,7 +80,7 @@ export class RentConditionFormComponent implements OnInit, OnChanges {
       spokio_inner: formModel.spokioInner,
       sun_visor: formModel.sunVisor,
       mat_inner: formModel.matInner,
-      wind_protector: formModel.windProtecter,
+      wind_protecter: formModel.windProtecter,
       blinker: formModel.blinker,
       radio: formModel.radio,
       fuiel_level: formModel.fuielLevel,

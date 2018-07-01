@@ -16,8 +16,8 @@ import { RentService } from './rent.service';
 import { RentConditionFormComponent } from './rent-condition-form/rent-condition-form.component';
 import { RentDetailFormComponent } from './rent-detail-form/rent-detail-form.component';
 import { RentContratComponent } from './rent-contrat/rent-contrat.component';
-import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { CustomDatePickerModule } from '../../shared/custom-date-picker/custom-date-picker.module';
+import { CustomerModule } from '../customer/customer.module';
 
 @NgModule({
   imports: [
@@ -39,11 +39,12 @@ import { CustomDatePickerModule } from '../../shared/custom-date-picker/custom-d
     MatCardModule,
     MatCheckboxModule,
     ReactiveFormsModule,
-    CarModule
+    CarModule,
+    CustomerModule
   ],
   declarations: [ RentFormComponent, RentViewComponent,
                   RentConditionFormComponent, RentDetailFormComponent,
-                  RentContratComponent, CustomerFormComponent],
+                  RentContratComponent],
   providers: [RentService]
 })
 export class RentModule { }

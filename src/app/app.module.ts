@@ -8,6 +8,7 @@ import { SharedModule } from './modules/shared/shared.module';
 import { OwnerModule } from './modules/feature/owner/owner.module';
 import { CarModule } from './modules/feature/car/car.module';
 import { RentModule } from './modules/feature/rent/rent.module';
+import { CustomerModule } from './modules/feature/customer/customer.module';
 
 
 
@@ -20,6 +21,7 @@ import { RentModule } from './modules/feature/rent/rent.module';
     OwnerModule,
     CarModule,
     RentModule,
+    CustomerModule,
     AppRoutingModule
   ],
   declarations: [ AppComponent ],
