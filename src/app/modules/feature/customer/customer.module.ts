@@ -4,6 +4,7 @@ import { MatButtonModule, MatInputModule, MatFormFieldModule } from '@angular/ma
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { CustomerRoutingModule } from './customer-routing.module';
+import { CustomerService } from './customer.service';
 
 @NgModule({
   imports: [
@@ -15,6 +16,7 @@ import { CustomerRoutingModule } from './customer-routing.module';
     CustomerRoutingModule
   ],
   declarations: [CustomerFormComponent],
-  exports: [CustomerFormComponent]
+  exports: [CustomerFormComponent],
+  providers: [CustomerService]
 })
 export class CustomerModule { }

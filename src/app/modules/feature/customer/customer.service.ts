@@ -24,3 +24,5 @@ export class Customer {
   other_phone: string;
   registered_on?: string;
 }
+
+

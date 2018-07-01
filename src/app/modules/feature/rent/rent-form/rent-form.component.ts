@@ -63,7 +63,6 @@ export class RentFormComponent implements OnInit, AfterViewInit {
   }
 
   private prepateDataModel(form: FormGroup): Rent {
-    const formModel = form.value;
     const conditionDataModel = this.conditionComponent.prepareDataModel(this.vehicleConditionForm);
     const customerDataModel = this.customerComponent.prepareDataModel(this.customerForm);
     const detailDataModel = this.rentDetailComponent.prepareDataModel(this.rentDetailForm);

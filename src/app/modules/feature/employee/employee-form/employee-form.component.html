@@ -1,0 +1,81 @@
+
+<section class=" m-5 p-3">
+  <h2> {{title}}</h2>
+  <mat-card class="mat-elevation-z8">
+  <form name="employeeForm" [formGroup]="form">
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="First Name" name="firstName" id="firstName" formControlName="firstName" required autocomplete="on"
+            />
+            <mat-error></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="Last Name" id="lastName" name="lastName" formControlName="lastName" required autocomplete="on">
+          </mat-form-field>
+        </div>
+      </div>
+
+      <div class="row">
+
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="Country" name="country" id="country" formControlName="country" required autocomplete="on">
+            <mat-hint></mat-hint>
+            <mat-error>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="City" name="city" id="city" formControlName="city" required autocomplete="on">
+            <mat-hint></mat-hint>
+            <mat-error></mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="Sub-City" id="subCity" name="subCity" formControlName="subCity" required autocomplete="on">
+            <mat-error>
+
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="wereda" name="wereda" id="wereda" formControlName="wereda" autocomplete="on">
+            <mat-error>
+            </mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row">
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="Mobile Phone Number" name="phoneNumber" id="phoneNumber" formControlName="phoneNumber" required
+              autocomplete="on">
+            <mat-hint>The phone they currently use</mat-hint>
+            <mat-error></mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col">
+          <mat-form-field>
+            <input matInput placeholder="House Number" id="houseNumber" name="houseNumber" formControlName="houseNumber" required autocomplete="on">
+            <mat-hint>Permanent Address</mat-hint>
+            <mat-error></mat-error>
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row mt-2 p-2">
+        <div class="col">
+          <button type="submit" class="mr-2" mat-raised-button color="primary">Save</button>
+          <button mat-raised-button color="warn" >Cancel</button>
+        </div>
+      </div>
+  </form>
+  </mat-card>
+</section>

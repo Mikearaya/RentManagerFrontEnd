@@ -48,39 +48,24 @@ export class RentService {
 
         for (const key in currentRent) {
           if (currentRent.hasOwnProperty(key)) {
-            const element = currentRent[key];
-            if (element instanceof Object ) {
-              for (const key2 in element) {
-                if (element.hasOwnProperty(key2)) {
-                  const el2 = element[key2];
-                  console.log(`element${key} ${key2} value ${el2}`);
-                  requestBody.set(`${key}[${key2}]`, el2);
+            const value = currentRent[key];
+
+            if (value instanceof Object ) {
+
+              for (const key2 in value) {
+                if (value.hasOwnProperty(key2)) {
+                  const value2 = value[key2];
+                  requestBody.set(`${key}[${key2}]`, value2);
                 }
               }
             } else {
-              console.log(`hasOwnproperty ${key} value ${element}`);
-              requestBody.set(`${key}`, element);
+              requestBody.set(`${key}`, value);
             }
           }
         }
 
-        requestBody.set('start_date', rentStart) ;
-          requestBody.set('return_date', rentEnd);
-        /*
-          for (const key in currentRent.customer) {
-            if (currentRent.customer.hasOwnProperty(key)) {
-              const element = currentRent.customer[key];
-              requestBody.set(`customer[${key}]`, element);
-            }
-          }
-
-          for (const key in currentRent.condition) {
-            if (currentRent.condition.hasOwnProperty(key)) {
-              const element = currentRent.condition[key];
-              requestBody.set(`condition[${key}]`, element);
-            }
-          }
-      */
+      requestBody.set('start_date', rentStart);
+      requestBody.set('return_date', rentEnd);
 
     return requestBody;
 
