@@ -3,10 +3,9 @@ import { RentConditionFormComponent } from './../rent-condition-form/rent-condit
 import { CarService, Car } from './../../car/car.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
-import { Component, OnInit, Input, ViewChild, AfterViewInit } from '@angular/core';
-import { RentService, Rent } from 'src/app/modules/rent/rent.service';
-import { DateAdapter } from '@angular/material/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { RentDetailFormComponent } from '../rent-detail-form/rent-detail-form.component';
+import { RentService, Rent } from '../rent.service';
 
 @Component({
   selector: 'app-rent-form',

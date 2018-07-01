@@ -1,6 +1,6 @@
 {
   "name": "rents-manager",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "scripts": {
     "ng": "ng",
     "start": "ng serve",
@@ -51,7 +51,7 @@
     "tslint": "~5.9.1",
     "typescript": "~2.7.2"
   },
-  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.0.1.",
+  "description": "Bionic Vehicle Rent Managment is designed to help vehicle renting companies control and manage their Day to day Activities",
   "main": "index.js",
   "keywords": [],
   "author": "Mikael Araya",

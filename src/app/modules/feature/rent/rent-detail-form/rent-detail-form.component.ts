@@ -1,8 +1,7 @@
 import { ActivatedRoute } from '@angular/router';
-import { RentService } from 'src/app/modules/rent/rent.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
-import { Rent } from '../rent.service';
+import { Rent, RentService } from '../rent.service';
 import { Car, CarService } from '../../car/car.service';
 
 @Component({

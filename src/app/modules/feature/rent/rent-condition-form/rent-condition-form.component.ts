@@ -1,8 +1,8 @@
-import { RentService } from 'src/app/modules/rent/rent.service';
+
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit, Input, OnChanges } from '@angular/core';
-import { RentCondition } from '../rent.service';
+import { RentCondition, RentService } from '../rent.service';
 
 @Component({
   selector: 'app-rent-condition-form',
