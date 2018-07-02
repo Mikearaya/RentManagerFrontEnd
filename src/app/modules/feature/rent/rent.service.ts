@@ -64,8 +64,6 @@ export class RentService {
           }
         }
 
-      requestBody.set('start_date', rentStart);
-      requestBody.set('return_date', rentEnd);
 
     return requestBody;
 
@@ -106,6 +104,7 @@ export class Rent {
   initial_payment: number;
   added_on?: string;
   updated_on?: string;
+  colateral_deposit: number;
   customer?: Customer;
   condition?: RentCondition;
 }

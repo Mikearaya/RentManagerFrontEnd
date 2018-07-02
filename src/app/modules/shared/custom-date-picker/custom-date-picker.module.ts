@@ -6,7 +6,7 @@ import {MatDatepickerModule, NativeDateModule, NativeDateAdapter, DateAdapter, M
 // extend NativeDateAdapter's format method to specify the date format.
 export class CustomDateAdapter extends NativeDateAdapter {
    format(date: Date, displayFormat: Object): string {
-     if(displayFormat === 'input') {
+     if ( displayFormat === 'input') {
          const day = date.getDate();
          const month = date.getMonth();
          const year = date.getFullYear();
@@ -35,9 +35,7 @@ export class CustomDateAdapter extends NativeDateAdapter {
 
 
 const MY_DATE_FORMATS = {
-   parse: {
-      dateInput: {month: 'numberic', year: 'numeric', day: 'numeric'}
-   },
+   parse: 'YYYY-MM-dd',
    display: {
     dateInput: 'input',
     monthYearLabel: {year: 'numeric', month: 'short'},

@@ -26,6 +26,9 @@
     "bootstrap": "^4.1.1",
     "core-js": "^2.5.4",
     "jquery": "^3.3.1",
+    "moment": "^2.22.2",
+    "ng-pick-datetime": "^6.0.8",
+    "ng-pick-datetime-moment": "^1.0.6",
     "popper.js": "^1.14.3",
     "rxjs": "^6.0.0",
     "zone.js": "^0.8.26"

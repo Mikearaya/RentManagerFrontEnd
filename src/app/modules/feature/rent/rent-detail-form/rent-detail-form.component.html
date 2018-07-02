@@ -11,18 +11,14 @@
             </mat-form-field>
           </div>
       <div class="col">
-        <mat-form-field>
-          <input matInput [matDatepicker]="rentedOn" placeholder="Rent Start Date" [min]="minDate" formControlName="startDate" required autocomplete="off">
-          <mat-datepicker-toggle matSuffix [for]="rentedOn"></mat-datepicker-toggle>
-          <mat-datepicker #rentedOn></mat-datepicker>
-        </mat-form-field>
-      </div>
-      <div class="col">
-        <mat-form-field>
-          <input matInput [matDatepicker]="returnedBy" placeholder="Rent End Date" [min]="minDate" formControlName="returnDate" required autocomplete="off">
-          <mat-datepicker-toggle required matSuffix [for]="returnedBy"></mat-datepicker-toggle>
-          <mat-datepicker #returnedBy></mat-datepicker>
-        </mat-form-field>
+
+          <label>
+              Date Time Range From:
+              <input [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12"
+                    formControllName="selectedMoments"
+                     [selectMode]="'range'">
+              <owl-date-time #dt12></owl-date-time>
+          </label>
       </div>
     </div>
     <div class="row">
@@ -44,6 +40,15 @@
       <div class="col">
         <mat-form-field>
           <input matInput placeholder="Initial payment collected" name="initialPayment" id="initialPayment" formControlName="initialPayment"
+            required autocomplete="off">
+          <mat-error></mat-error>
+          <mat-hint>total Money paid by the client </mat-hint>
+        </mat-form-field>
+
+      </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Collateral" name="collateral" id="collateral" formControlName="colateralDeposit"
             required autocomplete="off">
           <mat-error></mat-error>
           <mat-hint>total Money paid by the client </mat-hint>

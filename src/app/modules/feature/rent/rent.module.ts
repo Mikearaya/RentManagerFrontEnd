@@ -11,14 +11,26 @@ import { MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatF
            MatProgressSpinnerModule, MatCheckboxModule
         } from '@angular/material';
 import { RentViewComponent } from './rent-view/rent-view.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { RentService } from './rent.service';
 import { RentConditionFormComponent } from './rent-condition-form/rent-condition-form.component';
 import { RentDetailFormComponent } from './rent-detail-form/rent-detail-form.component';
 import { RentContratComponent } from './rent-contrat/rent-contrat.component';
 import { CustomDatePickerModule } from '../../shared/custom-date-picker/custom-date-picker.module';
 import { CustomerModule } from '../customer/customer.module';
+import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
+import { OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
+import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 
+export const MY_MOMENT_FORMATS = {
+  parseInput: 'YYYY-MM-DD',
+  fullPickerInput: 'YYYY-MM-DD hh:mm',
+  datePickerInput: 'YYYY-MM-DD',
+  timePickerInput: 'hh:mm',
+  monthYearLabel: 'MMM YYYY',
+  dateA11yLabel: 'LL',
+  monthYearA11yLabel: 'MMMM YYYY',
+};
 @NgModule({
   imports: [
     CommonModule,
@@ -26,6 +38,7 @@ import { CustomerModule } from '../customer/customer.module';
     MatTableModule,
     MatPaginatorModule,
     MatSortModule,
+    FormsModule,
     MatFormFieldModule,
     MatStepperModule,
     MatInputModule,
@@ -36,15 +49,20 @@ import { CustomerModule } from '../customer/customer.module';
     MatDatepickerModule,
     HttpClientModule,
     MatSelectModule,
+    OwlDateTimeModule,
+    OwlNativeDateTimeModule,
     MatCardModule,
     MatCheckboxModule,
     ReactiveFormsModule,
+    OwlDateTimeModule, OwlMomentDateTimeModule,
     CarModule,
     CustomerModule
   ],
   declarations: [ RentFormComponent, RentViewComponent,
                   RentConditionFormComponent, RentDetailFormComponent,
                   RentContratComponent],
-  providers: [RentService]
+  providers: [RentService,
+    {provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},
+]
 })
 export class RentModule { }
