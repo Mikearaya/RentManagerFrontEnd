@@ -9,14 +9,13 @@ import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, Mat
 @NgModule({
   imports: [
     CommonModule,
-    EmployeeRoutingModule,
     ReactiveFormsModule,
     MatFormFieldModule,
     MatCardModule,
     MatInputModule,
     MatButtonModule,
-    MatIconModule
-
+    MatIconModule,
+    EmployeeRoutingModule
   ],
   declarations: [EmployeeFormComponent]
 })

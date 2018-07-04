@@ -1,5 +1,7 @@
 <section>
-  <form name="customerForm" [formGroup]="form">
+
+  <form name="customerForm" [formGroup]="form" (ngSubmit)="onSubmit()"  class="bionic-form-alignment mat-elevation-z8">
+      <h3 *ngIf="isSelfContained()">{{currentTask()}}</h3>
       <div class="row">
         <div class="col">
           <mat-form-field>
@@ -94,6 +96,12 @@
             <mat-hint>Alternative phone they currently use</mat-hint>
             <mat-error></mat-error>
           </mat-form-field>
+        </div>
+      </div>
+      <div class="row" *ngIf="isSelfContained()">
+        <div class="col form-button-box">
+            <button mat-raised-button type="submit"  color="primary" >Submit</button>
+            <button mat-raised-button color="warn" >Cancel</button>
         </div>
       </div>
   </form>

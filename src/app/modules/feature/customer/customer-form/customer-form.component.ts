@@ -1,3 +1,5 @@
+import { HttpClient } from '@angular/common/http';
+import { CustomerService } from './../customer.service';
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -14,8 +16,11 @@ export class CustomerFormComponent implements OnInit {
   @Input('customer') customer: Customer;
   isUpdate: Boolean = false;
   customerId: number;
+  private title: String = '';
+  private selfContained: Boolean = false;
 
   constructor(private formBuilder: FormBuilder,
+              private customerService: CustomerService,
               private activatedRoute: ActivatedRoute) {
               this.generateForm();
 
@@ -23,11 +28,26 @@ export class CustomerFormComponent implements OnInit {
 
   ngOnInit() {
     this.customerId = + this.activatedRoute.snapshot.paramMap.get('customerId');
+    this.selfContained = this.activatedRoute.snapshot.data['selfContained'];
+    this.title = this.activatedRoute.snapshot.data['title'];
+    if (this.customerId) {
+      this.isUpdate = true;
+      this.customerService.getCustomerById(this.customerId)
+          .subscribe((customer: Customer) => this.generateForm(customer),
+                      (error: any) => console.log(error)
+                    );
+    }
    }
 
   get customerForm() { return this.form; }
 
-  private generateForm(currentCustomer: any = '') {
+  currentTask(): String {
+    return this.title;
+  }
+  isSelfContained(): Boolean {
+      return this.selfContained;
+  }
+  private generateForm(currentCustomer: any | Customer = '') {
     this.customer = (currentCustomer) ? (<Customer>currentCustomer) : null;
     this.form = this.formBuilder.group({
       firstName: this.buildControl(currentCustomer.first_name, true),
@@ -48,12 +68,13 @@ export class CustomerFormComponent implements OnInit {
 prepareDataModel(form: FormGroup): Customer {
   const formModel = form.value;
   const  dataModel: Customer =  {
+        CUSTOMER_ID: this.customerId,
         first_name: formModel.firstName,
         last_name: formModel.lastName,
         passport_number: (formModel.passportNumber.trim()) ? formModel.passportNumber : '',
         driving_licence_id: formModel.drivingLicenceId,
         hotel_phone: (formModel.hotelPhone.trim()) ? formModel.hotelPhone : '' ,
-        hotel_name: (formModel.hotelName.trim()) ? formModel.hotel_name : '' ,
+        hotel_name: (formModel.hotelName.trim()) ? formModel.hotelName.trim() : '' ,
         nationality: formModel.nationality,
         country: formModel.country,
         city: formModel.city,
@@ -71,7 +92,9 @@ prepareDataModel(form: FormGroup): Customer {
 onSubmit() {
   this.customer = this.prepareDataModel(this.form);
   if (this.isUpdate) {
+    this.customerService.updateCustomer(this.customer).subscribe((result) => this.handelResponse(result));
   } else {
+    this.customerService.addCustomer(this.customer).subscribe((result) => this.handelResponse(result));
   }
   }
 

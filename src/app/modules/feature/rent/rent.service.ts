@@ -8,11 +8,9 @@ import { Customer } from '../customer/customer.service';
 export class RentService {
   private url = 'http://localhost/rent_manager/index.php/rent';
   private httpBody: URLSearchParams;
-  private header: HttpHeaders;
 
 
   constructor(private httpClient: HttpClient) {
-    this.header = new HttpHeaders().set('Content-Type', 'application/x-www-form-urlencoded');
       this.httpBody = new URLSearchParams();
   }
 
@@ -28,15 +26,13 @@ export class RentService {
   }
 
   updateRent(oldRent: Rent): Observable<Boolean> {
-    const requestOption =  { 'headers' : this.header  };
           this.httpBody = this.prepareRequestBody(oldRent);
-    return this.httpClient.post<Boolean>(`${this.url}/${oldRent.RENT_ID}`, this.httpBody.toString(), requestOption );
+    return this.httpClient.post<Boolean>(`${this.url}/${oldRent.RENT_ID}`, this.httpBody.toString());
   }
 
   deleteRent(rentIds: number[]): Observable<Boolean> {
-    const requestOption =  { 'headers' : this.header  };
     rentIds.forEach((id) => this.httpBody.append('RENT_ID', `${id}` ));
-    return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString(), requestOption);
+    return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString());
   }
 
   prepareRequestBody(currentRent: Rent): URLSearchParams {

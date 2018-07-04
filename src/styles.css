@@ -2,3 +2,24 @@
 @import "~@angular/material/prebuilt-themes/indigo-pink.css";
 @import '~bootstrap/dist/css/bootstrap.min.css';
 @import "~ng-pick-datetime/assets/style/picker.min.css";
+
+
+mat-form-field {
+  display: flow-root !important;
+}
+
+.form-button-box {
+  margin-top: 2em;
+  text-align: right;
+  padding-right: 2em;
+}
+
+div.form-button-box > button {
+  margin-right: 10px !important;
+  margin-left: 10px !important;
+}
+
+form.bionic-form-alignment {
+  margin: 20px !important;
+  padding: 40px !important;
+}

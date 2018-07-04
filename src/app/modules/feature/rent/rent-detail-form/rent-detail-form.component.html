@@ -10,15 +10,15 @@
               <mat-error></mat-error>
             </mat-form-field>
           </div>
-      <div class="col">
+      <div class="col-8">
 
           <label>
-              Date Time Range From:
-              <input [owlDateTimeTrigger]="dt12" [owlDateTime]="dt12"
+              Date Time Range From:</label>
+              <input [owlDateTimeTrigger]="rentDuration" [owlDateTime]="rentDuration"
                     formControllName="selectedMoments"
                      [selectMode]="'range'">
-              <owl-date-time #dt12></owl-date-time>
-          </label>
+              <owl-date-time #rentDuration></owl-date-time>
+
       </div>
     </div>
     <div class="row">
