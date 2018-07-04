@@ -1,6 +1,7 @@
 import { Observable } from 'rxjs';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
+import { CustomerViewModel } from './customer-view/customer-view-datasource';
 
 @Injectable()
 export class CustomerService {
@@ -16,6 +17,18 @@ export class CustomerService {
 
   getAllCustomers(): Observable<Customer[]> {
     return this.httpClient.get<Customer[]>(`${this.url}`);
+  }
+  displayCustomers(filter = '',  sortColumn = 'first_name',  sortOrder = 'ASC', pageIndex = 0, pageSize
+  ): Observable<CustomerViewModel> {
+    return this.httpClient.get<CustomerViewModel>(`${this.url}`, {
+      params: {
+        filter: filter,
+        sort_column: sortColumn,
+        sort_order: sortOrder,
+        page_number: pageIndex.toString(),
+        page_size: pageSize.toString(),
+      }
+    });
   }
 
   addCustomer(newCustomer: Customer): Observable<Customer> {

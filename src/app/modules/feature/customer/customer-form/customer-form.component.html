@@ -1,108 +1,108 @@
 <section>
+  <form name="customerForm" [formGroup]="form" (ngSubmit)="onSubmit()" class="bionic-form-alignment mat-elevation-z8">
+    <h3 *ngIf="isSelfContained()">{{currentTask()}}</h3>
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="First Name" name="firstName" id="firstName" formControlName="firstName" required autocomplete="on"
+          />
+          <mat-error></mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Last Name" id="lastName" name="lastName" formControlName="lastName" required autocomplete="on">
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <mat-label for="passportNo">Passport Number</mat-label>
+          <input matInput type="text" placeholder="Passport Number" name="passportNo" id="passportNo" formControlName="passportNumber">
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Driving license ID Number" name="idNumber" id="idNumber" formControlName="drivingLicenceId"
+            required autocomplete="on">
+          <mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <mat-label for="hotelName">Hotel Name</mat-label>
+          <input matInput type="text" placeholder="Hotel Name" name="hotelName" id="hotelName" formControlName="hotelName">
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Hotel Phone" name="hotelPhone" id="hotelPhone" formControlName="hotelPhone" autocomplete="off">
+          <mat-error>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Nationality" id="nationality" name="nationality" formControlName="nationality" required autocomplete="on">
+          <mat-error>
 
-  <form name="customerForm" [formGroup]="form" (ngSubmit)="onSubmit()"  class="bionic-form-alignment mat-elevation-z8">
-      <h3 *ngIf="isSelfContained()">{{currentTask()}}</h3>
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <input matInput placeholder="First Name" name="firstName" id="firstName" formControlName="firstName" required autocomplete="on"
-            />
-            <mat-error></mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <input matInput placeholder="Last Name" id="lastName" name="lastName" formControlName="lastName" required autocomplete="on">
-          </mat-form-field>
-        </div>
+          </mat-error>
+        </mat-form-field>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <mat-label for="passportNo" >Passport Number</mat-label>
-            <input matInput type="text" placeholder="Passport Number" name="passportNo" id="passportNo" formControlName="passportNumber">
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <input matInput placeholder="Driving license ID Number" name="idNumber" id="idNumber" formControlName="drivingLicenceId" required autocomplete="on">
-            <mat-error>
-            </mat-error>
-          </mat-form-field>
-        </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Country" name="country" id="country" formControlName="country" required autocomplete="on">
+          <mat-hint>Current Country where they live</mat-hint>
+          <mat-error>
+          </mat-error>
+        </mat-form-field>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <mat-label for="hotelName" >Hotel Name</mat-label>
-            <input matInput type="text" placeholder="Hotel Name" name="hotelName" id="hotelName" formControlName="hotelName">
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <input matInput placeholder="Hotel Phone" name="hotelPhone" id="hotelPhone" formControlName="hotelPhone" autocomplete="off">
-            <mat-error>
-            </mat-error>
-          </mat-form-field>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="City" name="city" id="city" formControlName="city" required autocomplete="on">
+          <mat-hint>Permanent Residence</mat-hint>
+          <mat-error></mat-error>
+        </mat-form-field>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <input matInput placeholder="Nationality" id="nationality" name="nationality" formControlName="nationality" required autocomplete="on">
-            <mat-error>
-
-            </mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <input matInput placeholder="Country" name="country" id="country" formControlName="country" required autocomplete="on">
-            <mat-hint>Current Country where they live</mat-hint>
-            <mat-error>
-            </mat-error>
-          </mat-form-field>
-        </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="House Number" id="houseNo" name="houseNo" formControlName="houseNo" required autocomplete="on">
+          <mat-hint>Permanent Address</mat-hint>
+          <mat-error></mat-error>
+        </mat-form-field>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <input matInput placeholder="City" name="city" id="city" formControlName="city" required autocomplete="on">
-            <mat-hint>Permanent Residence</mat-hint>
-            <mat-error></mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <input matInput placeholder="House Number" id="houseNo" name="houseNo" formControlName="houseNo" required autocomplete="on">
-            <mat-hint>Permanent Address</mat-hint>
-            <mat-error></mat-error>
-          </mat-form-field>
-        </div>
+    </div>
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Main Mobile Number" name="mobileNumber" id="mobileNumber" formControlName="mobileNumber" required
+            autocomplete="on">
+          <mat-hint>The phone they currently use</mat-hint>
+          <mat-error></mat-error>
+        </mat-form-field>
       </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <input matInput placeholder="Main Mobile Number" name="mobileNumber" id="mobileNumber" formControlName="mobileNumber" required
-              autocomplete="on">
-            <mat-hint>The phone they currently use</mat-hint>
-            <mat-error></mat-error>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <input matInput placeholder="Alternative Phonenumber" name="otherPhone" id="otherPhone" formControlName="otherPhone" required
-              autocomplete="on">
-            <mat-hint>Alternative phone they currently use</mat-hint>
-            <mat-error></mat-error>
-          </mat-form-field>
-        </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Alternative Phonenumber" name="otherPhone" id="otherPhone" formControlName="otherPhone" required
+            autocomplete="on">
+          <mat-hint>Alternative phone they currently use</mat-hint>
+          <mat-error></mat-error>
+        </mat-form-field>
       </div>
-      <div class="row" *ngIf="isSelfContained()">
-        <div class="col form-button-box">
-            <button mat-raised-button type="submit"  color="primary" >Submit</button>
-            <button mat-raised-button color="warn" >Cancel</button>
-        </div>
+    </div>
+    <div class="row" *ngIf="isSelfContained()">
+      <div class="col form-button-box">
+        <button mat-raised-button type="submit" color="primary">Submit</button>
+        <button mat-raised-button color="warn">Cancel</button>
       </div>
+    </div>
   </form>
 </section>

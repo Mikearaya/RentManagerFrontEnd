@@ -23,3 +23,9 @@ form.bionic-form-alignment {
   margin: 20px !important;
   padding: 40px !important;
 }
+
+
+mat-spinner {
+  margin-left: auto !important;
+  margin-right: auto !important;
+}

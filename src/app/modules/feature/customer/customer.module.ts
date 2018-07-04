@@ -1,10 +1,12 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { MatButtonModule, MatInputModule, MatFormFieldModule } from '@angular/material';
+import { MatButtonModule, MatInputModule, MatFormFieldModule, MatTableModule,
+   MatPaginatorModule, MatSortModule, MatSelectModule, MatCheckboxModule, MatProgressSpinnerModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { CustomerRoutingModule } from './customer-routing.module';
 import { CustomerService } from './customer.service';
+import { CustomerViewComponent } from './customer-view/customer-view.component';
 
 @NgModule({
   imports: [
@@ -12,10 +14,16 @@ import { CustomerService } from './customer.service';
     MatFormFieldModule,
     ReactiveFormsModule,
     MatButtonModule,
+    MatSelectModule,
     MatInputModule,
-    CustomerRoutingModule
+    MatCheckboxModule,
+    CustomerRoutingModule,
+    MatTableModule,
+    MatProgressSpinnerModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
-  declarations: [CustomerFormComponent],
+  declarations: [CustomerFormComponent, CustomerViewComponent],
   exports: [CustomerFormComponent],
   providers: [CustomerService]
 })
