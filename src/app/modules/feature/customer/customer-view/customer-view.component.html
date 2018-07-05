@@ -13,9 +13,8 @@
       </mat-form-field>
     </div>
   </div>
-  <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-    <mat-spinner></mat-spinner>
-  </div>
+
+    <mat-spinner *ngIf="dataSource.loading$ | async"></mat-spinner>
   <mat-table #table [dataSource]="dataSource" matSort aria-label="Customers">
 
     <!-- Selection Checkboxes -->
@@ -29,7 +28,7 @@
         </mat-checkbox>
       </mat-cell>
     </ng-container>
-    <!-- Id Column -->
+
     <ng-container *ngFor="let column of customerViewColumns" [matColumnDef]="column.key">
       <mat-header-cell *matHeaderCellDef mat-sort-header>{{column.humanReadable}}</mat-header-cell>
       <mat-cell *matCellDef="let row">{{ row[column.key] }}</mat-cell>
@@ -39,6 +38,6 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-paginator #paginator [length]="dataSource.totalCustomers$ | async" [pageSizeOptions]="[3,5, 10, 20, 30]">
+  <mat-paginator #paginator [length]="dataSource.totalCustomers$ | async" [pageSizeOptions]="[5, 10, 15, 20, 30]">
   </mat-paginator>
 </div>

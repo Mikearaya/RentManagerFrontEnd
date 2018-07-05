@@ -1,57 +1,52 @@
 import { ActivatedRoute, Router } from '@angular/router';
 import { SelectionModel } from '@angular/cdk/collections';
-import { CustomerService, Customer } from './../customer.service';
 import { Component, OnInit, ViewChild, ElementRef, AfterViewInit } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { CustomerViewDataSource, CustomerView } from './customer-view-datasource';
 import { FormControl } from '@angular/forms';
 import {fromEvent, merge} from 'rxjs';
 import { distinctUntilChanged, debounceTime, tap } from 'rxjs/operators';
+import { EmployeeApiService, Employee } from '../employee-api.service';
+import { EmployeeView, EmployeeViewDataSource } from './employee-view-datasource';
 
 const allowMultiSelect = true;
 const initialSelection = [];
 @Component({
-  selector: 'app-customer-view',
-  templateUrl: './customer-view.component.html',
-  styleUrls: ['./customer-view.component.css']
+  selector: 'app-employee-view',
+  templateUrl: './employee-view.component.html',
+  styleUrls: ['./employee-view.component.css']
 })
-export class CustomerViewComponent implements OnInit, AfterViewInit {
+export class EmployeeViewComponent implements OnInit, AfterViewInit {
   @ViewChild(MatPaginator) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('input') input: ElementRef;
 
-  selection: SelectionModel<CustomerView>;
+  selection: SelectionModel<EmployeeView>;
   selectedColumns: FormControl;
-  dataSource: CustomerViewDataSource;
+  dataSource: EmployeeViewDataSource;
 
   constructor(
               private activatedRoute: ActivatedRoute,
-              private customerService: CustomerService,
+              private employeeApiService: EmployeeApiService,
             private router: Router) {
               this.selectedColumns = new FormControl(this.displayedColumns);
              }
 
-  customerViewColumns = [
+  employeeViewColumns = [
     {key: 'first_name', humanReadable: 'First Name'},
     {key: 'last_name', humanReadable: 'Last Name'},
-    {key: 'nationality', humanReadable: 'Nationality'},
+    {key: 'phone_number', humanReadable: 'Phone'},
     {key: 'country', humanReadable: 'country'},
     {key: 'city', humanReadable: 'city'},
-    {key: 'house_no', humanReadable: 'House Number'},
-    {key: 'driving_licence_id', humanReadable: 'Driving Licence ID'},
-    {key: 'passport_number', humanReadable: 'Passport Number'},
-    {key: 'hotel_name', humanReadable: 'Hotel Name'},
-    {key: 'hotel_phone', humanReadable: 'Hotel Phone'},
-    {key: 'mobile_number', humanReadable: 'Mobile'},
-    {key: 'other_phone', humanReadable: 'Other Phone'},
+    {key: 'sub_city', humanReadable: 'Sub-City'},
+    {key: 'house_number', humanReadable: 'House Number'},
     {key: 'registered_on', humanReadable: 'Registered'},
   ];
 
-  displayedColumns: String[] = ['select', 'first_name', 'last_name', 'mobile_number', 'driving_licence_id', 'registered_on'];
+  displayedColumns: String[] = ['select', 'first_name', 'last_name', 'phone_number', 'registered_on'];
 
   ngOnInit() {
-    this.dataSource = new CustomerViewDataSource(this.customerService);
-    this.dataSource.loadCustomers();
+    this.dataSource = new EmployeeViewDataSource(this.employeeApiService);
+    this.dataSource.loadEmployees();
     this.selection = new SelectionModel(allowMultiSelect, initialSelection);
   }
   ngAfterViewInit() {
@@ -60,13 +55,13 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
       distinctUntilChanged(),
       tap(() => {
         this.paginator.pageIndex = 0 ;
-        this.viewCustomers();
+        this.viewEmployees();
       })
     )
     .subscribe();
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     merge(this.sort.sortChange, this.paginator.page).pipe(
-      tap(() => this.viewCustomers())
+      tap(() => this.viewEmployees())
     )
     .subscribe();
   }
@@ -75,12 +70,12 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
     this.displayedColumns = ['select'];
     filteredColumns.forEach((col) => this.displayedColumns.push(col));
  }
-  deleteCustomer(deletedCustomer: Customer) {
-    this.customerService.deleteCustomer(deletedCustomer.CUSTOMER_ID).subscribe();
+  deleteCustomer(deletedEmployee: Employee) {
+    this.employeeApiService.deleteEmployee(deletedEmployee.EMPLOYEE_ID).subscribe();
   }
 
-  viewCustomers() {
-    this.dataSource.loadCustomers(this.input.nativeElement.value,
+  viewEmployees() {
+    this.dataSource.loadEmployees(this.input.nativeElement.value,
                               this.sort.active,
                               this.sort.direction,
                               this.paginator.pageIndex,
@@ -100,14 +95,14 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
         this.selection.clear() : this.dataSource.data.forEach((row) => this.selection.select(row));
 
   }
-  editRent(selectedCustomer: CustomerView) {
-    this.router.navigate([`/update/customer/${selectedCustomer.CUSTOMER_ID}`]);
+  editRent(selectedEmployee: EmployeeView) {
+    this.router.navigate([`/update/employee/${selectedEmployee.EMPLOYEE_ID}`]);
   }
 
-  deleteCustomers(deletedCustomers: Customer[]) {
+  deleteCustomers(deletedEmployees: EmployeeView[]) {
     const deletedIds = [];
-    deletedCustomers.forEach((customer: Customer) => {
-      deletedIds.push(customer.CUSTOMER_ID);
+    deletedEmployees.forEach((employee: EmployeeView) => {
+      deletedIds.push(employee.EMPLOYEE_ID);
     });
   }
 }

@@ -1,48 +1,46 @@
 <div class="mat-elevation-z8">
-    <div class="container">
-        <div class="row">
-          <div class="col">
-            <button mat-raised-button color="primary" routerLink="/manage/owner/">New</button>
-          </div>
-          <div class="col" >
-            <button mat-raised-button color="primary" (click)="editOwner(selection.selected[0]);   "
-            [disabled]="selection.selected.length != 1">Edit</button>
-          </div>
-          <div class="col" >
-            <button mat-raised-button color="warn"
-                  [disabled]="selection.selected.length == 0"
-                  (click)="deleteOwner(selection.selected);" >Delete</button>
-          </div>
-        </div>
+  <div class="container">
+    <div class="row">
+      <div class="col">
+        <button mat-raised-button color="primary" routerLink="/manage/owner/">New</button>
       </div>
-    <mat-form-field>
+      <div class="col">
+        <button mat-raised-button color="primary" (click)="editOwner(selection.selected[0]);   " [disabled]="selection.selected.length != 1">Edit</button>
+      </div>
+      <div class="col">
+        <button mat-raised-button color="warn" [disabled]="selection.selected.length == 0" (click)="deleteOwner(selection.selected);">Delete</button>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col">
+      <mat-form-field>
         <input matInput placeholder="Search Vehicle" #input>
       </mat-form-field>
+    </div>
+    <div class="col">
       <mat-form-field>
-        <mat-select placeholder="Filter Columns" [formControl]="selectedColumns" [multiple]="true"
-                    name="column-filter" (selectionChange)="manageView(selectedColumns.value)">
+        <mat-select placeholder="Filter Columns" [formControl]="selectedColumns" [multiple]="true" name="column-filter" (selectionChange)="manageView(selectedColumns.value)">
           <mat-option *ngFor="let col of ownerColumns" [value]="col.key">{{col.humanReadable}}</mat-option>
         </mat-select>
       </mat-form-field>
-        <div class="spinner-container" *ngIf="dataSource.loading$ | async">
-            <mat-spinner></mat-spinner>
     </div>
+  </div>
+
+  <mat-spinner *ngIf="dataSource.loading$ | async"></mat-spinner>
+
   <mat-table #table [dataSource]="dataSource" matSort aria-label="Vehicle Owners">
-<!-- Selection Checkboxes -->
-<ng-container matColumnDef="select">
-    <mat-header-cell *matHeaderCellDef>
-      <mat-checkbox (change)="$event ? masterToggle() : null"
-                    [checked]="selection.hasValue() && isAllSelected()"
-                    [indeterminate]="selection.hasValue() && !isAllSelected()">
-      </mat-checkbox>
-    </mat-header-cell>
-    <mat-cell *matCellDef="let row">
-      <mat-checkbox (click)="$event.stopPropagation()"
-                    (change)="$event ? selection.toggle(row) : null"
-                    [checked]="selection.isSelected(row)">
-      </mat-checkbox>
-    </mat-cell>
-  </ng-container>
+    <!-- Selection Checkboxes -->
+    <ng-container matColumnDef="select">
+      <mat-header-cell *matHeaderCellDef>
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
+        </mat-checkbox>
+      </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
+        </mat-checkbox>
+      </mat-cell>
+    </ng-container>
     <!-- Create all owner related columns dynamically -->
     <ng-container [matColumnDef]="column.key" *ngFor="let column of ownerColumns">
       <mat-header-cell *matHeaderCellDef mat-sort-header>{{column.humanReadable}}</mat-header-cell>
@@ -52,8 +50,6 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
   </mat-table>
 
-  <mat-paginator #paginator
-    [length]="dataSource.totalOwners$ | async"
-    [pageSizeOptions]="[3,5, 10, 20, 30]">
+  <mat-paginator #paginator [length]="dataSource.totalOwners$ | async" [pageSizeOptions]="[5, 10, 15, 20, 30]">
   </mat-paginator>
 </div>

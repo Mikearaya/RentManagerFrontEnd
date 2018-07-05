@@ -51,7 +51,10 @@ this.selectedColumns = new FormControl(this.displayedColumns);
     this.selection = new SelectionModel<Owner>(allowMultiSelect, initialSelection);
   }
 
-  manageView(filteredColumns) {this.displayedColumns = filteredColumns; }
+  manageView(filteredColumns) {
+    this.displayedColumns = ['select'];
+    filteredColumns.forEach((col) => this.displayedColumns.push(col));
+  }
   ngAfterViewInit() {
     fromEvent(this.input.nativeElement, 'keyup').pipe(
       debounceTime(500),

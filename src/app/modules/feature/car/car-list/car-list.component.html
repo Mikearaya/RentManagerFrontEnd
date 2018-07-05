@@ -2,75 +2,53 @@
   <div class="container">
     <div class="row">
       <div class="col">
-        <button mat-raised-button color="accent"
-                (click)="rentVehicle(selection.selected[0])"
-                [disabled]="selection.selected.length != 1">
-                Rent
+        <button mat-raised-button color="accent" (click)="rentVehicle(selection.selected[0])" [disabled]="selection.selected.length != 1">
+          Rent
         </button>
       </div>
       <div class="col">
-        <button
-                mat-raised-button color="primary"
-                routerLink="/manage/vehicle">
-                New
+        <button mat-raised-button color="primary" routerLink="/manage/vehicle">
+          New
         </button>
       </div>
       <div class="col">
-        <button
-                mat-raised-button color="primary"
-                (click)="editVehicle(selection.selected[0]);"
-                [disabled]="selection.selected.length != 1">
-                Edit
+        <button mat-raised-button color="primary" (click)="editVehicle(selection.selected[0]);" [disabled]="selection.selected.length != 1">
+          Edit
         </button>
       </div>
       <div class="col">
-        <button
-                mat-raised-button color="warn"
-                [disabled]="selection.selected.length == 0"
-                (click)="deleteVehicles(selection.selected);">
-                Delete
+        <button mat-raised-button color="warn" [disabled]="selection.selected.length == 0" (click)="deleteVehicles(selection.selected);">
+          Delete
         </button>
       </div>
     </div>
   </div>
-  <mat-form-field>
-    <input matInput placeholder="Search Vehicle" #input>
-  </mat-form-field>
-  <mat-form-field>
-    <mat-select placeholder="Filter Columns"
-                [formControl]="selectedColumns"
-                [multiple]="true"
-                (selectionChange)="manageView(selectedColumns.value)">
-      <mat-option *ngFor="let column of vehicleColumns" [value]="column.key">{{column.humanReadable}}</mat-option>
-    </mat-select>
-  </mat-form-field>
-  <div class="row " *ngIf="dataSource.loading$ | async">
-    <div class="col text-center">
-      <mat-spinner></mat-spinner>
+  <div class="row">
+    <div class="col">
+      <mat-form-field>
+        <input matInput placeholder="Search Vehicle" #input>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field>
+        <mat-select placeholder="Filter Columns" [formControl]="selectedColumns" [multiple]="true" (selectionChange)="manageView(selectedColumns.value)">
+          <mat-option *ngFor="let column of vehicleColumns" [value]="column.key">{{column.humanReadable}}</mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
   </div>
 
-  <mat-table #table
-            [dataSource]="dataSource"
-            aria-label="Vehicles"
-            matSort
-            matSortDirection="asc"
-            matSortDisableClear
-            >
+  <mat-spinner *ngIf="dataSource.loading$ | async"></mat-spinner>
+
+  <mat-table #table [dataSource]="dataSource" aria-label="Vehicles" matSort matSortDirection="asc" matSortDisableClear>
     <!-- Selection Checkboxes -->
     <ng-container matColumnDef="select">
       <mat-header-cell *matHeaderCellDef>
-        <mat-checkbox
-                      (change)="$event ? masterToggle() : null"
-                      [checked]="selection.hasValue() && isAllSelected()"
-                      [indeterminate]="selection.hasValue() && !isAllSelected()">
+        <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
         </mat-checkbox>
       </mat-header-cell>
       <mat-cell *matCellDef="let row">
-        <mat-checkbox
-                      (click)="$event.stopPropagation()"
-                      (change)="$event ? selection.toggle(row) : null"
-                      [checked]="selection.isSelected(row)">
+        <mat-checkbox (click)="$event.stopPropagation()" (change)="$event ? selection.toggle(row) : null" [checked]="selection.isSelected(row)">
         </mat-checkbox>
       </mat-cell>
     </ng-container>

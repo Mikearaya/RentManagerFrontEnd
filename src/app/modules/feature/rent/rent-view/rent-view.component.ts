@@ -66,7 +66,10 @@ export class RentViewComponent implements OnInit, AfterViewInit {
     .subscribe();
 
   } /* ngAfterViewInit End */
-  manageView(filteredColumns) { this.displayedColumns = filteredColumns; }
+  manageView(filteredColumns) {
+    this.displayedColumns = ['select'];
+    filteredColumns.forEach((col) => this.displayedColumns.push(col));
+   }
   deleteRents(deletedRents: Rent[]) {
     const deletedIds = [];
     deletedRents.forEach((rent: Rent) => deletedIds.push(`${rent.RENT_ID}`));

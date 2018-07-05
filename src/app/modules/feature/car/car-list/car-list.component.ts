@@ -73,7 +73,10 @@ export class CarListComponent implements OnInit, AfterViewInit {
         .subscribe();
 }
 
-manageView(filteredColumns) {this.displayedColumns = filteredColumns; }
+manageView(filteredColumns) {
+  this.displayedColumns = ['select'];
+  filteredColumns.forEach((col) => this.displayedColumns.push(col));
+ }
   deleteCar(deletedCars: Car[]) {
     const deletedId = [];
     deletedCars.forEach((car) => deletedId.push(`${car.VEHICLE_ID}`));
