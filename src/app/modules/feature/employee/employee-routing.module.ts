@@ -3,8 +3,13 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 const routes: Routes = [
-                          {path: 'manage/employee', component: EmployeeFormComponent, data: {title: 'Add New Employee'}},
-                          { path: 'manage/employee/:employeeId', component: EmployeeFormComponent, data: {title: 'Update Employee'}}
+                          {path: 'add/employee',
+                                  component: EmployeeFormComponent,
+                                  data: {title: 'Add New Employee',
+                                  selfContained: true}},
+                          { path: 'update/employee/:employeeId',
+                                    component: EmployeeFormComponent,
+                                    data: {title: 'Update Employee', selfContained: true }}
                         ];
 
 @NgModule({

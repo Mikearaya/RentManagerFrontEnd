@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class EmployeeApiService {
-    private url = 'backend/index.php/employee';
+    private url = 'http://localhost/rent_manager/index.php/employee';
     private httpBody: URLSearchParams;
   constructor(private httpClient: HttpClient) { }
 
@@ -21,12 +21,12 @@ export class EmployeeApiService {
 
   addEmployee(newEmployee: Employee): Observable<Employee> {
     this.httpBody = this.prepareRequestBody(newEmployee);
-    return this.httpClient.post<Employee>(`${this.url}`, this.httpBody);
+    return this.httpClient.post<Employee>(`${this.url}/add`, this.httpBody.toString());
   }
 
   updateEmployee(updateEmployee: Employee): Observable<Boolean> {
     this.httpBody = this.prepareRequestBody(updateEmployee);
-    return this.httpClient.put<Boolean>(`${this.url}/${updateEmployee.EMPLOYEE_ID}`, this.httpBody);
+    return this.httpClient.post<Boolean>(`${this.url}/update/${updateEmployee.EMPLOYEE_ID}`, this.httpBody.toString());
   }
 
   deleteEmployee(employeeId: number): Observable<Boolean> {

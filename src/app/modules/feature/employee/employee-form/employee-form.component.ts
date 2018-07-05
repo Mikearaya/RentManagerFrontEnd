@@ -16,6 +16,7 @@ export class EmployeeFormComponent implements OnInit {
   isUpdate: Boolean = false;
   employeeId: number;
   title: string;
+  private selfContained: Boolean = false;
 
 
   constructor(private formBuilder: FormBuilder,
@@ -27,12 +28,20 @@ export class EmployeeFormComponent implements OnInit {
 
   ngOnInit() {
     this.title = this.activatedRoute.snapshot.data['title'];
+    this.selfContained = this.activatedRoute.snapshot.data['selfContained'];
     this.employeeId = + this.activatedRoute.snapshot.paramMap.get('employeeId');
+    if (this.employeeId) {
+      this.isUpdate = true;
+      this.employeeApiService.getEmployeeById(this.employeeId).subscribe((employee: Employee) => this.generateForm(employee));
+    }
    }
 
   get employeeForm() { return this.form; }
 
-  private generateForm(currentEmployee: any = '') {
+  isSelfContained(): Boolean {
+    return this.selfContained;
+  }
+  private generateForm(currentEmployee: any | Employee = '') {
     this.employee = (currentEmployee) ? (<Employee>currentEmployee) : null;
     this.form = this.formBuilder.group({
       firstName: this.buildControl(currentEmployee.first_name, true),
@@ -53,7 +62,7 @@ prepareDataModel(form: FormGroup): Employee {
         first_name: formModel.firstName,
         last_name: formModel.lastName,
         house_number: formModel.houseNumber,
-        sub_city: formModel.sub_city,
+        sub_city: formModel.subCity,
         country: formModel.country,
         city: formModel.city,
         phone_number: formModel.phoneNumber,
