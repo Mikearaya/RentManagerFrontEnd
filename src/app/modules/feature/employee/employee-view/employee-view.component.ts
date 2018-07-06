@@ -23,6 +23,7 @@ export class EmployeeViewComponent implements OnInit, AfterViewInit {
   selection: SelectionModel<EmployeeView>;
   selectedColumns: FormControl;
   dataSource: EmployeeViewDataSource;
+  private selfContained: Boolean = false;
 
   constructor(
               private activatedRoute: ActivatedRoute,
@@ -45,6 +46,7 @@ export class EmployeeViewComponent implements OnInit, AfterViewInit {
   displayedColumns: String[] = ['select', 'first_name', 'last_name', 'phone_number', 'registered_on'];
 
   ngOnInit() {
+    this.selfContained = this.activatedRoute.snapshot.data['selfContained'];
     this.dataSource = new EmployeeViewDataSource(this.employeeApiService);
     this.dataSource.loadEmployees();
     this.selection = new SelectionModel(allowMultiSelect, initialSelection);
@@ -66,6 +68,9 @@ export class EmployeeViewComponent implements OnInit, AfterViewInit {
     .subscribe();
   }
 
+    isSelfContained() {
+      return this.selfContained;
+    }
   manageView(filteredColumns: String[]) {
     this.displayedColumns = ['select'];
     filteredColumns.forEach((col) => this.displayedColumns.push(col));
@@ -95,11 +100,11 @@ export class EmployeeViewComponent implements OnInit, AfterViewInit {
         this.selection.clear() : this.dataSource.data.forEach((row) => this.selection.select(row));
 
   }
-  editRent(selectedEmployee: EmployeeView) {
+  editEmployee(selectedEmployee: EmployeeView) {
     this.router.navigate([`/update/employee/${selectedEmployee.EMPLOYEE_ID}`]);
   }
 
-  deleteCustomers(deletedEmployees: EmployeeView[]) {
+  deleteEmployee(deletedEmployees: EmployeeView[]) {
     const deletedIds = [];
     deletedEmployees.forEach((employee: EmployeeView) => {
       deletedIds.push(employee.EMPLOYEE_ID);

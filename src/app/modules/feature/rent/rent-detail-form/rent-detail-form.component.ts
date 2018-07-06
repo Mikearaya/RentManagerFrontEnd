@@ -46,7 +46,7 @@ const x = new Date();
         initialPayment: this.buildControl(currentRent.initial_payment, true),
         ownerRentingPrice: this.buildControl(currentRent.owner_renting_price, true),
         rentedPrice: this.buildControl(currentRent.rented_price, true),
-        colateral: this.buildControl(currentRent.colateral, true),
+        colateralDeposit: this.buildControl(currentRent.colateral, true),
       });
 
     }

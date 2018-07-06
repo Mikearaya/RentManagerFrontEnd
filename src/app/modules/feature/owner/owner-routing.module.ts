@@ -4,9 +4,17 @@ import { OwnerListComponent } from './owner-list/owner-list.component';
 import { OwnerFormComponent } from './owner-form/owner-form.component';
 
 const routes: Routes = [
-  {path: 'owners', component : OwnerListComponent },
-  {path: 'manage/owner', component: OwnerFormComponent },
-  {path: 'manage/owner/:id', component: OwnerFormComponent }
+                        {path: 'owners',
+                           component : OwnerListComponent,
+                          data: {title: 'Vehicle Owners List', selfContained: true }
+                        },
+                        {path: 'add/owner',
+                          component: OwnerFormComponent,
+                          data: {title: 'Add New Owner', selfContained: true }
+                        },
+                        {path: 'update/owner/:id',
+                            component: OwnerFormComponent,
+                            data: {title: 'Update Owner', selfContained: true } }
 
 ];
 

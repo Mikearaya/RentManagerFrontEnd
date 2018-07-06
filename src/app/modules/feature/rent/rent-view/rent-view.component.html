@@ -1,4 +1,7 @@
 <div class="mat-elevation-z8">
+
+      <button mat-raised-button color="primary" [disabled]="selection.selected.length != 1" (click)="viewContrat(selection.selected[0])">View Contrat</button>
+
   <div class="row">
     <div class="col">
       <mat-form-field>

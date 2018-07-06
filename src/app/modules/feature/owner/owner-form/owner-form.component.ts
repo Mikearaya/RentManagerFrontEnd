@@ -12,10 +12,12 @@ import { ActivatedRoute } from '@angular/router';
 export class OwnerFormComponent implements OnInit {
 
   ownerForm: FormGroup;
+  title: String;
   private owner: Owner;
   private currentOwnerId: number;
-  currentAction = 'Add New';
   private isUpdate: Boolean = false;
+  private selfContained: Boolean = false;
+
   constructor(private ownerService: OwnerService,
               private formBuilder: FormBuilder,
               private activatedRoute: ActivatedRoute) {
@@ -24,13 +26,16 @@ export class OwnerFormComponent implements OnInit {
 
     ngOnInit() {
       this.currentOwnerId = + this.activatedRoute.snapshot.paramMap.get('id');
+      this.title =  this.currentOwnerId =  this.activatedRoute.snapshot.data['title'];
+      this.selfContained =  this.currentOwnerId =  this.activatedRoute.snapshot.data['selfContained'];
     if (this.currentOwnerId) {
       this.isUpdate = true;
-      this.currentAction = 'Update';
        this.ownerService.getOwner(this.currentOwnerId).subscribe((owner: Owner) => this.generateForm(owner));
     }
     }
-
+isSelfContained() {
+  return this.selfContained;
+}
     generateForm(currentOwner: any = '') {
       if (currentOwner instanceof Owner ) {
         this.owner = currentOwner;

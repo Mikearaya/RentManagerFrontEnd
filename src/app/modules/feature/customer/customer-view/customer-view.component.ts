@@ -23,6 +23,7 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
   selection: SelectionModel<CustomerView>;
   selectedColumns: FormControl;
   dataSource: CustomerViewDataSource;
+  private selfContained: Boolean = false;
 
   constructor(
               private activatedRoute: ActivatedRoute,
@@ -50,6 +51,7 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
   displayedColumns: String[] = ['select', 'first_name', 'last_name', 'mobile_number', 'driving_licence_id', 'registered_on'];
 
   ngOnInit() {
+    this.selfContained = this.activatedRoute.snapshot.data['selfContained'];
     this.dataSource = new CustomerViewDataSource(this.customerService);
     this.dataSource.loadCustomers();
     this.selection = new SelectionModel(allowMultiSelect, initialSelection);
@@ -69,6 +71,10 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
       tap(() => this.viewCustomers())
     )
     .subscribe();
+  }
+
+  isSelfContained() {
+    return this.selfContained;
   }
 
   manageView(filteredColumns: String[]) {
@@ -100,7 +106,10 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
         this.selection.clear() : this.dataSource.data.forEach((row) => this.selection.select(row));
 
   }
-  editRent(selectedCustomer: CustomerView) {
+  rentVehicle(selectedCustomer: CustomerView) {
+    this.router.navigate([`/rent/vehicle/`, {customerId: selectedCustomer.CUSTOMER_ID}]);
+  }
+  editCustomer(selectedCustomer: CustomerView) {
     this.router.navigate([`/update/customer/${selectedCustomer.CUSTOMER_ID}`]);
   }
 

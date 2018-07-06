@@ -5,10 +5,22 @@ import { RentFormComponent } from './rent-form/rent-form.component';
 import { RentContratComponent } from './rent-contrat/rent-contrat.component';
 
 const routes: Routes = [
-  {path: 'rents', component: RentViewComponent, data: { title: 'Rents'}},
-  {path: 'rent/vehicle', component: RentFormComponent, data: { title: 'New Rent Form'}},
-  {path: 'rent/vehicle/:vehicleId', component: RentFormComponent, data: { title: 'Update Rent Details'} },
-  {path: 'rent/contrat/:rentId', component: RentContratComponent, data: { title: 'New Rent Contrat'}}
+                    {path: 'rents',
+                          component: RentViewComponent,
+                          data: { title: 'Rents', selfContained: true}
+                        },
+                    {path: 'rent/vehicle',
+                          component: RentFormComponent,
+                          data: { title: 'New Rent Form', selfContained: true}
+                        },
+                    {path: 'rent/vehicle/:vehicleId',
+                        component: RentFormComponent,
+                        data: { title: 'Update Rent Details', selfContained: true}
+                      },
+                    {path: 'rent/contrat/:rentId',
+                        component: RentContratComponent,
+                        data: { title: 'New Rent Contrat', selfContained: true}
+                      }
 ];
 
 @NgModule({

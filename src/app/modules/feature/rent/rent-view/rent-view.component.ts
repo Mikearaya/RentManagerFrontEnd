@@ -39,7 +39,6 @@ export class RentViewComponent implements OnInit, AfterViewInit {
                         {key: 'paid', humanReadable: 'Payment Status' },
                         {key: 'rented_By', humanReadable: 'Rent/Day' },
                       ];
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   displayedColumns = ['select', 'rented_by', 'plate_number', 'start_date', 'return_date' ];
 
   ngOnInit() {
@@ -54,14 +53,14 @@ export class RentViewComponent implements OnInit, AfterViewInit {
       distinctUntilChanged(),
       tap(() => {
         this.paginator.pageIndex = 0;
-        this.viewOwners();
+        this.viewRents();
       })
     )
     .subscribe();
 
     this.sort.sortChange.subscribe(() => this.paginator.pageIndex = 0);
     merge(this.sort.sortChange, this.paginator.page).pipe(
-      tap(() => this.viewOwners())
+      tap(() => this.viewRents())
     )
     .subscribe();
 
@@ -76,7 +75,7 @@ export class RentViewComponent implements OnInit, AfterViewInit {
     this.rentService.deleteRent(deletedIds).subscribe((result) => console.log(result));
   }
 
-  viewOwners() {
+  viewRents() {
     this.dataSource.loadRents(this.input.nativeElement.value,
                               this.paginator.pageIndex,
                               this.paginator.pageSize,
@@ -85,12 +84,15 @@ export class RentViewComponent implements OnInit, AfterViewInit {
                                 );
   }
 
+  viewContrat(selectedRent: Rent) {
+    this.router.navigate([`rent/contrat/${selectedRent.RENT_ID}`]);
+  }
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
+
   masterToggle() {
     this.isAllSelected() ?
         this.selection.clear() : this.dataSource.data.forEach((row) => this.selection.select(row));

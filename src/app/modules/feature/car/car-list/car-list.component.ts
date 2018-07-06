@@ -24,13 +24,11 @@ export class CarListComponent implements OnInit, AfterViewInit {
   dataSource: VehicleDataSource;
   selection: SelectionModel<Car>;
   selectedColumns: FormControl;
-  private currentId: number;
-  private isUpdate = false;
   title = '';
+  private selfContained: Boolean = false;
 
 
 
-  /** Columns displayed in the table. Columns IDs can be added, removed, or reordered. */
   vehicleColumns = [{key: 'make', humanReadable : 'Make'},
                     {key: 'model', humanReadable : 'Model'},
                     {key: 'color', humanReadable : 'Color'},
@@ -49,6 +47,7 @@ export class CarListComponent implements OnInit, AfterViewInit {
                 }
   ngOnInit() {
     this.title = this.activatedRoute.snapshot.data['title'];
+    this.selfContained = this.activatedRoute.snapshot.data['selfContained'];
     this.dataSource = new VehicleDataSource(this.carService);
     this.dataSource.loadVehicles();
     this.selection = new SelectionModel<Car>(allowMultiSelect, initialSelection);
@@ -94,20 +93,22 @@ manageView(filteredColumns) {
       this.paginator.pageSize
     );
   }
-
+isSelfContained() {
+  return this.selfContained;
+}
   isAllSelected() {
     const numSelected = this.selection.selected.length;
     const numRows = this.dataSource.data.length;
     return numSelected === numRows;
   }
-  /** Selects all rows if they are not all selected; otherwise clear selection. */
+
   masterToggle() {
     this.isAllSelected() ?
         this.selection.clear() : this.dataSource.data.forEach((row) => this.selection.select(row));
 
   }
   editVehicle(selectedVehicle: Car) {
-    this.router.navigate([`/manage/vehicle/${selectedVehicle.VEHICLE_ID}`]);
+    this.router.navigate([`update/vehicle/${selectedVehicle.VEHICLE_ID}`]);
   }
 
   deleteVehicles(deletedVehicles: Car[]) {

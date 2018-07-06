@@ -100,8 +100,16 @@ this.selectedColumns = new FormControl(this.displayedColumns);
         this.selection.clear() : this.dataSource.data.forEach((row) => this.selection.select(row));
 
   }
+
+  addVehicle(selectedOwner: Owner) {
+    this.router.navigate(['add/vehicle', {ownerId: selectedOwner.OWNER_ID}]);
+  }
+
+  viewVehicles(selectedOwner: Owner) {
+    this.router.navigate(['partner/vehicle', {ownerId: selectedOwner.OWNER_ID}]);
+  }
   editOwner(selectedOwner: Owner) {
-    this.router.navigate([`/manage/owner/${selectedOwner.OWNER_ID}`]);
+    this.router.navigate([`/update/owner/${selectedOwner.OWNER_ID}`]);
   }
 
   deleteOwner(deletedVehicles: Owner[]) {

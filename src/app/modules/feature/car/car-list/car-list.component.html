@@ -1,28 +1,24 @@
-<div class="mat-elevation-z8" style="padding: 1px;">
-  <div class="container">
-    <div class="row">
-      <div class="col">
-        <button mat-raised-button color="accent" (click)="rentVehicle(selection.selected[0])" [disabled]="selection.selected.length != 1">
+<div class="mat-elevation-z8">
+
+      <div class=" view-options-block" *ngIf="isSelfContained()">
+        <div class="left-aligned-button">
+        <button mat-raised-button color="primary"  (click)="rentVehicle(selection.selected[0])" [disabled]="selection.selected.length != 1">
           Rent
         </button>
       </div>
-      <div class="col">
-        <button mat-raised-button color="primary" routerLink="/manage/vehicle">
-          New
+
+        <button mat-raised-button color="primary" routerLink="/add/vehicle">
+          Add New
         </button>
-      </div>
-      <div class="col">
+
         <button mat-raised-button color="primary" (click)="editVehicle(selection.selected[0]);" [disabled]="selection.selected.length != 1">
           Edit
         </button>
-      </div>
-      <div class="col">
+
         <button mat-raised-button color="warn" [disabled]="selection.selected.length == 0" (click)="deleteVehicles(selection.selected);">
           Delete
         </button>
       </div>
-    </div>
-  </div>
   <div class="row">
     <div class="col">
       <mat-form-field>

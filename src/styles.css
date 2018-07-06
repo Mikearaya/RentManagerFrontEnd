@@ -8,7 +8,14 @@ mat-form-field {
   display: flow-root !important;
 }
 
-.form-button-box {
+.left-aligned-button {
+  margin-left: 1em !important;
+  float: left;
+}
+
+
+ .form-button-box  {
+   display: block;
   margin-top: 2em;
   text-align: right;
   padding-right: 2em;
@@ -18,6 +25,20 @@ div.form-button-box > button {
   margin-right: 10px !important;
   margin-left: 10px !important;
 }
+
+div.view-options-block {
+  margin-bottom: 1.5em;
+  text-align: right;
+  padding-right: 2em;
+  padding-bottom: 1em;
+}
+div.view-options-block button {
+  margin-right: 10px;
+  margin-left: 10px;
+  margin-top: 1em;
+}
+
+
 
 form.bionic-form-alignment {
   margin: 20px !important;

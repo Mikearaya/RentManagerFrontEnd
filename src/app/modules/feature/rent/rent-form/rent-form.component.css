@@ -1,4 +1,8 @@
 div.mat-elevation-z8 {
-  margin: 10px;
-  display: flex;
+  margin: 20px;
+  display: flow-root;
+}
+
+mat-card {
+  width: 100%;
 }

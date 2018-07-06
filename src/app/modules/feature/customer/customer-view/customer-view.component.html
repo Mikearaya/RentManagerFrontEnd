@@ -1,8 +1,27 @@
 <div class="mat-elevation-z8">
+    <div class=" view-options-block" *ngIf="isSelfContained()">
+        <div class="left-aligned-button">
+        <button mat-raised-button color="primary"  (click)="rentVehicle(selection.selected[0])" [disabled]="selection.selected.length != 1">
+          Rent Vehicle
+        </button>
+      </div>
+
+        <button mat-raised-button color="primary" routerLink="/add/customer">
+          Add New
+        </button>
+
+        <button mat-raised-button color="primary" (click)="editCustomer(selection.selected[0]);" [disabled]="selection.selected.length != 1">
+          Edit
+        </button>
+
+        <button mat-raised-button color="warn" [disabled]="selection.selected.length == 0" (click)="deleteCustomer(selection.selected);">
+          Delete
+        </button>
+      </div>
   <div class="row">
     <div class="col">
       <mat-form-field>
-        <input matInput placeholder="Search Rent" #input>
+        <input matInput placeholder="Search Customer" #input>
       </mat-form-field>
     </div>
     <div class="col">
