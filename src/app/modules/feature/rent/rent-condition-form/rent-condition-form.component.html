@@ -3,181 +3,177 @@
 
     <div class="container">
       <div class="row">
-        <div class="col">
+        <div class="col col-xs-12">
           <mat-form-field>
-            <label for="windowControll"> Window Controllers</label>
+            <mat-label for="windowControll"> Window Controllers</mat-label>
             <mat-select placeholder="Window Controller" name="windowControll" id="windowControll" formControlName="windowController"
               required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col">
+        <div class="col col-xs-12">
           <mat-form-field>
-            <label for="seatBelts"> Seat Belts </label>
+            <mat-label for="seatBelts"> Seat Belts </mat-label>
             <mat-select placeholder="Seat Belts" name="seatBelts" id="seatBelts" formControlName="seatBelt" required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
+        <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label for="spareTires"> Spare Tires</mat-label>
+              <mat-select placeholder="Spare Tires" name="spareTires" id="spareTires" formControlName="spareTire" required>
+                <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col col-xs-12">
           <mat-form-field>
-            <label for="spareTires"> Spare Tires</label>
-            <mat-select placeholder="Spare Tires" name="spareTires" id="spareTires" formControlName="spareTire" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <label for="wiperes"> Wipers</label>
+            <mat-label for="wiperes"> Wipers</mat-label>
             <mat-select placeholder="Wipers" name="wiperes" id="wiperes" formControlName="wiper" required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
           </mat-form-field>
-
         </div>
+        <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label for="cirickWrenchs"> Crick Wrenchs</mat-label>
+              <mat-select placeholder="Crick Wrenchs" name="cirickWrenchs" id="cirickWrenchs" formControlName="crickWrench" required>
+                <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
+          <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label for="crick"> Crickes</mat-label>
+              <mat-select placeholder="Crickes" name="crick" id="crick" formControlName="crick" required>
+                <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+
+          </div>
       </div>
       <div class="row">
-        <div class="col">
+        <div class="col col-xs-12">
           <mat-form-field>
-            <label for="cirickWrenchs"> Crick Wrenchs</label>
-            <mat-select placeholder="Crick Wrenchs" name="cirickWrenchs" id="cirickWrenchs" formControlName="crickWrench" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <label for="crick"> Crickes</label>
-            <mat-select placeholder="Crickes" name="crick" id="crick" formControlName="crick" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <label for="dashBoardCloses"> Dashboard Closes</label>
+            <mat-label for="dashBoardCloses"> Dashboard Closes</mat-label>
             <mat-select placeholder="Dashboard Closes" name="dashBoardCloses" id="dashBoardCloses" formControlName="dashboardClose" required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
           </mat-form-field>
 
         </div>
-        <div class="col">
+        <div class="col col-xs-12">
           <mat-form-field>
-            <label for="mudeProtecters"> Mude Protecteres</label>
+            <mat-label for="mudeProtecters"> Mude Protecteres</mat-label>
             <mat-select placeholder="Mude Protecteres" name="mudeProtecters" id="mudeProtecters" formControlName="mudeProtecter" required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
           </mat-form-field>
-
         </div>
+        <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label for="outerSpokios"> Outer Spokios</mat-label>
+              <mat-select placeholder="Outer Spokios" name="outerSpokios" id="outerSpokios" formControlName="spokioOuter" required>
+                <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
       </div>
       <div class="row">
-        <div class="col">
+
+        <div class="col col-xs-12">
           <mat-form-field>
-            <label for="outerSpokios"> Outer Spokios</label>
-            <mat-select placeholder="Outer Spokios" name="outerSpokios" id="outerSpokios" formControlName="spokioOuter" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <label for="innerSpokios"> Inside Spokios</label>
+            <mat-label for="innerSpokios"> Inside Spokios</mat-label>
             <mat-select placeholder="Inside Spokios" name="innerSpokios" id="innerSpokios" formControlName="spokioInner" required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
           </mat-form-field>
         </div>
+        <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label for="sunVisors"> Sun Visors</mat-label>
+              <mat-select placeholder="Sun Visors" name="sunVisors" id="sunVisors" formControlName="sunVisor" required>
+                <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label for="innerMats"> Foot Mats</mat-label>
+              <mat-select placeholder="Foot Mats" name="innerMats" id="innerMats" formControlName="matInner" required>
+                <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+      </div>
+
+      <div class="row">
+        <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label for="lighter"> Cigaret Lighter</mat-label>
+              <mat-select placeholder="Cigaret Lighter" name="lighter" id="lighter" formControlName="cigaretLighter" required>
+                <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label for="fuielLids"> Fuiel Lid</mat-label>
+              <mat-select placeholder="Fuiel Lid" name="fuielLids" id="fuielLids" formControlName="fuielLid" required>
+                <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col col-xs-12">
+              <mat-form-field>
+                <mat-label for="radiatorLids"> Radiator Lid</mat-label>
+                <mat-select placeholder="Radiator Lid" name="radiatorLids" id="radiatorLids" formControlName="radiatorLid" required>
+                  <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
+                </mat-select>
+              </mat-form-field>
+            </div>
       </div>
       <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <label for="sunVisors"> Sun Visors</label>
-            <mat-select placeholder="Sun Visors" name="sunVisors" id="sunVisors" formControlName="sunVisor" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <label for="innerMats"> Foot Mats</label>
-            <mat-select placeholder="Foot Mats" name="innerMats" id="innerMats" formControlName="matInner" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <label for="windProtecters"> Wind Protecters</label>
-            <mat-select placeholder="Wind Protecters" name="windProtecters" id="windProtecters" formControlName="windProtecter" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <label for="blinkerLights"> Blinker Lights</label>
-            <mat-select placeholder="Blinker Lights" name="blinkerLights" id="blinkerLights" formControlName="blinker" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
+          <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label for="windProtecters"> Wind Protecters</mat-label>
+              <mat-select placeholder="Wind Protecters" name="windProtecters" id="windProtecters" formControlName="windProtecter" required>
+                <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col col-xs-12">
+            <mat-form-field>
+              <mat-label for="blinkerLights"> Blinker Lights</mat-label>
+              <mat-select placeholder="Blinker Lights" name="blinkerLights" id="blinkerLights" formControlName="blinker" required>
+                <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
+              </mat-select>
+            </mat-form-field>
+          </div>
+          <div class="col col-xs-12">
+              <mat-form-field>
+                <mat-label for="fuielLevel"> Fuiel Level</mat-label>
+                <input type="text" matInput placeholder="Fuiel Level" name="fuielLeve" id="fuielLeve" formControlName="fuielLevel" required>
+              </mat-form-field>
+            </div>
 
         </div>
+      <div class="row">
+          <div class="col col-xs-12">
+              <mat-form-field>
+                <mat-label for="sterio"> Sterio</mat-label>
+                <input type="text" matInput placeholder="Sterio" name="sterio" id="sterio" formControlName="radio" required>
+              </mat-form-field>
+            </div>
       </div>
       <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <label for="sterio"> Sterio</label>
-            <input type="text" matInput placeholder="Sterio" name="sterio" id="sterio" formControlName="radio" required>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <label for="fuielLevel"> Fuiel Level</label>
-            <input type="text" matInput placeholder="Fuiel Level" name="fuielLeve" id="fuielLeve" formControlName="fuielLevel" required>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <label for="lighter"> Cigaret Lighter</label>
-            <mat-select placeholder="Cigaret Lighter" name="lighter" id="lighter" formControlName="cigaretLighter" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col">
-          <mat-form-field>
-            <label for="fuielLids"> Fuiel Lid</label>
-            <mat-select placeholder="Fuiel Lid" name="fuielLids" id="fuielLids" formControlName="fuielLid" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          <mat-form-field>
-            <label for="radiatorLids"> Radiator Lid</label>
-            <mat-select placeholder="Radiator Lid" name="radiatorLids" id="radiatorLids" formControlName="radiatorLid" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-        <div class="col">
+        <div class="col col-xs-12">
           <mat-form-field>
             <textarea matInput row="3" name="comment" id="comment" formControlName="comment" placeholder="Additional Information"></textarea>
           </mat-form-field>

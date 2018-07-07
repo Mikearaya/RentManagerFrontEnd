@@ -6,3 +6,18 @@ div.mat-elevation-z8 {
 mat-card {
   width: 100%;
 }
+output {
+  width: 100%;
+}
+
+
+
+.stepper-buttons {
+  width: 100%;
+  margin-top: 2em;
+  text-align: left;
+}
+
+.stepper-buttons button {
+  margin: 1em;
+}

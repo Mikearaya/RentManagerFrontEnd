@@ -38,8 +38,9 @@ export class RentViewComponent implements OnInit, AfterViewInit {
                         {key: 'rented_by', humanReadable: 'Rented By' },
                         {key: 'paid', humanReadable: 'Payment Status' },
                         {key: 'rented_By', humanReadable: 'Rent/Day' },
+                        {key: 'total_days', humanReadable: 'Total Days' },
                       ];
-  displayedColumns = ['select', 'rented_by', 'plate_number', 'start_date', 'return_date' ];
+  displayedColumns = ['select', 'rented_by', 'plate_number', 'start_date', 'return_date', 'total_days' ];
 
   ngOnInit() {
     this.dataSource = new RentDataSource(this.rentService);

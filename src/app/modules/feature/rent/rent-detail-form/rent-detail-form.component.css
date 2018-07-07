@@ -1,0 +1,9 @@
+.rent-range-box input {
+  text-align: center;
+  width: 50%;
+  padding: 5px;
+}
+
+.rent-range-box label {
+display: block;
+}

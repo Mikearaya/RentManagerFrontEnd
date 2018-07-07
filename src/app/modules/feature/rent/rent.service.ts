@@ -37,9 +37,6 @@ export class RentService {
 
   prepareRequestBody(currentRent: Rent): URLSearchParams {
 
-    const rentStart = this.formatDate(new Date(currentRent.start_date));
-    const rentEnd = this.formatDate(new Date(currentRent.return_date));
-
     const requestBody = new URLSearchParams();
 
         for (const key in currentRent) {
@@ -101,7 +98,6 @@ export class Rent {
   added_on?: string;
   updated_on?: string;
   colateral_deposit: number;
-  customer?: Customer;
   condition?: RentCondition;
 }
 

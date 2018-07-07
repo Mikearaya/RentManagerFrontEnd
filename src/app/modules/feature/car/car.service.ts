@@ -44,6 +44,10 @@ export class CarService {
         return this.httpClient.get<Car[]>(`${this.url}`);
     }
 
+    getAvailableVehicles(): Observable<Car[]> {
+      return this.httpClient.get<Car[]>(`${this.url}/available`);
+    }
+
     saveCar(newCar: Car): Observable<Boolean> {
         this.httpBody = this.prepareRequestBody(newCar);
       return this.httpClient.post<Boolean>(`${this.url}`, this.httpBody.toString() );

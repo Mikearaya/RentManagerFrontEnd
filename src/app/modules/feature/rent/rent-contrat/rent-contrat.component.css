@@ -2,3 +2,7 @@ section {
   margin: 20px;
   padding: 10px;
 }
+
+form {
+  width: 100%;
+}

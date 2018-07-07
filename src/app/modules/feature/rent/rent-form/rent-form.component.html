@@ -6,41 +6,72 @@
     </mat-card-header>
     <form name="rentForm" [formGroup]="rentForm" (ngSubmit)="onSubmit()">
       <mat-card-content>
-        <div class="container">
+          <div class="container">
           <mat-horizontal-stepper [linear]="true">
             <mat-step  label="Renter Basic Information">
-              <app-customer-form></app-customer-form>
-              <div>
-                <button mat-button mat-raised-button type="button" color="accent" matStepperNext>Next</button>
+                <div *ngIf="!hasCustomerId()">
+              <mat-form-field>
+                <input matInput formControlName="customer" [matAutocomplete]="customerAutocomplete"  placeholder="search Customer by name or mobile">
+              </mat-form-field>
+
+
+              <mat-autocomplete #customerAutocomplete="matAutocomplete" [displayWith]="displayCustomerWith">
+                <mat-option *ngFor="let customer of CUSTOMERS " [value]="customer">
+                  <span>{{customer.first_name}} {{customer.last_name}}</span>
+                </mat-option>
+              </mat-autocomplete>
+            </div>
+            <div *ngIf="!hasVehicleId()">
+              <mat-form-field>
+                <mat-label>Vehicle to Rent</mat-label>
+                <input matInput formControlName="vehicle" [matAutocomplete]="vehicleAutocomplete" placeholder="search Vehicle by Plate Number">
+              </mat-form-field>
+              <mat-autocomplete #vehicleAutocomplete="matAutocomplete" [displayWith]="displayVehicleWith">
+                  <mat-option *ngFor="let vehicle of CARS" [value]="vehicle">
+                    <span>{{vehicle.plate_code}}-{{vehicle.plate_number}}</span>
+                </mat-option>
+              </mat-autocomplete>
+              </div>
+              <div class="stepper-buttons">
+                <button mat-button mat-raised-button type="button" color="accent"  matStepperNext>Next</button>
               </div>
             </mat-step>
             <mat-step  label="Rent Detail">
               <app-rent-detail-form></app-rent-detail-form>
+              <div class="stepper-buttons">
               <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
               <button mat-button mat-raised-button type="button" color="accent" matStepperNext>Next</button>
+              </div>
             </mat-step>
             <mat-step  label="Vehicle Conditions">
               <app-rent-condition-form></app-rent-condition-form>
+              <div class="stepper-buttons">
               <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
               <button mat-button mat-raised-button type="button" color="accent" matStepperNext>Next</button>
+              </div>
             </mat-step>
             <mat-step label="Done">
+
               <div class="row">
-                <div class="col">
-                  <output></output>
-                </div>
-              </div>
-              <div class="row">
-                <div class="col">
-                  <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
-                </div>
-                <div class="col">
+                  <div class="col stepper-buttons">
+                      <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
+                    </div>
+                <div class="col form-button-box">
                   <button mat-raised-button type="submit" color="primary" mat-button-raised>Save</button>
-                </div>
-                <div class="col">
-                  <button mat-button mat-raised-button routerLink="/rent/contrat/{{rentId}}" [disabled]="!rentId" type="button" color="warn">print</button>
+                  <button mat-button mat-raised-button routerLink="/rent/contrat/{{currentRentId}}" [disabled]="!rentId" type="button" color="warn">print</button>
                 </div>
               </div>
+              <div class="row">
+                  <div class="col">
+                    <output>
+                      <ul class="alert alert-danger"  *ngIf="errorMessages">
+                        <li *ngFor="let error of errorMessages">
+                          {{error}}
+                        </li>
+                      </ul>
+                    </output>
+                  </div>
+                </div>
             </mat-step>
           </mat-horizontal-stepper>
         </div>

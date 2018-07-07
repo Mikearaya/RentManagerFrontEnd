@@ -1,20 +1,11 @@
 <section>
   <form [formGroup]="form" name="rentDetail">
     <div class="row">
-        <div class="col">
-            <mat-form-field>
-              <mat-label>Vehicle</mat-label>
-              <mat-select placeholder="Vehicles List" id="vehicleId" name="vehicleId" formControlName="vehicleId" required>
-                <mat-option *ngFor="let car of CARS" [value]="car.VEHICLE_ID">{{car.plate_code}}-{{car.plate_number}}</mat-option>
-              </mat-select>
-              <mat-error></mat-error>
-            </mat-form-field>
-          </div>
-      <div class="col-8">
+      <div class="col rent-range-box">
 
           <label>
-              Date Time Range From:</label>
-              <input [owlDateTimeTrigger]="rentDuration" [owlDateTime]="rentDuration"
+              Rent Days</label>
+              <input   [owlDateTimeTrigger]="rentDuration" required placeholder="Select Rent days Range" [owlDateTime]="rentDuration"
                     formControlName="selectedMoments"
                      [selectMode]="'range'">
               <owl-date-time #rentDuration></owl-date-time>

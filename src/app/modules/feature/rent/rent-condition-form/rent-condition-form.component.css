@@ -1,3 +1,7 @@
 section {
   display: flex;
 }
+
+form {
+  width: 100%;
+}
