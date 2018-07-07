@@ -106,7 +106,7 @@ this.selectedColumns = new FormControl(this.displayedColumns);
   }
 
   viewVehicles(selectedOwner: Owner) {
-    this.router.navigate(['partner/vehicle', {ownerId: selectedOwner.OWNER_ID}]);
+    this.router.navigate(['vehicles', {ownerId: selectedOwner.OWNER_ID}]);
   }
   editOwner(selectedOwner: Owner) {
     this.router.navigate([`/update/owner/${selectedOwner.OWNER_ID}`]);

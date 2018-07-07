@@ -1,5 +1,5 @@
 <section>
-  <form name="conditionForm" [formGroup]="rentConditionForm">
+  <form name="conditionForm" [formGroup]="form">
 
     <div class="container">
       <div class="row">
@@ -177,16 +177,6 @@
             </mat-select>
           </mat-form-field>
         </div>
-        <div class="col">
-          <mat-form-field>
-            <label for="cricks"> Cricks</label>
-            <mat-select placeholder="Cricks" name="cricks" id="cricks" formControlName="crick" required>
-              <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
-            </mat-select>
-          </mat-form-field>
-        </div>
-      </div>
-      <div class="row">
         <div class="col">
           <mat-form-field>
             <textarea matInput row="3" name="comment" id="comment" formControlName="comment" placeholder="Additional Information"></textarea>

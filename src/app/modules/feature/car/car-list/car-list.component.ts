@@ -25,6 +25,7 @@ export class CarListComponent implements OnInit, AfterViewInit {
   selection: SelectionModel<Car>;
   selectedColumns: FormControl;
   title = '';
+  private ownerId: number;
   private selfContained: Boolean = false;
 
 
@@ -48,8 +49,9 @@ export class CarListComponent implements OnInit, AfterViewInit {
   ngOnInit() {
     this.title = this.activatedRoute.snapshot.data['title'];
     this.selfContained = this.activatedRoute.snapshot.data['selfContained'];
+    this.ownerId = + this.activatedRoute.snapshot.paramMap.get('ownerId');
     this.dataSource = new VehicleDataSource(this.carService);
-    this.dataSource.loadVehicles();
+    this.dataSource.loadVehicles(this.ownerId);
     this.selection = new SelectionModel<Car>(allowMultiSelect, initialSelection);
   }
   ngAfterViewInit() {
@@ -85,7 +87,7 @@ manageView(filteredColumns) {
     viewVehicles() {
       this.selection.clear();
     this.dataSource.loadVehicles(
-      0,
+      this.ownerId,
       this.input.nativeElement.value,
       this.sort.direction,
       this.sort.active,

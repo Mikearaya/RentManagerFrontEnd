@@ -49,23 +49,26 @@ export class RentFormComponent implements OnInit, AfterViewInit {
       }
   }
   ngAfterViewInit() {
-      this.vehicleConditionForm = this.conditionComponent.rentConditionForm;
-      this.rentDetailForm = this.rentDetailComponent.form;
-      this.customerForm = this.customerComponent.form;
+    this.vehicleConditionForm = this.conditionComponent.form;
+    this.rentDetailForm = this.rentDetailComponent.form;
+    this.customerForm = this.customerComponent.form;
+
   }
 
   private generateForm(currentRent: any = '') {
     this.rent = (currentRent) ? (<Rent>currentRent) : null;
     this.rentForm = this.formBuilder.group({
-      vehicleId: this.buildControl(currentRent.vehicle, true)
+      vehicleId: this.buildControl(currentRent.vehicle, true),
+      customerForm: ''
     });
 
   }
 
   private prepateDataModel(form: FormGroup): Rent {
-    const conditionDataModel = this.conditionComponent.prepareDataModel(this.vehicleConditionForm);
-    const customerDataModel = this.customerComponent.prepareDataModel(this.customerForm);
-    const detailDataModel = this.rentDetailComponent.prepareDataModel(this.rentDetailForm);
+    const conditionDataModel = this.conditionComponent.prepareDataModel();
+    const customerDataModel = this.customerComponent.prepareDataModel();
+    const detailDataModel = this.rentDetailComponent.prepareDataModel();
+    console.log(this.customerForm);
     detailDataModel.RENT_ID = this.rentId;
     detailDataModel.customer = customerDataModel;
     detailDataModel.condition = conditionDataModel;
@@ -79,6 +82,7 @@ export class RentFormComponent implements OnInit, AfterViewInit {
   onSubmit() {
     this.rent = this.prepateDataModel(this.rentForm);
     if (this.isUpdate) {
+      this.rentId = 1;
       this.rentService.updateRent(this.rent).subscribe((result) => this.handelResponse(result));
     } else {
       this.rentService.saveRent(this.rent).subscribe((result) => this.handelResponse(result));

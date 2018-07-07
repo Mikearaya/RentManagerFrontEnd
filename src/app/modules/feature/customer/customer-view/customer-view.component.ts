@@ -23,7 +23,7 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
   selection: SelectionModel<CustomerView>;
   selectedColumns: FormControl;
   dataSource: CustomerViewDataSource;
-  private selfContained: Boolean = false;
+  private customerSelfContained: Boolean = false;
 
   constructor(
               private activatedRoute: ActivatedRoute,
@@ -51,7 +51,7 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
   displayedColumns: String[] = ['select', 'first_name', 'last_name', 'mobile_number', 'driving_licence_id', 'registered_on'];
 
   ngOnInit() {
-    this.selfContained = this.activatedRoute.snapshot.data['selfContained'];
+    this.customerSelfContained = this.activatedRoute.snapshot.data['customerSelfContained'];
     this.dataSource = new CustomerViewDataSource(this.customerService);
     this.dataSource.loadCustomers();
     this.selection = new SelectionModel(allowMultiSelect, initialSelection);
@@ -74,7 +74,7 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
   }
 
   isSelfContained() {
-    return this.selfContained;
+    return this.customerSelfContained;
   }
 
   manageView(filteredColumns: String[]) {

@@ -10,7 +10,7 @@ import { RentCondition, RentService } from '../rent.service';
   styleUrls: ['./rent-condition-form.component.css']
 })
 export class RentConditionFormComponent implements OnInit, OnChanges {
-  rentConditionForm: FormGroup;
+  form: FormGroup;
   private vehicleCondition: RentCondition;
   private isUpdate: Boolean = false;
   @Input('rentId') rentId: number;
@@ -36,11 +36,11 @@ export class RentConditionFormComponent implements OnInit, OnChanges {
 
   }
 
-  get vehicleContitionForm() { return this.rentConditionForm.value; }
+  get vehicleContitionForm() { return this.form.value; }
 
   generateForm(condition: any = '') {
     this.vehicleCondition = (condition instanceof RentCondition) ? <RentCondition>condition : null;
-      this.rentConditionForm = this.formBuilder.group({
+      this.form = this.formBuilder.group({
         windowController: this.buildControl(condition.window_controller, true),
         seatBelt: this.buildControl(condition.seat_belt, true),
         spareTire: this.buildControl(condition.spare_tire, true),
@@ -64,8 +64,8 @@ export class RentConditionFormComponent implements OnInit, OnChanges {
       });
   }
 
-  prepareDataModel(form: FormGroup): RentCondition {
-    const formModel = form.value;
+  prepareDataModel(): RentCondition {
+    const formModel = this.form.value;
     const dataModel: RentCondition = {
       CONDITION_ID: this.conditionId,
       RENT_ID: this.rentId,
@@ -98,7 +98,7 @@ export class RentConditionFormComponent implements OnInit, OnChanges {
     return (required) ? [value, Validators.required] : value;
   }
   onSubmit() {
-    this.vehicleCondition = this.prepareDataModel(this.rentConditionForm);
+    this.vehicleCondition = this.prepareDataModel();
 
       if (this.isUpdate) {
       } else {

@@ -17,7 +17,7 @@ export class CustomerFormComponent implements OnInit {
   isUpdate: Boolean = false;
   customerId: number;
   private title: String = '';
-  private selfContained: Boolean = false;
+  private customerSelfContained: Boolean = false;
 
   constructor(private formBuilder: FormBuilder,
               private customerService: CustomerService,
@@ -28,7 +28,7 @@ export class CustomerFormComponent implements OnInit {
 
   ngOnInit() {
     this.customerId = + this.activatedRoute.snapshot.paramMap.get('customerId');
-    this.selfContained = this.activatedRoute.snapshot.data['selfContained'];
+    this.customerSelfContained = this.activatedRoute.snapshot.data['customerSelfContained'];
     this.title = this.activatedRoute.snapshot.data['title'];
     if (this.customerId) {
       this.isUpdate = true;
@@ -45,7 +45,7 @@ export class CustomerFormComponent implements OnInit {
     return this.title;
   }
   isSelfContained(): Boolean {
-      return this.selfContained;
+      return this.customerSelfContained;
   }
   private generateForm(currentCustomer: any | Customer = '') {
     this.customer = (currentCustomer) ? (<Customer>currentCustomer) : null;
@@ -65,8 +65,8 @@ export class CustomerFormComponent implements OnInit {
     });
 }
 
-prepareDataModel(form: FormGroup): Customer {
-  const formModel = form.value;
+prepareDataModel(): Customer {
+  const formModel = this.form.value;
   const  dataModel: Customer =  {
         CUSTOMER_ID: this.customerId,
         first_name: formModel.firstName,
@@ -90,7 +90,7 @@ prepareDataModel(form: FormGroup): Customer {
   }
 
 onSubmit() {
-  this.customer = this.prepareDataModel(this.form);
+  this.customer = this.prepareDataModel();
   if (this.isUpdate) {
     this.customerService.updateCustomer(this.customer).subscribe((result) => this.handelResponse(result));
   } else {
