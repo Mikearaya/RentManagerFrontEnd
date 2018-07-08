@@ -6,7 +6,7 @@
         <button mat-raised-button color="primary" [disabled]="selection.selected.length != 1" (click)="viewVehicles(selection.selected[0])">View Vehicles</button>
       </div>
 
-          <button mat-raised-button color="primary" routerLink="/manage/owner/">New</button>
+          <button mat-raised-button color="primary" routerLink="/add/owner/">New</button>
           <button mat-raised-button color="primary" (click)="editOwner(selection.selected[0]);" [disabled]="selection.selected.length != 1">Edit</button>
           <button mat-raised-button color="warn" [disabled]="selection.selected.length == 0" (click)="deleteOwner(selection.selected);">Delete</button>
    </div>

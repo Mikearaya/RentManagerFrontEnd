@@ -1,15 +1,19 @@
-import { CustomerViewModel, CustomerView } from './../../customer/customer-view/customer-view-datasource';
+import { Customer } from './../../customer/customer.service';
+import { EmployeeApiService } from './../../employee/employee-api.service';
+
 
 import { RentConditionFormComponent } from './../rent-condition-form/rent-condition-form.component';
 import { CarService, Car } from './../../car/car.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
 import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
 import { RentDetailFormComponent } from '../rent-detail-form/rent-detail-form.component';
 import { RentService, Rent } from '../rent.service';
-import { CustomerService, Customer } from '../../customer/customer.service';
-import { BehaviorSubject, Observable } from 'rxjs';
+import { CustomerService } from '../../customer/customer.service';
+import { Observable } from 'rxjs';
 import { HttpErrorResponse } from '@angular/common/http';
+import { Employee } from '../../employee/employee-api.service';
+import { startWith, map } from 'rxjs/operators';
 
 @Component({
   selector: 'app-rent-form',
@@ -27,23 +31,30 @@ export class RentFormComponent implements OnInit, AfterViewInit {
   isUpdate: Boolean = false;
   rentDetailForm: FormGroup;
   vehicleConditionForm: FormGroup;
-  CARS: Car[];
-  CUSTOMERS: Customer[];
+  CARS: Car[] = [];
+  private CUSTOMERS: Customer[] = [];
+  filteredCustomers$: Observable<Customer[]>;
+  filteredEmployees$: Observable<Employee[]>;
+  filteredVehicles$: Observable<Car[]>;
+  EMPLOYEES: Employee[] = [];
   selectedCar: number;
   selectedCustomer: number;
   private currentVehicleId: number;
   private rent: Rent;
      currentRentId: number;
   private currentCustomerId: number;
+  customer = new FormControl();
+  employee = new FormControl();
+  vehicle = new FormControl();
 
 
   constructor(private rentService: RentService,
               private formBuilder: FormBuilder,
               private carService: CarService,
+              private employeeApiService: EmployeeApiService,
               private customerService: CustomerService,
               private activatedRoute: ActivatedRoute) {
                 this.generateForm();
-
               }
 
   ngOnInit() {
@@ -51,7 +62,6 @@ export class RentFormComponent implements OnInit, AfterViewInit {
     this.currentRentId = + this.activatedRoute.snapshot.paramMap.get('rentId');
     this.currentCustomerId = + this.activatedRoute.snapshot.paramMap.get('customerId');
     this.routeData = this.activatedRoute.snapshot.data;
-
     this.title = this.activatedRoute.snapshot.data['title'];
 
       if (this.currentVehicleId) {
@@ -63,21 +73,65 @@ export class RentFormComponent implements OnInit, AfterViewInit {
       if (this.currentCustomerId) {
         this.selectedCustomer = this.currentVehicleId;
       }
+
       this.customerService.getAllCustomers().subscribe((result: any) => this.CUSTOMERS = result.customers );
       this.carService.getAvailableVehicles().subscribe((cars: Car[]) => this.CARS = cars );
-        }
+      this.employeeApiService.getAllEmployees().subscribe((employees: Employee[]) => this.EMPLOYEES = employees);
+      this.filteredCustomers$ = this.customer.valueChanges.pipe(
+        startWith(''),
+        map((value) => this._filterCustomer(value))
+      );
+
+      this.filteredEmployees$ = this.employee.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterEmployee(value))
+      );
+      this.filteredVehicles$ = this.vehicle.valueChanges.pipe(
+        startWith(''),
+        map(value => this._filterVehicle(value))
+      );
+
+}
   ngAfterViewInit() {
     this.vehicleConditionForm = this.conditionComponent.form;
     this.rentDetailForm = this.rentDetailComponent.form;
 
   }
+
+  private _filterCustomer(value): Customer[] {
+    if (value instanceof Object) {
+      return [];
+    }
+    const filterValue = value.toLowerCase();
+    return this.CUSTOMERS.filter((customer: Customer) => customer.first_name.toLowerCase().includes(filterValue));
+  }
+
+
+  private _filterVehicle(value): Car[] {
+    if (value instanceof Object) {
+      return [];
+    }
+    const filterValue = value.toLowerCase();
+    return this.CARS.filter((car: Car) => car.plate_number.toLowerCase().includes(filterValue));
+  }
+
+  private _filterEmployee(value): Employee[] {
+    if (value instanceof Object) {
+      return [];
+    }
+    const filterValue = value.toLowerCase();
+    return this.EMPLOYEES.filter((employee: Employee) => employee.first_name.toLowerCase().includes(filterValue));
+  }
+
   displayCustomerWith(customer?: Customer): string | undefined {
-    console.log(customer);
     return customer ? `${customer.first_name} ${customer.last_name}` : undefined;
   }
 
+  displayEmployeeWith(employee?: Employee): string | undefined {
+    return employee ? `${employee.first_name} ${employee.last_name}` : undefined;
+  }
+
   displayVehicleWith(customer?: Car): string | undefined {
-    console.log(customer);
     return customer ? `${customer.plate_code} - ${customer.plate_number}` : undefined;
   }
 
@@ -90,9 +144,9 @@ export class RentFormComponent implements OnInit, AfterViewInit {
   private generateForm(currentRent: any = '') {
     this.rent = (currentRent) ? (<Rent>currentRent) : null;
     this.rentForm = this.formBuilder.group({
-      vehicle: this.buildControl(currentRent.VEHICLE_ID, true),
-      customer: this.buildControl(currentRent.CUSTOMER_ID, true),
-      customerForm: ''
+      vehicle: this.vehicle,
+      customer: this.customer,
+      employee:  this.employee,
     });
 
   }
@@ -104,6 +158,7 @@ export class RentFormComponent implements OnInit, AfterViewInit {
     detailDataModel.RENT_ID = null;
     detailDataModel.VEHICLE_ID = (this.currentVehicleId) ? this.currentVehicleId :  currentForm.vehicle.VEHICLE_ID;
     detailDataModel.CUSTOMER_ID = (this.currentCustomerId) ? this.currentCustomerId :  currentForm.customer.CUSTOMER_ID;
+    detailDataModel.RENTED_BY = currentForm.employee.EMPLOYEE_ID;
     detailDataModel.condition = conditionDataModel;
 
     return detailDataModel;

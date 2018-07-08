@@ -11,12 +11,10 @@
             <mat-step  label="Renter Basic Information">
                 <div *ngIf="!hasCustomerId()">
               <mat-form-field>
-                <input matInput formControlName="customer" [matAutocomplete]="customerAutocomplete"  placeholder="search Customer by name or mobile">
+                <input type="text" matInput formControlName="customer" [matAutocomplete]="customerAutocomplete"  placeholder="search Customer by name or mobile">
               </mat-form-field>
-
-
               <mat-autocomplete #customerAutocomplete="matAutocomplete" [displayWith]="displayCustomerWith">
-                <mat-option *ngFor="let customer of CUSTOMERS " [value]="customer">
+                <mat-option *ngFor="let customer of filteredCustomers$ | async " [value]="customer">
                   <span>{{customer.first_name}} {{customer.last_name}}</span>
                 </mat-option>
               </mat-autocomplete>
@@ -27,7 +25,7 @@
                 <input matInput formControlName="vehicle" [matAutocomplete]="vehicleAutocomplete" placeholder="search Vehicle by Plate Number">
               </mat-form-field>
               <mat-autocomplete #vehicleAutocomplete="matAutocomplete" [displayWith]="displayVehicleWith">
-                  <mat-option *ngFor="let vehicle of CARS" [value]="vehicle">
+                  <mat-option *ngFor="let vehicle of filteredVehicles$ | async" [value]="vehicle">
                     <span>{{vehicle.plate_code}}-{{vehicle.plate_number}}</span>
                 </mat-option>
               </mat-autocomplete>
@@ -51,14 +49,24 @@
               </div>
             </mat-step>
             <mat-step label="Done">
-
+              <div *ngIf="!hasVehicleId()">
+                <mat-form-field>
+                  <mat-label>Renting Employee</mat-label>
+                  <input matInput formControlName="employee" [matAutocomplete]="employeeAutocomplete" placeholder="Search Employee by Name">
+                </mat-form-field>
+                <mat-autocomplete #employeeAutocomplete="matAutocomplete" [displayWith]="displayEmployeeWith">
+                    <mat-option *ngFor="let employee of filteredEmployees$ | async" [value]="employee">
+                      <span>{{employee.first_name}}-{{employee.last_name}}</span>
+                  </mat-option>
+                </mat-autocomplete>
+                </div>
               <div class="row">
                   <div class="col stepper-buttons">
                       <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
                     </div>
                 <div class="col form-button-box">
                   <button mat-raised-button type="submit" color="primary" mat-button-raised>Save</button>
-                  <button mat-button mat-raised-button routerLink="/rent/contrat/{{currentRentId}}" [disabled]="!rentId" type="button" color="warn">print</button>
+                  <button mat-button mat-raised-button routerLink="/rent/contrat/{{currentRentId}}" [disabled]="!currentRentId" type="button" color="warn">print</button>
                 </div>
               </div>
               <div class="row">

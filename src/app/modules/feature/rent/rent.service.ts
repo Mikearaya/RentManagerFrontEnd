@@ -90,6 +90,7 @@ export class Rent {
   RENT_ID?: number;
   CUSTOMER_ID?: number;
   VEHICLE_ID: number;
+  RENTED_BY?: number;
   start_date: string;
   return_date: string;
   owner_renting_price: number;

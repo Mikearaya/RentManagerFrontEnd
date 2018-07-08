@@ -12,7 +12,7 @@ const routes: Routes = [
                     {path: 'rent/vehicle',
                           component: RentFormComponent,
                           data: { title: 'New Rent Form', selfContained: true}
-                        },
+                        },                    
                     {path: 'rent/vehicle/:vehicleId',
                         component: RentFormComponent,
                         data: { title: 'Update Rent Details', selfContained: true}

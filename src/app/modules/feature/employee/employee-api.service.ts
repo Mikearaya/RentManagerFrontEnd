@@ -48,7 +48,7 @@ export class EmployeeApiService {
   }
 
   displayEmployees(filter, sortColumn, sortOrder, pageNumber, pageSize): Observable<EmployeeViewModel> {
-   return this.httpClient.get<EmployeeViewModel>(`${this.url}`, {
+   return this.httpClient.get<EmployeeViewModel>(`${this.url}/filter/`, {
       params : {
         filter_string: filter,
         sort_column: sortColumn,
