@@ -12,6 +12,10 @@
                 <div *ngIf="!hasCustomerId()">
               <mat-form-field>
                 <input type="text" matInput formControlName="customer" [matAutocomplete]="customerAutocomplete"  placeholder="search Customer by name or mobile">
+                <mat-error *ngIf="rentForm.get('customer').errors">
+                  <div *ngIf="rentForm.get('customer').errors['required']" >Customer is Required</div>
+                  <div *ngIf="rentForm.get('customer').errors['validCustomer']" >Selected Customer Doesnt exists</div>
+                </mat-error>
               </mat-form-field>
               <mat-autocomplete #customerAutocomplete="matAutocomplete" [displayWith]="displayCustomerWith">
                 <mat-option *ngFor="let customer of filteredCustomers$ | async " [value]="customer">
@@ -19,10 +23,15 @@
                 </mat-option>
               </mat-autocomplete>
             </div>
+
             <div *ngIf="!hasVehicleId()">
               <mat-form-field>
                 <mat-label>Vehicle to Rent</mat-label>
                 <input matInput formControlName="vehicle" [matAutocomplete]="vehicleAutocomplete" placeholder="search Vehicle by Plate Number">
+                <mat-error *ngIf="rentForm.get('vehicle').errors">
+                  <div *ngIf="rentForm.get('vehicle').errors['required']" >Vehicle is Required</div>
+                  <div *ngIf="rentForm.get('vehicle').errors['validVehicle']" >Selected Vehicle doesnt Exis</div>
+                </mat-error>
               </mat-form-field>
               <mat-autocomplete #vehicleAutocomplete="matAutocomplete" [displayWith]="displayVehicleWith">
                   <mat-option *ngFor="let vehicle of filteredVehicles$ | async" [value]="vehicle">
@@ -30,42 +39,47 @@
                 </mat-option>
               </mat-autocomplete>
               </div>
+
               <div class="stepper-buttons">
                 <button mat-button mat-raised-button type="button" color="accent"  matStepperNext>Next</button>
               </div>
             </mat-step>
-            <mat-step  label="Rent Detail">
+            <mat-step  label="Rent Detail" formGroupName="rentDetail"  >
               <app-rent-detail-form></app-rent-detail-form>
               <div class="stepper-buttons">
               <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
               <button mat-button mat-raised-button type="button" color="accent" matStepperNext>Next</button>
               </div>
             </mat-step>
-            <mat-step  label="Vehicle Conditions">
+            <mat-step  label="Vehicle Conditions" formGroupName="vehicleCondition" >
               <app-rent-condition-form></app-rent-condition-form>
               <div class="stepper-buttons">
               <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
               <button mat-button mat-raised-button type="button" color="accent" matStepperNext>Next</button>
               </div>
             </mat-step>
-            <mat-step label="Done">
-              <div *ngIf="!hasVehicleId()">
+            <mat-step label="Done"  >
                 <mat-form-field>
                   <mat-label>Renting Employee</mat-label>
                   <input matInput formControlName="employee" [matAutocomplete]="employeeAutocomplete" placeholder="Search Employee by Name">
+                  <mat-error *ngIf="rentForm.get('employee').errors">
+                    <div *ngIf="rentForm.get('employee').errors['required']" > Employee is Required</div>
+                    <div *ngIf="rentForm.get('employee').errors['validEmployee']" >Selected Employee doesnt Exist</div>
+                  </mat-error>
+
                 </mat-form-field>
                 <mat-autocomplete #employeeAutocomplete="matAutocomplete" [displayWith]="displayEmployeeWith">
                     <mat-option *ngFor="let employee of filteredEmployees$ | async" [value]="employee">
                       <span>{{employee.first_name}}-{{employee.last_name}}</span>
                   </mat-option>
+
                 </mat-autocomplete>
-                </div>
               <div class="row">
                   <div class="col stepper-buttons">
                       <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
                     </div>
                 <div class="col form-button-box">
-                  <button mat-raised-button type="submit" color="primary" mat-button-raised>Save</button>
+                  <button mat-raised-button type="submit" [disabled]="rentForm.invalid" color="primary" mat-button-raised>Save</button>
                   <button mat-button mat-raised-button routerLink="/rent/contrat/{{currentRentId}}" [disabled]="!currentRentId" type="button" color="warn">print</button>
                 </div>
               </div>
@@ -84,6 +98,7 @@
           </mat-horizontal-stepper>
         </div>
       </mat-card-content>
+{{rentForm.status | json}}
 
     </form>
 

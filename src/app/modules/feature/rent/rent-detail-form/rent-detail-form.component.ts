@@ -33,7 +33,6 @@ export class RentDetailFormComponent implements OnInit {
     this.currentDetail = (currentRent) ? (<Rent>currentRent) : null;
 const today = new Date();
       this.form = this.formBuilder.group({
-        returnDate: this.buildControl(currentRent.return_date, true),
         selectedMoments: [today , Validators.required],
         initialPayment: this.buildControl(currentRent.initial_payment, true),
         ownerRentingPrice: this.buildControl(currentRent.owner_renting_price, true),

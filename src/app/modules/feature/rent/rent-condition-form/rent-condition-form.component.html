@@ -10,6 +10,9 @@
               required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('windowController').errors">
+              <div *ngIf="form.get('windowController').errors['required']">Number of Window Controllers is required</div>
+            </mat-error>
           </mat-form-field>
         </div>
         <div class="col col-xs-12">
@@ -18,6 +21,9 @@
             <mat-select placeholder="Seat Belts" name="seatBelts" id="seatBelts" formControlName="seatBelt" required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('seatBelt').errors">
+                <div *ngIf="form.get('seatBelt').errors['required']">Number of Seat Belt is required</div>
+              </mat-error>
           </mat-form-field>
         </div>
         <div class="col col-xs-12">
@@ -26,6 +32,9 @@
               <mat-select placeholder="Spare Tires" name="spareTires" id="spareTires" formControlName="spareTire" required>
                 <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.get('spareTire').errors">
+                  <div *ngIf="form.get('spareTire').errors['required']">Number of Spare Tire is required</div>
+                </mat-error>
             </mat-form-field>
 
           </div>
@@ -37,6 +46,9 @@
             <mat-select placeholder="Wipers" name="wiperes" id="wiperes" formControlName="wiper" required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('wiper').errors">
+                <div *ngIf="form.get('wiper').errors['required']">Number of Wiper is required</div>
+              </mat-error>
           </mat-form-field>
         </div>
         <div class="col col-xs-12">
@@ -45,6 +57,9 @@
               <mat-select placeholder="Crick Wrenchs" name="cirickWrenchs" id="cirickWrenchs" formControlName="crickWrench" required>
                 <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.get('crickWrench').errors">
+                  <div *ngIf="form.get('crickWrench').errors['required']">Number of Crick Wrenchs is required</div>
+                </mat-error>
             </mat-form-field>
 
           </div>
@@ -54,6 +69,9 @@
               <mat-select placeholder="Crickes" name="crick" id="crick" formControlName="crick" required>
                 <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.get('crick').errors">
+                  <div *ngIf="form.get('crick').errors['required']">Number of Cricks is required</div>
+                </mat-error>
             </mat-form-field>
 
           </div>
@@ -65,6 +83,9 @@
             <mat-select placeholder="Dashboard Closes" name="dashBoardCloses" id="dashBoardCloses" formControlName="dashboardClose" required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('dashboardClose').errors">
+                <div *ngIf="form.get('dashboardClose').errors['required']">Number of Dashboard Close is required</div>
+              </mat-error>
           </mat-form-field>
 
         </div>
@@ -74,6 +95,9 @@
             <mat-select placeholder="Mude Protecteres" name="mudeProtecters" id="mudeProtecters" formControlName="mudeProtecter" required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('mudeProtecter').errors">
+                <div *ngIf="form.get('mudeProtecter').errors['required']">Number of Mude protecters is required</div>
+              </mat-error>
           </mat-form-field>
         </div>
         <div class="col col-xs-12">
@@ -82,6 +106,9 @@
               <mat-select placeholder="Outer Spokios" name="outerSpokios" id="outerSpokios" formControlName="spokioOuter" required>
                 <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.get('spokioOuter').errors">
+                  <div *ngIf="form.get('spokioOuter').errors['required']">Number of Outer Spokio is required</div>
+                </mat-error>
             </mat-form-field>
           </div>
       </div>
@@ -93,6 +120,9 @@
             <mat-select placeholder="Inside Spokios" name="innerSpokios" id="innerSpokios" formControlName="spokioInner" required>
               <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
             </mat-select>
+            <mat-error *ngIf="form.get('spokioInner').errors">
+                <div *ngIf="form.get('spokioInner').errors['required']">Number of Inner Spokios is required</div>
+              </mat-error>
           </mat-form-field>
         </div>
         <div class="col col-xs-12">
@@ -101,6 +131,9 @@
               <mat-select placeholder="Sun Visors" name="sunVisors" id="sunVisors" formControlName="sunVisor" required>
                 <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.get('sunVisor').errors">
+                  <div *ngIf="form.get('sunVisor').errors['required']">Number of Sun Visor is required</div>
+                </mat-error>
             </mat-form-field>
           </div>
           <div class="col col-xs-12">
@@ -109,6 +142,9 @@
               <mat-select placeholder="Foot Mats" name="innerMats" id="innerMats" formControlName="matInner" required>
                 <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.get('matInner').errors">
+                  <div *ngIf="form.get('matInner').errors['required']">Number of Inside Mats is required</div>
+                </mat-error>
             </mat-form-field>
           </div>
       </div>
@@ -120,6 +156,9 @@
               <mat-select placeholder="Cigaret Lighter" name="lighter" id="lighter" formControlName="cigaretLighter" required>
                 <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.get('cigaretLighter').errors">
+                  <div *ngIf="form.get('cigaretLighter').errors['required']">Number of Cigaret Lighters is required</div>
+                </mat-error>
             </mat-form-field>
           </div>
           <div class="col col-xs-12">
@@ -128,6 +167,9 @@
               <mat-select placeholder="Fuiel Lid" name="fuielLids" id="fuielLids" formControlName="fuielLid" required>
                 <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.get('fuielLid').errors">
+                  <div *ngIf="form.get('fuielLid').errors['required']">Number of Fuiel Lid is required</div>
+                </mat-error>
             </mat-form-field>
           </div>
           <div class="col col-xs-12">
@@ -136,6 +178,9 @@
                 <mat-select placeholder="Radiator Lid" name="radiatorLids" id="radiatorLids" formControlName="radiatorLid" required>
                   <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
                 </mat-select>
+                <mat-error *ngIf="form.get('radiatorLid').errors">
+                    <div *ngIf="form.get('radiatorLid').errors['required']">Number of Radiator Lids is required</div>
+                  </mat-error>
               </mat-form-field>
             </div>
       </div>
@@ -146,6 +191,9 @@
               <mat-select placeholder="Wind Protecters" name="windProtecters" id="windProtecters" formControlName="windProtecter" required>
                 <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.get('windProtecter').errors">
+                  <div *ngIf="form.get('windProtecter').errors['required']">Number of Wind Protectes is required</div>
+                </mat-error>
             </mat-form-field>
           </div>
           <div class="col col-xs-12">
@@ -154,12 +202,18 @@
               <mat-select placeholder="Blinker Lights" name="blinkerLights" id="blinkerLights" formControlName="blinker" required>
                 <mat-option *ngFor="let count of NUMBERS" [value]="count">{{count}}</mat-option>
               </mat-select>
+              <mat-error *ngIf="form.get('blinker').errors">
+                  <div *ngIf="form.get('blinker').errors['required']">Number of Blinker is required</div>
+                </mat-error>
             </mat-form-field>
           </div>
           <div class="col col-xs-12">
               <mat-form-field>
                 <mat-label for="fuielLevel"> Fuiel Level</mat-label>
                 <input type="text" matInput placeholder="Fuiel Level" name="fuielLeve" id="fuielLeve" formControlName="fuielLevel" required>
+                <mat-error *ngIf="form.get('fuielLevel').errors">
+                    <div *ngIf="form.get('fuielLevel').errors['required']">Fuiel Level is required</div>
+                  </mat-error>
               </mat-form-field>
             </div>
 
@@ -169,6 +223,9 @@
               <mat-form-field>
                 <mat-label for="sterio"> Sterio</mat-label>
                 <input type="text" matInput placeholder="Sterio" name="sterio" id="sterio" formControlName="radio" required>
+                <mat-error *ngIf="form.get('radio').errors">
+                    <div *ngIf="form.get('radio').errors['required']">Sterio is required</div>
+                  </mat-error>
               </mat-form-field>
             </div>
       </div>

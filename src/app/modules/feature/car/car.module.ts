@@ -6,10 +6,12 @@ import { CarRoutingModule } from './car-routing.module';
 import { CarFormComponent } from './car-form/car-form.component';
 import { MatTableModule, MatSortModule, MatPaginatorModule, MatCardModule, MatFormFieldModule, MatInputModule,
   MatSelectModule, MatIconModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule,
-  MatProgressSpinnerModule } from '@angular/material';
+  MatProgressSpinnerModule,
+  MatAutocompleteModule} from '@angular/material';
 import { CarListComponent } from './car-list/car-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
+import { VehicleSelectorComponent } from './vehicle-selector/vehicle-selector.component';
 
 @NgModule({
   imports: [
@@ -17,6 +19,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatTableModule,
     MatSortModule,
     MatCardModule,
+    MatAutocompleteModule,
     MatFormFieldModule,
     ReactiveFormsModule,
     HttpClientModule,
@@ -31,8 +34,8 @@ import { HttpClientModule } from '@angular/common/http';
     CarRoutingModule,
     MatProgressSpinnerModule
   ],
-  declarations: [CarFormComponent, CarListComponent],
-  exports: [],
+  declarations: [CarFormComponent, CarListComponent, VehicleSelectorComponent],
+  exports: [CarFormComponent, CarListComponent, VehicleSelectorComponent],
   providers: [CarService]
 })
 export class CarModule { }

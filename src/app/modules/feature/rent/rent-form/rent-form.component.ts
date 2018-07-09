@@ -5,8 +5,8 @@ import { EmployeeApiService } from './../../employee/employee-api.service';
 import { RentConditionFormComponent } from './../rent-condition-form/rent-condition-form.component';
 import { CarService, Car } from './../../car/car.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormBuilder, FormGroup, Validators, FormControl } from '@angular/forms';
-import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators, FormControl, AbstractControl } from '@angular/forms';
+import { Component, OnInit, ViewChild, AfterViewInit, AfterContentInit } from '@angular/core';
 import { RentDetailFormComponent } from '../rent-detail-form/rent-detail-form.component';
 import { RentService, Rent } from '../rent.service';
 import { CustomerService } from '../../customer/customer.service';
@@ -15,12 +15,38 @@ import { HttpErrorResponse } from '@angular/common/http';
 import { Employee } from '../../employee/employee-api.service';
 import { startWith, map } from 'rxjs/operators';
 
+
+function customerValidator(value: AbstractControl): {[key: string]: boolean} | null {
+  if ( value.value instanceof Object) {
+      return null;
+  } else {
+    return { 'validCustomer' : true };
+  }
+}
+
+function vehicleValidator(value: AbstractControl): {[key: string]: boolean} | null {
+  if ( value.value instanceof Object) {
+      return null;
+  } else {
+    return { 'validVehicle' : true };
+  }
+}
+
+function employeeValidator(value: AbstractControl): {[key: string]: boolean} | null {
+  if ( value.value instanceof Object) {
+      return null;
+  } else {
+    return { 'validEmployee' : true };
+  }
+}
 @Component({
   selector: 'app-rent-form',
   templateUrl: './rent-form.component.html',
   styleUrls: ['./rent-form.component.css']
 })
-export class RentFormComponent implements OnInit, AfterViewInit {
+
+
+export class RentFormComponent implements OnInit, AfterContentInit {
    @ViewChild(RentConditionFormComponent) conditionComponent: RentConditionFormComponent;
    @ViewChild(RentDetailFormComponent) rentDetailComponent: RentDetailFormComponent;
     routeData: Object;
@@ -73,28 +99,37 @@ export class RentFormComponent implements OnInit, AfterViewInit {
       if (this.currentCustomerId) {
         this.selectedCustomer = this.currentVehicleId;
       }
-
       this.customerService.getAllCustomers().subscribe((result: any) => this.CUSTOMERS = result.customers );
       this.carService.getAvailableVehicles().subscribe((cars: Car[]) => this.CARS = cars );
       this.employeeApiService.getAllEmployees().subscribe((employees: Employee[]) => this.EMPLOYEES = employees);
-      this.filteredCustomers$ = this.customer.valueChanges.pipe(
+      this.filteredCustomers$ = this.rentForm.get('customer').valueChanges.pipe(
         startWith(''),
         map((value) => this._filterCustomer(value))
       );
 
-      this.filteredEmployees$ = this.employee.valueChanges.pipe(
+      this.filteredEmployees$ = this.rentForm.get('employee').valueChanges.pipe(
         startWith(''),
         map(value => this._filterEmployee(value))
       );
-      this.filteredVehicles$ = this.vehicle.valueChanges.pipe(
+      this.filteredVehicles$ = this.rentForm.get('vehicle').valueChanges.pipe(
         startWith(''),
         map(value => this._filterVehicle(value))
       );
 
 }
-  ngAfterViewInit() {
-    this.vehicleConditionForm = this.conditionComponent.form;
-    this.rentDetailForm = this.rentDetailComponent.form;
+  ngAfterContentInit() {
+    this.rentForm.controls.rentDetail = this.rentDetailComponent.form;
+    this.rentForm.controls.vehicleCondition = this.conditionComponent.form;
+
+    this.conditionComponent.form.valueChanges.subscribe((form) => {
+      this.rentForm.controls.vehicleCondition = this.conditionComponent.form;
+      this.rentForm.updateValueAndValidity();
+  });
+    this.rentDetailComponent.form.valueChanges.subscribe((form: FormGroup) => {
+      this.rentForm.controls.rentDetail = this.rentDetailComponent.form;
+      this.rentForm.updateValueAndValidity();
+
+    });
 
   }
 
@@ -144,9 +179,11 @@ export class RentFormComponent implements OnInit, AfterViewInit {
   private generateForm(currentRent: any = '') {
     this.rent = (currentRent) ? (<Rent>currentRent) : null;
     this.rentForm = this.formBuilder.group({
-      vehicle: this.vehicle,
-      customer: this.customer,
-      employee:  this.employee,
+      rentDetail: this.formBuilder.group({}, Validators.required),
+      vehicleCondition: this.formBuilder.group({}, Validators.required),
+      vehicle: ['', [Validators.required, vehicleValidator]],
+      customer: ['', [Validators.required, customerValidator]],
+      employee:  ['', [Validators.required, employeeValidator]],
     });
 
   }

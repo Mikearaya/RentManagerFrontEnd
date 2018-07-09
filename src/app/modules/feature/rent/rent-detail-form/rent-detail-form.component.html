@@ -3,48 +3,46 @@
     <div class="row">
       <div class="col rent-range-box">
 
-          <label>
-              Rent Days</label>
-              <input   [owlDateTimeTrigger]="rentDuration" required placeholder="Select Rent days Range" [owlDateTime]="rentDuration"
-                    formControlName="selectedMoments"
-                     [selectMode]="'range'">
-              <owl-date-time #rentDuration></owl-date-time>
-
+        <label>
+          Rent Days</label>
+        <input [owlDateTimeTrigger]="rentDuration" required placeholder="Select Rent days Range" [owlDateTime]="rentDuration" formControlName="selectedMoments"
+          [selectMode]="'range'">
+        <owl-date-time #rentDuration></owl-date-time>
       </div>
     </div>
     <div class="row">
       <div class="col">
         <mat-form-field>
           <input matInput placeholder="Owner Renting Price per day" name="ownerPrice" id="ownerPrice" formControlName="ownerRentingPrice"
-            required autocomplete="off">
+            required >
           <mat-hint>The price you got the car</mat-hint>
-          <mat-error></mat-error>
+
         </mat-form-field>
       </div>
       <div class="col">
         <mat-form-field>
           <input matInput placeholder="Renting Price per day" id="rentingPrice" name="rentingPrice" formControlName="rentedPrice" required
-            autocomplete="off">
+            >
           <mat-hint>The price the renter will pay per day</mat-hint>
+
         </mat-form-field>
       </div>
       <div class="col">
         <mat-form-field>
           <input matInput placeholder="Initial payment collected" name="initialPayment" id="initialPayment" formControlName="initialPayment"
-            required autocomplete="off">
+            required >
           <mat-error></mat-error>
           <mat-hint>total Money paid by the client </mat-hint>
-        </mat-form-field>
 
+        </mat-form-field>
       </div>
       <div class="col">
         <mat-form-field>
-          <input matInput placeholder="Collateral" name="collateral" id="collateral" formControlName="colateralDeposit"
-            required autocomplete="off">
+          <input matInput placeholder="Collateral" name="collateral" id="collateral" formControlName="colateralDeposit" required >
           <mat-error></mat-error>
-          <mat-hint>total Money paid by the client </mat-hint>
-        </mat-form-field>
+          <mat-hint>total Money deposited as a colateral by the client </mat-hint>
 
+        </mat-form-field>
       </div>
     </div>
   </form>
