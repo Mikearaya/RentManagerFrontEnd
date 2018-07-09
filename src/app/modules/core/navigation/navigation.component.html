@@ -8,17 +8,11 @@
     [opened]="!(isHandset$ | async)">
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
-       <mat-divider ></mat-divider>
-      <a mat-list-item routerLink="rent/vehicle/" routerLinkActive="active" >New Rent</a>
-        <a mat-list-item routerLink="vehicles/" routerLinkActive="active" >Vehicles</a>
-        <mat-divider ></mat-divider>
-      <a mat-list-item routerLink="owners/" routerLinkActive="active">Partners</a>
-        <mat-divider ></mat-divider>
-      <a mat-list-item routerLink="customers" routerLinkActive="active" >Customers</a>
-      <mat-divider ></mat-divider>
-      <a mat-list-item routerLink="rents" routerLinkActive="active" >Rents</a>
-      <mat-divider ></mat-divider>
-      <a mat-list-item routerLink="employees" routerLinkActive="active" >Employees</a>
+
+      <a *ngFor="let navigation of naigationList; let lastIndex = last;" 
+      mat-list-item [routerLink]="navigation.path" routerLinkActive="active" >{{navigation.label}} <i class="material-icons">{{navigation.icon}}</i></a>
+      <mat-divider *ngIf="!lastIndex" ></mat-divider>
+
     </mat-nav-list>
 
   </mat-sidenav>

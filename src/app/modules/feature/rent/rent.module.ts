@@ -61,6 +61,9 @@ export const MY_MOMENT_FORMATS = {
   declarations: [ RentFormComponent, RentViewComponent,
                   RentConditionFormComponent, RentDetailFormComponent,
                   RentContratComponent],
+  exports: [ RentFormComponent, RentViewComponent,
+                    RentConditionFormComponent, RentDetailFormComponent,
+                    RentContratComponent],
   providers: [RentService,
     {provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},
 ]

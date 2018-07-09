@@ -25,6 +25,7 @@ import { EmployeeViewComponent } from './employee-view/employee-view.component';
     MatPaginatorModule,
     MatSortModule
   ],
-  declarations: [EmployeeFormComponent, EmployeeViewComponent]
+  declarations: [EmployeeFormComponent, EmployeeViewComponent],
+  exports: [EmployeeFormComponent, EmployeeViewComponent]
 })
 export class EmployeeModule { }

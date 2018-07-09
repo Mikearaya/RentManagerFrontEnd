@@ -11,7 +11,6 @@ import { MatTableModule, MatSortModule, MatPaginatorModule, MatCardModule, MatFo
 import { CarListComponent } from './car-list/car-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { VehicleSelectorComponent } from './vehicle-selector/vehicle-selector.component';
 
 @NgModule({
   imports: [
@@ -34,8 +33,8 @@ import { VehicleSelectorComponent } from './vehicle-selector/vehicle-selector.co
     CarRoutingModule,
     MatProgressSpinnerModule
   ],
-  declarations: [CarFormComponent, CarListComponent, VehicleSelectorComponent],
-  exports: [CarFormComponent, CarListComponent, VehicleSelectorComponent],
+  declarations: [CarFormComponent, CarListComponent],
+  exports: [CarFormComponent, CarListComponent],
   providers: [CarService]
 })
 export class CarModule { }

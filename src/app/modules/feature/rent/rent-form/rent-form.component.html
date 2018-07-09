@@ -7,8 +7,8 @@
     <form name="rentForm" [formGroup]="rentForm" (ngSubmit)="onSubmit()">
       <mat-card-content>
           <div class="container">
-          <mat-horizontal-stepper [linear]="true">
-            <mat-step  label="Renter Basic Information">
+          <mat-horizontal-stepper linear>
+            <mat-step  label="Renter Basic Information" [stepControl]="rentForm.get('vehicle') && rentForm.get('customer')">
                 <div *ngIf="!hasCustomerId()">
               <mat-form-field>
                 <input type="text" matInput formControlName="customer" [matAutocomplete]="customerAutocomplete"  placeholder="search Customer by name or mobile">
@@ -24,7 +24,7 @@
               </mat-autocomplete>
             </div>
 
-            <div *ngIf="!hasVehicleId()">
+            <div *ngIf="!hasVehicleId()" >
               <mat-form-field>
                 <mat-label>Vehicle to Rent</mat-label>
                 <input matInput formControlName="vehicle" [matAutocomplete]="vehicleAutocomplete" placeholder="search Vehicle by Plate Number">
@@ -41,17 +41,17 @@
               </div>
 
               <div class="stepper-buttons">
-                <button mat-button mat-raised-button type="button" color="accent"  matStepperNext>Next</button>
+                <button mat-button mat-raised-button type="button"  color="accent"  matStepperNext>Next</button>
               </div>
             </mat-step>
-            <mat-step  label="Rent Detail" formGroupName="rentDetail"  >
+            <mat-step  label="Rent Detail" formGroupName="rentDetail" [stepControl]="rentForm.get('rentDetail')"  >
               <app-rent-detail-form></app-rent-detail-form>
               <div class="stepper-buttons">
               <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>
               <button mat-button mat-raised-button type="button" color="accent" matStepperNext>Next</button>
               </div>
             </mat-step>
-            <mat-step  label="Vehicle Conditions" formGroupName="vehicleCondition" >
+            <mat-step  label="Vehicle Conditions" formGroupName="vehicleCondition" [stepControl]="rentForm.get('vehicleCondition')" >
               <app-rent-condition-form></app-rent-condition-form>
               <div class="stepper-buttons">
               <button mat-button mat-raised-button color="accent" type="button" matStepperPrevious>Back</button>

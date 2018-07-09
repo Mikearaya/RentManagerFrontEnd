@@ -30,6 +30,7 @@ import { HttpClientModule } from '@angular/common/http';
     OwnerRoutingModule
   ],
   declarations: [OwnerFormComponent, OwnerListComponent],
+  exports: [OwnerFormComponent, OwnerListComponent],
   providers: [OwnerService]
 })
 export class OwnerModule { }
