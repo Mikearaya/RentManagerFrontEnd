@@ -21,11 +21,8 @@ export class Owner {
 export class OwnerService {
   private url = 'http://localhost/rent_manager/index.php/partner';
   private httpBody: URLSearchParams;
-  private header: HttpHeaders;
 
   constructor(private httpClient: HttpClient) {
-    this.header = new HttpHeaders()
-                  .set('Content-Type', 'application/x-www-form-urlencoded');
     this.httpBody = new URLSearchParams();
    }
 
@@ -39,21 +36,18 @@ export class OwnerService {
   }
 
   saveOwner(newOwner: Owner): Observable<Boolean> {
-    const requestOption =  { 'headers' : this.header  };
       this.httpBody = this.prepareRequestBody(newOwner);
-    return this.httpClient.post<Boolean>(`${this.url}`, this.httpBody.toString(), requestOption );
+    return this.httpClient.post<Boolean>(`${this.url}`, this.httpBody.toString() );
   }
 
   updateOwner(oldOwner: Owner): Observable<Boolean> {
-    const requestOption =  { 'headers' : this.header  };
           this.httpBody = this.prepareRequestBody(oldOwner);
-    return this.httpClient.post<Boolean>(`${this.url}/${oldOwner.OWNER_ID}`, this.httpBody.toString(), requestOption );
+    return this.httpClient.post<Boolean>(`${this.url}/${oldOwner.OWNER_ID}`, this.httpBody.toString());
   }
 
   deleteOwner(OwnerIds: number[]): Observable<Boolean> {
-    const requestOption =  { 'headers' : this.header  };
     OwnerIds.forEach((id) => this.httpBody.append('OWNER_ID', `${id}` ));
-    return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString(), requestOption);
+    return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString());
   }
 
   prepareRequestBody(currentOwner: Owner): URLSearchParams {

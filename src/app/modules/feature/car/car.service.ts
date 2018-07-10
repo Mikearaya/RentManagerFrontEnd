@@ -1,8 +1,10 @@
-import { Observable } from 'rxjs';
+import { Observable, ErrorObserver } from 'rxjs';
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
+import { map, catchError } from 'rxjs/operators';
+
 import { VehicleDataModel } from './car-list/car-list-datasource';
+import { ApiError } from '../../core/api-error';
 
 
 
@@ -36,7 +38,7 @@ export class CarService {
       this.httpBody = new URLSearchParams();
    }
 
-    getCar(id: number): Observable<Car> {
+    getCar(id: number): Observable<Car| ApiError> {
           return this.httpClient.get<Car>(`${this.url}/${id}`);
     }
 
