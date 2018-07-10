@@ -1,8 +1,16 @@
+
+import { OwnerService, Owner } from './../../owner/owner.service';
+import { MatSnackBar, MatSnackBarDismiss } from '@angular/material';
 import { Car } from './../car.service';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { CarService } from '../car.service';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Observable } from 'rxjs';
+import { startWith, map } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
+
+
 
 @Component({
   selector: 'app-car-form',
@@ -12,35 +20,64 @@ import { ActivatedRoute } from '@angular/router';
 export class CarFormComponent implements OnInit {
   private car: Car;
   private currentId: number;
-
+  errorMessages: string[];
+  filteredOwners$: Observable<Owner[]>;
   COLORS = ['Red', 'Green', 'Blue', 'White', 'Silver' , 'Brown', 'Black'];
   CAR_TYPES = ['Automobile', '4 Wheel Drive', 'Sedan', 'Hatch Back', 'Limosine', 'Pickup'];
   FUIEL_TYPES = ['Bensine', 'Dissel'];
   carForm: FormGroup;
   private isUpdate: Boolean = false;
   title: String = 'Add New';
-
+private OWNERS: Owner[] = [];
+private currentOwnerId: number;
   constructor(  private activatedRoute: ActivatedRoute,
                 private carService: CarService,
-              private formBuilder: FormBuilder
+                private ownerService: OwnerService,
+              private formBuilder: FormBuilder,
+              private snackBar: MatSnackBar,
+              private router: Router
             ) {
               this.generateForm();
             }
 
   ngOnInit() {
     this.currentId = + this.activatedRoute.snapshot.paramMap.get('vehicleId');
-
-
+    this.currentOwnerId = + this.activatedRoute.snapshot.paramMap.get('ownerId');
     this.title = this.activatedRoute.snapshot.data['title'];
+
+    this.ownerService.getAllOwners().subscribe((owners: any) => this.OWNERS = owners.owners );
+
     if (this.currentId) {
       this.isUpdate = true;
        this.carService.getCar(this.currentId).subscribe((car: any) => this.generateForm(car));
     }
+
+    this.filteredOwners$ = this.carForm.get('owner').valueChanges.pipe(
+      startWith(''),
+      map(value => this._filterOwner(value))
+    );
+  }
+
+  private _filterOwner(value): Owner[] {
+    if (value instanceof Object) {
+      return [];
+    }
+    const filterValue = value.toLowerCase();
+    return this.OWNERS.filter((customer: Owner) => customer.first_name.toLowerCase().includes(filterValue));
+  }
+  hasOwnerId() {
+    return this.currentOwnerId;
+  }
+
+  displayOwnerWith(owner?: Owner): string | undefined {
+    return owner ? `${owner.first_name} - ${owner.last_name}` : undefined;
   }
 
   generateForm(currentVehicle: any = '') {
     this.car = currentVehicle;
     this.carForm = this.formBuilder.group({
+      owner: (currentVehicle.OWNER_ID) ?
+                         [currentVehicle.OWNER_ID, [Validators.required, ownerValidator]] : ['', [Validators.required, ownerValidator]],
       make: this.buildControl(currentVehicle.make, true),
       model: this.buildControl(currentVehicle.model, true),
       yearMade: this.buildControl(currentVehicle.year_made, true),
@@ -56,15 +93,17 @@ export class CarFormComponent implements OnInit {
       plateCode: this.buildControl(currentVehicle.plate_code, true),
       plateNumber: this.buildControl(currentVehicle.plate_number, true),
     });
+
   }
 
-  prepareDataModel(carInfo: any): Car {
+  prepareDataModel(): Car {
+    const carInfo = this.carForm.value;
       const dataModel = {
           VEHICLE_ID: this.currentId,
-          OWNER_ID: 3,
+          OWNER_ID: carInfo.owner.OWNER_ID,
           make: carInfo.make,
           model: carInfo.model,
-          year_made: carInfo.yearMade,
+          year_made: carInfo.yearMade.getFullYear(),
           color: carInfo.color,
           type: carInfo.type,
           chassis_number: carInfo.chassisNo,
@@ -93,12 +132,34 @@ export class CarFormComponent implements OnInit {
     }
   }
 
+  handelSuccess(result: Car) {
+    this.snackBar.open('Vehicle Saved Successfully');
+        this.router.navigate(['vehicles']);
+}
+
+handelError(error: HttpErrorResponse) {
+  this.errorMessages = error.error;
+  this.snackBar.open('Error Occured While Saving Vehicle Information');
+}
+
+
   onSubmit() {
-    this.car = this.prepareDataModel(this.carForm.value);
+    this.car = this.prepareDataModel();
     if (this.isUpdate) {
-    this.carService.updateCar(this.car).subscribe((result) => this.handelResponse(result));
+    this.carService.updateCar(this.car)
+                    .subscribe((success: Car) => this.handelSuccess(success),
+                              (error: HttpErrorResponse) => this.handelError(error));
     } else {
-      this.carService.saveCar(this.car).subscribe((result) => this.handelResponse(result));
+      this.carService.saveCar(this.car)
+                          .subscribe((success: Car) => this.handelSuccess(success),
+                          (error: HttpErrorResponse) => this.handelError(error));
     }
+  }
+}
+function ownerValidator(value: AbstractControl): {[key: string]: boolean} | null {
+  if ( value.value instanceof Object) {
+      return null;
+  } else {
+    return { 'validEmployee' : true };
   }
 }

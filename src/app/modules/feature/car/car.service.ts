@@ -50,14 +50,14 @@ export class CarService {
       return this.httpClient.get<Car[]>(`${this.url}/available`);
     }
 
-    saveCar(newCar: Car): Observable<Boolean> {
+    saveCar(newCar: Car): Observable<Car> {
         this.httpBody = this.prepareRequestBody(newCar);
-      return this.httpClient.post<Boolean>(`${this.url}`, this.httpBody.toString() );
+      return this.httpClient.post<Car>(`${this.url}`, this.httpBody.toString() );
     }
 
-    updateCar(oldCar: Car): Observable<Boolean> {
+    updateCar(oldCar: Car): Observable<Car> {
             this.httpBody = this.prepareRequestBody(oldCar);
-      return this.httpClient.post<Boolean>(`${this.url}/${oldCar.VEHICLE_ID}`, this.httpBody.toString() );
+      return this.httpClient.post<Car>(`${this.url}/${oldCar.VEHICLE_ID}`, this.httpBody.toString() );
     }
 
     deleteCar(carIds: number[]): Observable<Boolean> {
