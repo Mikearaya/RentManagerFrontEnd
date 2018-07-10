@@ -32,7 +32,7 @@ export class OwnerDataSource extends DataSource<Owner> {
   }
 
 
-  loadOwners(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = 'first_name') {
+  loadOwners(filter = '', pageIndex = 0, pageSize = 5, sortOrder = 'asc', sortColumn = 'first_name') {
     this.loadingSubject.next(true);
     this.ownerService.displayOwners(filter, pageIndex, pageSize, sortOrder, sortColumn).pipe(
       catchError(() => of([])),

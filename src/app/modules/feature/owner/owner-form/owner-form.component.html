@@ -8,16 +8,16 @@
         <div class="col">
           <mat-form-field>
             <input matInput placeholder="First Name" name="firstName" id="firstName" required formControlName="firstName">
-            <mat-error *ngIf="ownerForm.get('firstName').errors?.required">
-              First Name is Required
+            <mat-error *ngIf="ownerForm.get('firstName').errors">
+                <div *ngIf="ownerForm.get('firstName').errors['required']"> First Name is Required</div>
             </mat-error>
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field>
             <input matInput placeholder="Last Name" name="lastName" id="lastName" required formControlName="lastName">
-            <mat-error *ngIf="ownerForm.get('lastName').errors?.required">
-              Last Name is Required
+            <mat-error *ngIf="ownerForm.get('lastName').errors">
+           <div *ngIf="ownerForm.get('lastName').errors['required']">     Last Name is Required </div>
             </mat-error>
           </mat-form-field>
         </div>
@@ -26,8 +26,8 @@
         <div class="col">
           <mat-form-field>
             <input matInput placeholder="Mobile Number" name="mobileNumber" id="mobileNumber" required formControlName="mobilePhone">
-            <mat-error *ngIf="ownerForm.get('mobilePhone').errors?.required">
-              Main Mobile Number is Required
+            <mat-error *ngIf="ownerForm.get('mobilePhone').errors">
+                <div *ngIf="ownerForm.get('mobilePhone').errors['required']">Main Mobile Number is Required </div>
             </mat-error>
           </mat-form-field>
         </div>
@@ -36,37 +36,46 @@
         <div class="col">
           <mat-form-field>
             <input matInput placeholder="City" name="city" id="city" required formControlName="city">
-            <mat-error *ngIf="ownerForm.get('city').errors?.required">
-              City is Required
+            <mat-error *ngIf="ownerForm.get('city').errors">
+                <div *ngIf="ownerForm.get('city').errors['required']"> City is Required </div>
             </mat-error>
           </mat-form-field>
         </div>
         <div class="col">
           <mat-form-field>
             <input matInput placeholder="Sub-City" name="subCity" id="subCity" required formControlName="subCity">
-            <mat-error *ngIf="ownerForm.get('subCity').errors?.required">
-              Sub-City is Required
+            <mat-error *ngIf="ownerForm.get('subCity').errors">
+              <div *ngIf="ownerForm.get('subCity').errors['required']">  Sub-City is Required </div>
             </mat-error>
           </mat-form-field>
         </div>
-        <div class="col">
+        <div class="col-2">
           <mat-form-field>
             <input matInput placeholder="Wereda" name="wereda" id="wereda" required formControlName="wereda">
-            <mat-error *ngIf="ownerForm.get('wereda').errors?.required">
-              Wereda is Required
+            <mat-error *ngIf="ownerForm.get('wereda').errors">
+              <div *ngIf="ownerForm.get('wereda').errors['required']">Wereda is Required </div>
+            </mat-error>
+          </mat-form-field>
+        </div>
+        <div class="col-2">
+          <mat-form-field>
+            <input matInput placeholder="House Number" name="houseNumber" id="houseNumber" required formControlName="houseNumber">
+            <mat-error *ngIf="ownerForm.get('houseNumber').errors">
+              <div *ngIf="ownerForm.get('houseNumber').errors['required']"> Wereda is Required </div>
             </mat-error>
           </mat-form-field>
         </div>
       </div>
-
+      <output *ngIf="errorMessages" class="text-danger">
+          <ul>
+          <li *ngFor="let error of errorMessages"> {{error}} </li>
+          </ul>
+       </output>
     </mat-card-content>
-    <mat-card-actions align="space-around">
-      <button mat-button mat-button-raised type="submit" [disabled]="ownerForm.invalid" color="primary">Save</button>
-      <button mat-button mat-button-raised color="warn">Cancel</button>
+    <div class="form-button-box">
+      <button mat-button mat-raised-button type="submit" [disabled]="ownerForm.invalid" color="primary">Save</button>
+      <button mat-button mat-raised-button color="warn">Cancel</button>
 
-    </mat-card-actions>
+    </div>
   </form>
-  <mat-card-footer>
-    {{ownerForm.value | json}}
-  </mat-card-footer>
 </mat-card>

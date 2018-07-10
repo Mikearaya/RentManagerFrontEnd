@@ -10,10 +10,10 @@ export class Owner {
   first_name: string;
   last_name: string;
   mobile_number: string;
-  other_phones: {};
   city: string;
   sub_city: string;
   wereda: string;
+  house_number: string;
 }
 
 
@@ -35,14 +35,14 @@ export class OwnerService {
       return this.httpClient.get<Owner[]>(`${this.url}`);
   }
 
-  saveOwner(newOwner: Owner): Observable<Boolean> {
+  saveOwner(newOwner: Owner): Observable<Owner> {
       this.httpBody = this.prepareRequestBody(newOwner);
-    return this.httpClient.post<Boolean>(`${this.url}`, this.httpBody.toString() );
+    return this.httpClient.post<Owner>(`${this.url}`, this.httpBody.toString() );
   }
 
-  updateOwner(oldOwner: Owner): Observable<Boolean> {
+  updateOwner(oldOwner: Owner): Observable<Owner> {
           this.httpBody = this.prepareRequestBody(oldOwner);
-    return this.httpClient.post<Boolean>(`${this.url}/${oldOwner.OWNER_ID}`, this.httpBody.toString());
+    return this.httpClient.post<Owner>(`${this.url}/${oldOwner.OWNER_ID}`, this.httpBody.toString());
   }
 
   deleteOwner(OwnerIds: number[]): Observable<Boolean> {
@@ -52,18 +52,18 @@ export class OwnerService {
 
   prepareRequestBody(currentOwner: Owner): URLSearchParams {
     const requestBody = new URLSearchParams();
-          requestBody.set('OWNER_ID', `${currentOwner.OWNER_ID}`);
-          requestBody.set('first_name', `${currentOwner.first_name}`);
-          requestBody.set('last_name', `${currentOwner.last_name}`);
-          requestBody.set('mobile_number', `${currentOwner.mobile_number}`);
-          requestBody.set('city', `${currentOwner.city}`);
-          requestBody.set('sub_city', `${currentOwner.sub_city}`);
-          requestBody.set('wereda', `${currentOwner.wereda}`);
+          for (const key in currentOwner) {
+            if (currentOwner.hasOwnProperty(key)) {
+              const value = currentOwner[key];
+              if (value instanceof Object === false ) {
+              requestBody.set(key, value);
+              }
+            }
+          }
     return requestBody;
-
   }
 
-    displayOwners(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<OwnerDataModel> {
+    displayOwners(filter = '', pageIndex = 0, pageSize = 5, sortOrder = 'asc', sortColumn = ''): Observable<OwnerDataModel> {
       return this.httpClient.get<OwnerDataModel>(`${this.url}`,
                                             {params : new HttpParams()
                                                           .set('filter', filter)

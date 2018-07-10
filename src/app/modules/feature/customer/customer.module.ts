@@ -24,7 +24,7 @@ import { CustomerViewComponent } from './customer-view/customer-view.component';
     MatSortModule
   ],
   declarations: [CustomerFormComponent, CustomerViewComponent],
-  exports: [CustomerFormComponent],
+  exports: [CustomerFormComponent, CustomerViewComponent],
   providers: [CustomerService]
 })
 export class CustomerModule { }
