@@ -25,9 +25,9 @@ export class EmployeeApiService {
     return this.httpClient.post<Employee>(`${this.url}/add`, this.httpBody.toString());
   }
 
-  updateEmployee(updateEmployee: Employee): Observable<Boolean> {
+  updateEmployee(updateEmployee: Employee): Observable<Employee> {
     this.httpBody = this.prepareRequestBody(updateEmployee);
-    return this.httpClient.post<Boolean>(`${this.url}/update/${updateEmployee.EMPLOYEE_ID}`, this.httpBody.toString());
+    return this.httpClient.post<Employee>(`${this.url}/update/${updateEmployee.EMPLOYEE_ID}`, this.httpBody.toString());
   }
 
   deleteEmployee(employeeId: number): Observable<Boolean> {

@@ -1,8 +1,10 @@
+import { MatSnackBar, MatSnackBarDismiss } from '@angular/material';
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Employee, EmployeeApiService } from '../employee-api.service';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 @Component({
@@ -17,11 +19,14 @@ export class EmployeeFormComponent implements OnInit {
   employeeId: number;
   title: string;
   private selfContained: Boolean = false;
+  errorMessages: string[];
 
 
   constructor(private formBuilder: FormBuilder,
               private activatedRoute: ActivatedRoute,
-              private employeeApiService: EmployeeApiService) {
+              private employeeApiService: EmployeeApiService,
+              private router: Router,
+              private snackBar: MatSnackBar) {
               this.generateForm();
 
             }
@@ -78,17 +83,29 @@ prepareDataModel(form: FormGroup): Employee {
 onSubmit() {
   this.employee = this.prepareDataModel(this.form);
   if (this.isUpdate) {
-    this.employeeApiService.updateEmployee(this.employee).subscribe();
+    this.employeeApiService.updateEmployee(this.employee)
+                                            .subscribe((success: Employee) => this.handelSuccess(success),
+                                                        (error: HttpErrorResponse) => this.handelError(error));
   } else {
-    this.employeeApiService.addEmployee(this.employee).subscribe();
+    this.employeeApiService.addEmployee(this.employee)
+                                          .subscribe((success: Employee) => this.handelSuccess(success),
+                                                      (error: HttpErrorResponse) => this.handelError(error));
   }
   }
 
-  handelResponse(result: any) {
-    if (result) {
-      alert('success');
-    } else {
-      alert('failed');
-    }
-  }
+
+  handelSuccess(result: Employee) {
+    this.errorMessages = [];
+    const snackBar = this.snackBar.open('Employee Information Saved Successfully');
+    snackBar.afterDismissed().subscribe((snack: MatSnackBarDismiss) => {
+        this.router.navigate(['employees']);
+    });
+}
+
+
+handelError(error: HttpErrorResponse) {
+  this.errorMessages = error.error;
+  this.snackBar.open('Error Occured While Saving Client Information');
+}
+
 }

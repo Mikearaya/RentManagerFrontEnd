@@ -1,7 +1,7 @@
 <mat-card>
-  <mat-card-header>
-    <mat-card-title>{{title}}</mat-card-title>
-  </mat-card-header>
+
+    <h4 class="text-center text-info" *ngIf="isSelfContained()"> {{title}}</h4>
+
   <form name="ownerForm" [formGroup]="ownerForm" (ngSubmit)="onSubmit()">
     <mat-card-content class="owners-card-content">
       <div class="row">

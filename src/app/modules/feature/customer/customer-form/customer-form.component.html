@@ -1,6 +1,6 @@
 <section>
   <form name="customerForm" [formGroup]="form" (ngSubmit)="onSubmit()" class="bionic-form-alignment mat-elevation-z8">
-    <h3 *ngIf="isSelfContained()">{{currentTask()}}</h3>
+      <h4 class="text-center text-info" *ngIf="isSelfContained()"> {{currentTask()}}</h4>
     <div class="row">
       <div class="col">
         <mat-form-field>
