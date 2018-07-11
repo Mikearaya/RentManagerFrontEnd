@@ -20,6 +20,7 @@ export class OwnerFormComponent implements OnInit {
   private currentOwnerId: number;
   private isUpdate: Boolean = false;
   private selfContained: Boolean = false;
+  private redirectedFromVehicle: String = 'false';
 
 
   constructor(private ownerService: OwnerService,
@@ -32,6 +33,7 @@ export class OwnerFormComponent implements OnInit {
 
     ngOnInit() {
       this.currentOwnerId = + this.activatedRoute.snapshot.paramMap.get('id');
+      this.redirectedFromVehicle = this.activatedRoute.snapshot.paramMap.get('from_vehicle');
       this.title = this.activatedRoute.snapshot.data['title'];
       this.selfContained =   this.activatedRoute.snapshot.data['selfContained'];
     if (this.currentOwnerId) {
@@ -39,6 +41,8 @@ export class OwnerFormComponent implements OnInit {
        this.ownerService.getOwner(this.currentOwnerId).subscribe((owner: Owner) => this.generateForm(owner));
     }
     }
+
+
 isSelfContained() {
   return this.selfContained;
 }
@@ -74,6 +78,8 @@ isSelfContained() {
       snackBar.afterDismissed().subscribe((snack: MatSnackBarDismiss) => {
         if (snack.dismissedByAction) {
           this.router.navigate(['add/vehicle', {ownerId: result.OWNER_ID}]);
+        } else if (this.redirectedFromVehicle === 'true') {
+          this.router.navigate(['add/vehicle/']);
         } else {
           this.router.navigate(['owners']);
         }

@@ -6,13 +6,13 @@
   <form (ngSubmit)="onSubmit()" [formGroup]="carForm" >
     <mat-card-content>
 <div class="row">
-  <div class="col">
+  <div class="col-9">
     <div *ngIf="!hasOwnerId()">
       <mat-form-field>
         <input type="text" matInput formControlName="owner" [matAutocomplete]="ownerAutocomplete"  placeholder="search owner by name or mobile">
         <mat-error *ngIf="carForm.get('owner').errors">
           <div *ngIf="carForm.get('owner').errors['required']" >owner is Required</div>
-          <div *ngIf="carForm.get('owner').errors['validowner']" >Selected owner Doesnt exists</div>
+          <div *ngIf="carForm.get('owner').errors['validOwner']" >Selected owner Doesnt exists</div>
         </mat-error>
       </mat-form-field>
       <mat-autocomplete #ownerAutocomplete="matAutocomplete" [displayWith]="displayOwnerWith">
@@ -21,6 +21,9 @@
         </mat-option>
       </mat-autocomplete>
     </div>
+  </div>
+  <div class="col">
+    <button type="button" color="accent" mat-raised-button (click)="addOwner()">Add Owner</button>
   </div>
 </div>
         <div class="row">
@@ -229,6 +232,9 @@
             </mat-form-field>
           </div>
         </div>
+        <output *ngIf="errorMessages" class="text-danger">
+          <div *ngFor="let error of errorMessages"> {{error}}</div>
+        </output>
     </mat-card-content>
     <div class="form-button-box">
         <button mat-button mat-raised-button type="submit" color="primary">Save</button>

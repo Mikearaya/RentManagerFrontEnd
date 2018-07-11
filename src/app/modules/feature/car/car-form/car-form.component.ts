@@ -66,7 +66,7 @@ private currentOwnerId: number;
     return this.OWNERS.filter((customer: Owner) => customer.first_name.toLowerCase().includes(filterValue));
   }
   hasOwnerId() {
-    return this.currentOwnerId;
+    return this.isUpdate;
   }
 
   displayOwnerWith(owner?: Owner): string | undefined {
@@ -132,6 +132,9 @@ private currentOwnerId: number;
     }
   }
 
+  addOwner() {
+    this.router.navigate(['add/owner', {'from_vehicle' : true}]);
+  }
   handelSuccess(result: Car) {
     this.snackBar.open('Vehicle Saved Successfully');
         this.router.navigate(['vehicles']);
@@ -160,6 +163,6 @@ function ownerValidator(value: AbstractControl): {[key: string]: boolean} | null
   if ( value.value instanceof Object) {
       return null;
   } else {
-    return { 'validEmployee' : true };
+    return { 'validOwner' : true };
   }
 }
