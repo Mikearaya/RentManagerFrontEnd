@@ -1,244 +1,173 @@
 <mat-card class="mat-elevation-z8">
-  <mat-card-header>
-    <mat-card-title>Car</mat-card-title>
-    <mat-card-subtitle>{{title}}</mat-card-subtitle>
-  </mat-card-header>
-  <form (ngSubmit)="onSubmit()" [formGroup]="carForm" >
-    <mat-card-content>
-<div class="row">
-  <div class="col-9">
-    <div *ngIf="!hasOwnerId()">
-      <mat-form-field>
-        <input type="text" matInput formControlName="owner" [matAutocomplete]="ownerAutocomplete"  placeholder="search owner by name or mobile">
-        <mat-error *ngIf="carForm.get('owner').errors">
-          <div *ngIf="carForm.get('owner').errors['required']" >owner is Required</div>
-          <div *ngIf="carForm.get('owner').errors['validOwner']" >Selected owner Doesnt exists</div>
-        </mat-error>
-      </mat-form-field>
-      <mat-autocomplete #ownerAutocomplete="matAutocomplete" [displayWith]="displayOwnerWith">
-        <mat-option *ngFor="let owner of filteredOwners$ | async " [value]="owner">
-          <span>{{owner.first_name}} {{owner.last_name}}</span>
-        </mat-option>
-      </mat-autocomplete>
-    </div>
-  </div>
-  <div class="col">
-    <button type="button" color="accent" mat-raised-button (click)="addOwner()">Add Owner</button>
-  </div>
-</div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <input matInput placeholder="Car Make or Name"
-                    name="make"
-                    id="make"
-                    required
-                    formControlName="make"
-              >
-              <mat-error *ngIf="carForm.get('make').errors">
-                <div *ngIf="carForm.get('make').errors['required']">Car Make is Required  </div>
-              </mat-error>
-              <mat-hint> Name of the car example Toyota</mat-hint>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <input matInput placeholder="Model"
-                      name="model"
-                      id="model"
-                      required
-                      formControlName="model"
-              >
-              <mat-error *ngIf="carForm.get('model').errors">
-                <div *ngIf="carForm.get('model').errors['required']">Model of Car is Required </div>
-              </mat-error>
-              <mat-hint> Model of the car example Corolla...</mat-hint>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <input matInput [matDatepicker]="yearMade"  placeholder="Year Made"
-                    name="yearMade"
-                    id="yearMade"
-                    required
-                    formControlName="yearMade"
-              >
-              <mat-error *ngIf="carForm.get('yearMade').errors" >
-                  <div *ngIf="carForm.get('yearMade').errors['required']">Year of the car made is Required </div>
-                </mat-error>
-              <mat-datepicker-toggle matSuffix [for]="yearMade"></mat-datepicker-toggle>
-              <mat-datepicker #yearMade
-              startView="multi-year"  ></mat-datepicker>
-
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-            <mat-select placeholder="Color"
-                        name="color"
-                        id="color"
-                        required
-                        formControlName="color"
-              >
-              <mat-option *ngFor="let color of COLORS" [value]="color">{{color}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="carForm.get('color').errors">
-              <div *ngIf="carForm.get('color').errors['required']">Color is required </div>
-            </mat-error>
-          </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-            <mat-select placeholder="Type"
-                        name="type"
-                        id="type"
-                        required
-                        formControlName="type"
-                >
-            <mat-option [value]="carType" *ngFor="let carType of CAR_TYPES ">{{carType}}</mat-option>
-            </mat-select>
-            <mat-error *ngIf="carForm.get('type').errors">
-              <div *ngIf="carForm.get('type').errors['required']">Vehicle Type is required </div>
-            </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-            <mat-select placeholder="Fuiel Type"
-                      name="fuielType"
-                      id="fuielType"
-                      required
-                      formControlName="fuiel"
-                  >
-              <mat-option *ngFor="let fuiel of FUIEL_TYPES" [value]="fuiel">{{fuiel}}</mat-option>
-
-            </mat-select>
-            <mat-error *ngIf="carForm.get('fuiel').errors">
-              <div *ngIf="carForm.get('fuiel').errors['required']">Fuiel Type is required </div>
-            </mat-error>
-          </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col-2">
-            <mat-form-field>
-              <mat-select placeholder="Plate Code"
-                          name="plateCode"
-                          id="plateCode"
-                          formControlName="plateCode"
-                          required
-                          >
-                <mat-option value="2">2</mat-option>
-                <mat-option value="3">3</mat-option>
-              </mat-select>
-              <mat-error *ngIf="carForm.get('plateCode').errors">
-                <div *ngIf="carForm.get('plateCode').errors['required']">Plate Code is required </div>
-              </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="Plate Number"
-                      name="plateNumber"
-                      id="plateNumber"
-                      formControlName="plateNumber"
-                      required
-                    >
-                <mat-error *ngIf="carForm.get('plateNumber').errors" >
-                  <div *ngIf="carForm.get('plateNumber').errors['required']">  Plate Number is Required</div>
-                </mat-error>
-              </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <input matInput placeholder="Chassis Number"
-                    name="chassisNo"
-                    id="chassisNo"
-                    required
-                    formControlName="chassisNo"
-                >
-                <mat-error *ngIf="carForm.get('chassisNo').errors" >
-                  <div *ngIf="carForm.get('chassisNo').errors['required']"> Chassis Number is Required </div>
-                </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <input matInput placeholder="Motor Number"
-                    name="motorNo"
-                    id="motorNo"
-                    required
-                    formControlName="motorNo"
-                  >
-                  <mat-error *ngIf="carForm.get('motorNo').errors" >
-                    <div *ngIf="carForm.get('motorNo').errors['required']">Motor Number is Required </div>
-                  </mat-error>
-            </mat-form-field>
-          </div>
-        </div>
-        <div class="row">
-          <div class="col">
-            <mat-form-field>
-              <input matInput placeholder="CC"
-                    name="cc"
-                    id="cc"
-                    required
-                    formControlName="cc"
-                >
-            <mat-error *ngIf="carForm.get('cc').errors" >
-              <div *ngIf="carForm.get('cc').errors['required']">   CC Number is Required </div>
-            </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-              <mat-form-field>
-                <input matInput placeholder="Passanger Capacity"
-                      name="totalPassanger"
-                      id="totalPassanger"
-                      required
-                      formControlName="totalPassanger"
-                  >
-              <mat-error *ngIf="carForm.get('totalPassanger').errors" >
-                  Passanger Number is Required
-              </mat-error>
-              </mat-form-field>
+    <mat-card-header>
+        <mat-card-title>Car</mat-card-title>
+        <mat-card-subtitle>{{title}}</mat-card-subtitle>
+    </mat-card-header>
+    <form (ngSubmit)="onSubmit()" [formGroup]="carForm">
+        <mat-card-content>
+            <div class="row">
+                <div class="col-9">
+                    <div *ngIf="!hasOwnerId()">
+                        <mat-form-field>
+                            <input type="text" matInput formControlName="owner" [matAutocomplete]="ownerAutocomplete" placeholder="search owner by name or mobile">
+                            <mat-error *ngIf="carForm.get('owner').errors">
+                                <div *ngIf="carForm.get('owner').errors['required']">owner is Required</div>
+                                <div *ngIf="carForm.get('owner').errors['validOwner']">Selected owner Doesnt exists</div>
+                            </mat-error>
+                        </mat-form-field>
+                        <mat-autocomplete #ownerAutocomplete="matAutocomplete" [displayWith]="displayOwnerWith">
+                            <mat-option *ngFor="let owner of filteredOwners$ | async " [value]="owner">
+                                <span>{{owner.first_name}} {{owner.last_name}}</span>
+                            </mat-option>
+                        </mat-autocomplete>
+                    </div>
+                </div>
+                <div class="col">
+                    <button type="button" color="accent" mat-raised-button (click)="addOwner()">Add Owner</button>
+                </div>
             </div>
-          <div class="col">
-            <mat-form-field>
-              <input matInput placeholder="Cylinder"
-                    name="cylinder"
-                    id="cylinder"
-                    required
-                    formControlName="cylinder"
-                >
-                <mat-error *ngIf="carForm.get('cylinder').errors" >
-                  <div *ngIf="carForm.get('cylinder').errors['required']">Cylinder Number is Required </div>
-                </mat-error>
-            </mat-form-field>
-          </div>
-          <div class="col">
-            <mat-form-field>
-              <input matInput placeholder="Libre Number"
-                    name="libre"
-                    id="libre"
-                    required
-                    formControlName="libre"
-                >
-                <mat-error *ngIf="carForm.get('libre').errors" >
-                  <div *ngIf="carForm.get('libre').errors['required']">Libre Number is Required </div>
-                </mat-error>
-            </mat-form-field>
-          </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput placeholder="Car Make or Name" name="make" id="make" required formControlName="make">
+                        <mat-error *ngIf="carForm.get('make').errors">
+                            <div *ngIf="carForm.get('make').errors['required']">Car Make is Required </div>
+                        </mat-error>
+                        <mat-hint> Name of the car example Toyota</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput placeholder="Model" name="model" id="model" required formControlName="model">
+                        <mat-error *ngIf="carForm.get('model').errors">
+                            <div *ngIf="carForm.get('model').errors['required']">Model of Car is Required </div>
+                        </mat-error>
+                        <mat-hint> Model of the car example Corolla...</mat-hint>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput [matDatepicker]="yearMade" placeholder="Year Made" name="yearMade" id="yearMade" required formControlName="yearMade">
+                        <mat-error *ngIf="carForm.get('yearMade').errors">
+                            <div *ngIf="carForm.get('yearMade').errors['required']">Year of the car made is Required </div>
+                        </mat-error>
+                        <mat-datepicker-toggle matSuffix [for]="yearMade"></mat-datepicker-toggle>
+                        <mat-datepicker #yearMade startView="multi-year"></mat-datepicker>
+
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field>
+                        <mat-select placeholder="Color" name="color" id="color" required formControlName="color">
+                            <mat-option *ngFor="let color of COLORS" [value]="color">{{color}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="carForm.get('color').errors">
+                            <div *ngIf="carForm.get('color').errors['required']">Color is required </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <mat-select placeholder="Type" name="type" id="type" required formControlName="type">
+                            <mat-option [value]="carType" *ngFor="let carType of CAR_TYPES ">{{carType}}</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="carForm.get('type').errors">
+                            <div *ngIf="carForm.get('type').errors['required']">Vehicle Type is required </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <mat-select placeholder="Fuiel Type" name="fuielType" id="fuielType" required formControlName="fuiel">
+                            <mat-option *ngFor="let fuiel of FUIEL_TYPES" [value]="fuiel">{{fuiel}}</mat-option>
+
+                        </mat-select>
+                        <mat-error *ngIf="carForm.get('fuiel').errors">
+                            <div *ngIf="carForm.get('fuiel').errors['required']">Fuiel Type is required </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-2">
+                    <mat-form-field>
+                        <mat-select placeholder="Plate Code" name="plateCode" id="plateCode" formControlName="plateCode" required>
+                            <mat-option value="2">2</mat-option>
+                            <mat-option value="3">3</mat-option>
+                        </mat-select>
+                        <mat-error *ngIf="carForm.get('plateCode').errors">
+                            <div *ngIf="carForm.get('plateCode').errors['required']">Plate Code is required </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput placeholder="Plate Number" name="plateNumber" id="plateNumber" formControlName="plateNumber" required>
+                        <mat-error *ngIf="carForm.get('plateNumber').errors">
+                            <div *ngIf="carForm.get('plateNumber').errors['required']"> Plate Number is Required</div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput placeholder="Chassis Number" name="chassisNo" id="chassisNo" required formControlName="chassisNo">
+                        <mat-error *ngIf="carForm.get('chassisNo').errors">
+                            <div *ngIf="carForm.get('chassisNo').errors['required']"> Chassis Number is Required </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput placeholder="Motor Number" name="motorNo" id="motorNo" required formControlName="motorNo">
+                        <mat-error *ngIf="carForm.get('motorNo').errors">
+                            <div *ngIf="carForm.get('motorNo').errors['required']">Motor Number is Required </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput placeholder="CC" name="cc" id="cc" required formControlName="cc">
+                        <mat-error *ngIf="carForm.get('cc').errors">
+                            <div *ngIf="carForm.get('cc').errors['required']"> CC Number is Required </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput placeholder="Passanger Capacity" name="totalPassanger" id="totalPassanger" required formControlName="totalPassanger">
+                        <mat-error *ngIf="carForm.get('totalPassanger').errors">
+                            Passanger Number is Required
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput placeholder="Cylinder" name="cylinder" id="cylinder" required formControlName="cylinder">
+                        <mat-error *ngIf="carForm.get('cylinder').errors">
+                            <div *ngIf="carForm.get('cylinder').errors['required']">Cylinder Number is Required </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+                <div class="col">
+                    <mat-form-field>
+                        <input matInput placeholder="Libre Number" name="libre" id="libre" required formControlName="libre">
+                        <mat-error *ngIf="carForm.get('libre').errors">
+                            <div *ngIf="carForm.get('libre').errors['required']">Libre Number is Required </div>
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <output *ngIf="errorMessages" class="text-danger">
+                <div *ngFor="let error of errorMessages"> {{error}}</div>
+            </output>
+        </mat-card-content>
+        <div class="form-button-box">
+            <button mat-button mat-raised-button type="submit" color="primary">Save</button>
+            <button mat-button mat-raised-button color="warn">Cancel</button>
         </div>
-        <output *ngIf="errorMessages" class="text-danger">
-          <div *ngFor="let error of errorMessages"> {{error}}</div>
-        </output>
-    </mat-card-content>
-    <div class="form-button-box">
-        <button mat-button mat-raised-button type="submit" color="primary">Save</button>
-        <button mat-button mat-raised-button color="warn">Cancel</button>
-    </div>
-  </form>
+    </form>
 </mat-card>

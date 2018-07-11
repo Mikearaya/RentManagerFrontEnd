@@ -6,12 +6,17 @@
         <mat-form-field>
           <input matInput placeholder="First Name" name="firstName" id="firstName" formControlName="firstName" required autocomplete="on"
           />
-          <mat-error></mat-error>
+          <mat-error *ngIf="form.get('firstName').errors">
+            <div *ngIf="form.get('firstName').errors['required']">First Name is Required</div>
+          </mat-error>
         </mat-form-field>
       </div>
       <div class="col">
         <mat-form-field>
           <input matInput placeholder="Last Name" id="lastName" name="lastName" formControlName="lastName" required autocomplete="on">
+          <mat-error *ngIf="form.get('lastName').errors">
+              <div *ngIf="form.get('lastName').errors['required']">Last Name is Required</div>
+            </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -25,9 +30,10 @@
       <div class="col">
         <mat-form-field>
           <input matInput placeholder="Driving license ID Number" name="idNumber" id="idNumber" formControlName="drivingLicenceId"
-            required autocomplete="on">
-          <mat-error>
-          </mat-error>
+            required>
+            <mat-error *ngIf="form.get('drivingLicenceId').errors">
+                <div *ngIf="form.get('drivingLicenceId').errors['required']">Driving License ID is Required</div>
+              </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -50,17 +56,18 @@
       <div class="col">
         <mat-form-field>
           <input matInput placeholder="Nationality" id="nationality" name="nationality" formControlName="nationality" required autocomplete="on">
-          <mat-error>
-
-          </mat-error>
+          <mat-error *ngIf="form.get('nationality').errors">
+              <div *ngIf="form.get('nationality').errors['required']">Nationality is Required</div>
+            </mat-error>
         </mat-form-field>
       </div>
       <div class="col">
         <mat-form-field>
           <input matInput placeholder="Country" name="country" id="country" formControlName="country" required autocomplete="on">
           <mat-hint>Current Country where they live</mat-hint>
-          <mat-error>
-          </mat-error>
+          <mat-error *ngIf="form.get('country').errors">
+              <div *ngIf="form.get('country').errors['required']">Country is Required</div>
+            </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -69,14 +76,18 @@
         <mat-form-field>
           <input matInput placeholder="City" name="city" id="city" formControlName="city" required autocomplete="on">
           <mat-hint>Permanent Residence</mat-hint>
-          <mat-error></mat-error>
+          <mat-error *ngIf="form.get('city').errors">
+              <div *ngIf="form.get('city').errors['required']">City is Required</div>
+            </mat-error>
         </mat-form-field>
       </div>
       <div class="col">
         <mat-form-field>
           <input matInput placeholder="House Number" id="houseNo" name="houseNo" formControlName="houseNo" required autocomplete="on">
           <mat-hint>Permanent Address</mat-hint>
-          <mat-error></mat-error>
+          <mat-error *ngIf="form.get('houseNo').errors">
+              <div *ngIf="form.get('houseNo').errors['required']">House Number is Required</div>
+            </mat-error>
         </mat-form-field>
       </div>
     </div>
@@ -86,22 +97,28 @@
           <input matInput placeholder="Main Mobile Number" name="mobileNumber" id="mobileNumber" formControlName="mobileNumber" required
             autocomplete="on">
           <mat-hint>The phone they currently use</mat-hint>
-          <mat-error></mat-error>
+          <mat-error *ngIf="form.get('mobileNumber').errors">
+              <div *ngIf="form.get('mobileNumber').errors['required']">Main Mobile Number is Required</div>
+            </mat-error>
         </mat-form-field>
       </div>
       <div class="col">
         <mat-form-field>
-          <input matInput placeholder="Alternative Phonenumber" name="otherPhone" id="otherPhone" formControlName="otherPhone" required
-            autocomplete="on">
+          <input matInput placeholder="Alternative Phonenumber" name="otherPhone" id="otherPhone" formControlName="otherPhone">
           <mat-hint>Alternative phone they currently use</mat-hint>
-          <mat-error></mat-error>
         </mat-form-field>
       </div>
     </div>
+
+        <output *ngIf="errorMessages">
+          <div  *ngFor="let error of errorMessages">
+              {{error}}
+          </div>
+        </output>
     <div class="row" *ngIf="isSelfContained()">
-      <div class="col form-button-box">
-        <button mat-raised-button type="submit" color="primary">Submit</button>
-        <button mat-raised-button color="warn">Cancel</button>
+      <div class="form-button-box">
+        <button mat-raised-button type="submit" [disabled]="form.invalid"  color="primary">Submit</button>
+        <button mat-raised-button type="button" (click)="cancel()" color="warn">Cancel</button>
       </div>
     </div>
   </form>

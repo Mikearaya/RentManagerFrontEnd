@@ -1,9 +1,11 @@
-import { HttpClient } from '@angular/common/http';
+import { Location } from '@angular/common';
+import { MatSnackBar, MatSnackBarDismiss } from '@angular/material';
+import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CustomerService } from './../customer.service';
 
 import { Component, OnInit, Input } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from '../customer.service';
 
 @Component({
@@ -18,10 +20,15 @@ export class CustomerFormComponent implements OnInit {
   customerId: number;
   private title: String = '';
   private customerSelfContained: Boolean = false;
+  private redirected: String = 'false';
+  errorMessages: any;
 
   constructor(private formBuilder: FormBuilder,
               private customerService: CustomerService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+              private location: Location,
+              private router: Router,
+              private snackBar: MatSnackBar) {
               this.generateForm();
 
             }
@@ -52,14 +59,14 @@ export class CustomerFormComponent implements OnInit {
     this.form = this.formBuilder.group({
       firstName: this.buildControl(currentCustomer.first_name, true),
       lastName: this.buildControl(currentCustomer.last_name, true),
-      passportNumber: this.buildControl(currentCustomer.passport_number, true),
+      passportNumber: this.buildControl(currentCustomer.passport_number),
       drivingLicenceId: this.buildControl(currentCustomer.driving_licence_id, true),
       nationality: this.buildControl(currentCustomer.nationality, true),
       country: this.buildControl(currentCustomer.country, true),
       city: this.buildControl(currentCustomer.city, true),
       houseNo: this.buildControl(currentCustomer.house_no, true),
       mobileNumber: this.buildControl(currentCustomer.mobile_number, true),
-      otherPhone: this.buildControl(currentCustomer.other_phone, true),
+      otherPhone: this.buildControl(currentCustomer.other_phone),
       hotelName: this.buildControl(currentCustomer.hotel_name),
       hotelPhone: this.buildControl(currentCustomer.hotel_phone),
     });
@@ -92,17 +99,35 @@ prepareDataModel(): Customer {
 onSubmit() {
   this.customer = this.prepareDataModel();
   if (this.isUpdate) {
-    this.customerService.updateCustomer(this.customer).subscribe((result) => this.handelResponse(result));
+    this.customerService.updateCustomer(this.customer)
+                                          .subscribe((success: Customer) => this.handelSuccess(success),
+                                                      (error: HttpErrorResponse) => this.handelError(error));
   } else {
-    this.customerService.addCustomer(this.customer).subscribe((result) => this.handelResponse(result));
+    this.customerService.addCustomer(this.customer)
+                                              .subscribe((success: Customer) => this.handelSuccess(success),
+                                                          (error: HttpErrorResponse) => this.handelError(error));
   }
   }
 
-  handelResponse(result: any) {
-    if (result) {
-      alert('success');
-    } else {
-      alert('failed');
-    }
+  handelSuccess(result: Customer) {
+    const snackBar = this.snackBar.open('Client Information Saved Successfully', 'Rent Vehicle?');
+    snackBar.afterDismissed().subscribe((snack: MatSnackBarDismiss) => {
+      if (snack.dismissedByAction) {
+        this.router.navigate(['rent/vehicle', { customerId: result.CUSTOMER_ID}]);
+      } else if (this.redirected === 'true') {
+        this.location.back();
+      } else {
+        this.router.navigate(['customers']);
+      }
+    });
+}
+
+  cancel() {
+    this.location.back();
   }
+handelError(error: HttpErrorResponse) {
+  this.errorMessages = error.error;
+  this.snackBar.open('Error Occured While Saving Client Information');
+}
+
 }

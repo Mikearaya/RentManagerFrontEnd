@@ -35,9 +35,9 @@ export class CustomerService {
     this.httpBody = this.prepareRequestBody(newCustomer);
     return this.httpClient.post<Customer>(`${this.url}/add`, this.httpBody.toString());
   }
-  updateCustomer(updatedCustomer: Customer): Observable<Boolean> {
+  updateCustomer(updatedCustomer: Customer): Observable<Customer> {
     this.httpBody = this.prepareRequestBody(updatedCustomer);
-    return this.httpClient.post<Boolean>(`${this.url}/update/${updatedCustomer.CUSTOMER_ID}`, this.httpBody.toString());
+    return this.httpClient.post<Customer>(`${this.url}/update/${updatedCustomer.CUSTOMER_ID}`, this.httpBody.toString());
   }
 
   deleteCustomer(customerId: number): Observable<Boolean> {

@@ -124,14 +124,6 @@ private currentOwnerId: number;
     return (required) ? [value, Validators.required] : value;
   }
 
-  handelResponse(result: any) {
-    if (result) {
-      alert('success');
-    } else {
-      alert('failed');
-    }
-  }
-
   addOwner() {
     this.router.navigate(['add/owner', {'from_vehicle' : true}]);
   }
