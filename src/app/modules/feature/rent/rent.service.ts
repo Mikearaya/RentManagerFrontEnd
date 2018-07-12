@@ -31,11 +31,28 @@ export class RentService {
   }
 
   deleteRent(rentIds: number[]): Observable<Boolean> {
-    rentIds.forEach((id) => this.httpBody.append('RENT_ID', `${id}` ));
+    rentIds.forEach((id) => this.httpBody.append('id[]', `${id}` ));
     return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString());
   }
 
-  prepareRequestBody(currentRent: Rent): URLSearchParams {
+
+  displayRents(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<RentDataModel> {
+    return this.httpClient.get<RentDataModel>(`${this.url}`,
+                                          {params : new HttpParams()
+                                                        .set('filter', filter)
+                                                        .set('pageIndex', pageIndex.toString() )
+                                                        .set('pageSize', pageSize.toString())
+                                                        .set('sortOrder', sortOrder)
+                                                        .set('sortColumn', sortColumn)
+                                                      }
+                                                    );
+  }
+
+  getRentContratData(rentId: number): any {
+    return this.httpClient.get<any>(`${this.url}/contrat_info/${rentId}`);
+  }
+
+  private prepareRequestBody(currentRent: Rent): URLSearchParams {
 
     const requestBody = new URLSearchParams();
 
@@ -60,29 +77,6 @@ export class RentService {
 
     return requestBody;
 
-  }
-
-  displayRents(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<RentDataModel> {
-    return this.httpClient.get<RentDataModel>(`${this.url}`,
-                                          {params : new HttpParams()
-                                                        .set('filter', filter)
-                                                        .set('pageIndex', pageIndex.toString() )
-                                                        .set('pageSize', pageSize.toString())
-                                                        .set('sortOrder', sortOrder)
-                                                        .set('sortColumn', sortColumn)
-                                                      }
-                                                    );
-  }
-
-  getRentContratData(rentId: number): any {
-    return this.httpClient.get<any>(`${this.url}/contrat_info/${rentId}`);
-  }
-  private formatDate(date: Date): string {
-      const day = date.getUTCDate();
-      const month = date.getUTCMonth() + 1;
-      const year = date.getFullYear();
-
-    return  `${year}-${month}-${day}`;
   }
 }
 

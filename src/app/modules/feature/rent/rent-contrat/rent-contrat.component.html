@@ -1,12 +1,12 @@
 <section class="mt-4 p-3">
 <button mat-raised-button (click)="printContrat()" class="align-right" color="accent">Print</button>
   <h1 class="text-center"> <strong> ክፍሎም ፀጋዬ የመኪና ኪራይ ስምምነት </strong> </h1>
-
-  የተከራይ ሙሉ ስም እስከ አያት <u>{{rentInfo.first_name}}&nbsp;&nbsp;{{rentInfo.last_name}}</u> ዜግነት <u>{{rentInfo.nationality}}</u> <br />
-  አድራሻ {{rentInfo.sub_city}} &nbsp; &nbsp;, {{rentInfo.city}} {{rentInfo.country}} የቤት ቁጥር {{rentInfo.house_no}} ወረዳ {{rentInfo.wereda}}  <br/>
-  የመንጃ ፈቃድ ቁጥር {{rentInfo.driving_licence_id}} ስልክ ቁጥር {{rentInfo.mobile_number}} <br/>
-  ከውጭ ሃገር ከመጡ የፓስፖርት ቁጥር {{rentInfo.passport_number}} ያረፉበት ሆቴል ስም {{rentInfo.hotel_name}} ስልክ {{rentInfo.hotel_phone}} <br />
-
+<p>
+  የተከራይ ሙሉ ስም እስከ አያት <u>{{rentInfo.first_name}}&nbsp;&nbsp;{{rentInfo.last_name}}</u> ዜግነት <u>{{rentInfo.nationality}}</u>
+  አድራሻ {{rentInfo.sub_city}} &nbsp; &nbsp;, {{rentInfo.city}} {{rentInfo.country}} የቤት ቁጥር {{rentInfo.house_no}} ወረዳ {{rentInfo.wereda}}
+  የመንጃ ፈቃድ ቁጥር {{rentInfo.driving_licence_id}} ስልክ ቁጥር {{rentInfo.mobile_number}}
+  ከውጭ ሃገር ከመጡ የፓስፖርት ቁጥር {{rentInfo.passport_number}} ያረፉበት ሆቴል ስም {{rentInfo.hotel_name}} ስልክ {{rentInfo.hotel_phone}}
+</p>
 
 <h2> <strong>የተከራይ / የውል ተቀባይ / ግዴታ ና  </strong> </h2>
 
@@ -132,8 +132,8 @@
         </thead>
         <tbody>
             <tr>
-              <th>ኪ.ሜ</th>
-              <td>{{rentInfo.total_kilometer}}</td>
+              <th>Cigaret Lighter</th>
+              <td>{{rentInfo.cigaret_lighter}}</td>
               <th>Fuiel Lid</th>
               <td>{{rentInfo.fuiel_lid}}</td>
               <th>Spare Tire</th>
@@ -172,12 +172,14 @@
               <td>{{rentInfo.wind_protecter}}</td>
             </tr>
             <tr>
-                <th>Cigaret Lighter</th>
-                <td>{{rentInfo.cigaret_lighter}}</td>
-              <th>Radio</th>
-              <td colspan="2">{{rentInfo.radio}}</td>
+                <th>ኪ.ሜ</th>
+              <td colspan="3">{{rentInfo.total_kilometer}}</td>
               <th>Fuiel Level</th>
-              <td colspan="2">{{rentInfo.fuiel_level}}</td>
+              <td colspan="3">{{rentInfo.fuiel_level}}</td>
+            </tr>
+            <tr>
+              <th>Radio</th>
+              <td colspan="7">{{rentInfo.radio}}</td>
             </tr>
             <tr>
               <td colspan="8"><strong>Comment </strong> <br /> {{rentInfo.comment}}</td>
@@ -187,18 +189,14 @@
           <tr>
             <th>የመኪና ተረካቢ ስም</th>
             <td colspan="3">{{rentInfo.first_name}} {{rentInfo.last_name}} </td>
-            <th>ፊርማ</th>
-            <td>&nbsp;</td>
-            <th>ቀን</th>
-            <td>&nbsp;</td>
+            <th colspan="2" >ፊርማ</th>
+            <th colspan="2">ቀን</th>
           </tr>
           <tr>
               <th>የመኪና አስረኪ ስም</th>
               <td colspan="3">{{rentInfo.renting_employee}} </td>
-              <th >ፊርማ</th>
-              <td>&nbsp;</td>
-              <th>ቀን</th>
-              <td>&nbsp;</td>
+              <th colspan="2" >ፊርማ</th>
+              <th colspan="2">ቀን</th>
             </tr>
         </tfoot>
       </table>

@@ -46,7 +46,7 @@ export class OwnerService {
   }
 
   deleteOwner(OwnerIds: number[]): Observable<Boolean> {
-    OwnerIds.forEach((id) => this.httpBody.append('OWNER_ID', `${id}` ));
+    OwnerIds.forEach((id) => this.httpBody.append('id[]', `${id}` ));
     return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString());
   }
 

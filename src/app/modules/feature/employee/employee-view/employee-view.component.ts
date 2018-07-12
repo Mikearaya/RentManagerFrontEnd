@@ -7,6 +7,7 @@ import {fromEvent, merge} from 'rxjs';
 import { distinctUntilChanged, debounceTime, tap } from 'rxjs/operators';
 import { EmployeeApiService, Employee } from '../employee-api.service';
 import { EmployeeView, EmployeeViewDataSource } from './employee-view-datasource';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const allowMultiSelect = true;
 const initialSelection = [];
@@ -75,11 +76,8 @@ export class EmployeeViewComponent implements OnInit, AfterViewInit {
     this.displayedColumns = ['select'];
     filteredColumns.forEach((col) => this.displayedColumns.push(col));
  }
-  deleteCustomer(deletedEmployee: Employee) {
-    this.employeeApiService.deleteEmployee(deletedEmployee.EMPLOYEE_ID).subscribe();
-  }
-
   viewEmployees() {
+    this.selection.clear();
     this.dataSource.loadEmployees(this.input.nativeElement.value,
                               this.sort.active,
                               this.sort.direction,
@@ -106,8 +104,9 @@ export class EmployeeViewComponent implements OnInit, AfterViewInit {
 
   deleteEmployee(deletedEmployees: EmployeeView[]) {
     const deletedIds = [];
-    deletedEmployees.forEach((employee: EmployeeView) => {
-      deletedIds.push(employee.EMPLOYEE_ID);
-    });
+    deletedEmployees.forEach((employee: EmployeeView) =>  deletedIds.push(employee.EMPLOYEE_ID));
+    this.employeeApiService.deleteEmployee(deletedIds)
+                                          .subscribe(() => this.viewEmployees(),
+                                                      (error: HttpErrorResponse) => console.log(error));
   }
 }

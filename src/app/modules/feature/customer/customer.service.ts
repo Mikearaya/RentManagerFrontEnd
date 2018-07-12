@@ -40,8 +40,9 @@ export class CustomerService {
     return this.httpClient.post<Customer>(`${this.url}/update/${updatedCustomer.CUSTOMER_ID}`, this.httpBody.toString());
   }
 
-  deleteCustomer(customerId: number): Observable<Boolean> {
-    return this.httpClient.delete<Boolean>(`${this.url}/${customerId}`);
+  deleteCustomer(customerId: number[]): Observable<Boolean> {
+       customerId.forEach((id) => this.httpBody.append('id[]', `${id}` ));
+    return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString());
   }
 
   private prepareRequestBody(customer: Customer): URLSearchParams {

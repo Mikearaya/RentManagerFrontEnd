@@ -7,6 +7,7 @@ import { CustomerViewDataSource, CustomerView } from './customer-view-datasource
 import { FormControl } from '@angular/forms';
 import {fromEvent, merge} from 'rxjs';
 import { distinctUntilChanged, debounceTime, tap } from 'rxjs/operators';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const allowMultiSelect = true;
 const initialSelection = [];
@@ -81,11 +82,8 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
     this.displayedColumns = ['select'];
     filteredColumns.forEach((col) => this.displayedColumns.push(col));
  }
-  deleteCustomer(deletedCustomer: Customer) {
-    this.customerService.deleteCustomer(deletedCustomer.CUSTOMER_ID).subscribe();
-  }
-
   viewCustomers() {
+    this.selection.clear();
     this.dataSource.loadCustomers(this.input.nativeElement.value,
                               this.sort.active,
                               this.sort.direction,
@@ -114,9 +112,11 @@ export class CustomerViewComponent implements OnInit, AfterViewInit {
   }
 
   deleteCustomers(deletedCustomers: Customer[]) {
+
     const deletedIds = [];
-    deletedCustomers.forEach((customer: Customer) => {
-      deletedIds.push(customer.CUSTOMER_ID);
-    });
+    deletedCustomers.forEach((customer: Customer) =>  deletedIds.push(customer.CUSTOMER_ID) );
+    this.customerService.deleteCustomer(deletedIds)
+                        .subscribe((result: Boolean) => { this.viewCustomers(); } ,
+                                    (error: HttpErrorResponse) => console.log(error));
   }
 }

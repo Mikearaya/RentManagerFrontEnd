@@ -8,12 +8,12 @@
 
           <button mat-raised-button color="primary" routerLink="/add/owner/">New</button>
           <button mat-raised-button color="primary" (click)="editOwner(selection.selected[0]);" [disabled]="selection.selected.length != 1">Edit</button>
-          <button mat-raised-button color="warn" [disabled]="selection.selected.length == 0" (click)="deleteOwner(selection.selected);">Delete</button>
+          <button mat-raised-button color="warn" [disabled]="selection.selected.length == 0" (click)="deleteOwners(selection.selected);">Delete</button>
    </div>
   <div class="row">
     <div class="col">
       <mat-form-field>
-        <input matInput placeholder="Search Vehicle" #input>
+        <input matInput placeholder="Search Vehicle Owners" #input>
       </mat-form-field>
     </div>
     <div class="col">

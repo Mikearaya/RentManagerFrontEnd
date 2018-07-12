@@ -4,13 +4,14 @@ import { Observable } from 'rxjs';
 import { EmployeeViewModel } from './employee-view/employee-view-datasource';
 
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable()
 export class EmployeeApiService {
     private url = 'http://localhost/rent_manager/index.php/employee';
     private httpBody: URLSearchParams;
-  constructor(private httpClient: HttpClient) { }
+
+      constructor(private httpClient: HttpClient) {
+        this.httpBody = new URLSearchParams();
+      }
 
   getEmployeeById(id: number): Observable<Employee> {
     return this.httpClient.get<Employee>(`${this.url}/${id}`);
@@ -30,21 +31,9 @@ export class EmployeeApiService {
     return this.httpClient.post<Employee>(`${this.url}/update/${updateEmployee.EMPLOYEE_ID}`, this.httpBody.toString());
   }
 
-  deleteEmployee(employeeId: number): Observable<Boolean> {
-    return this.httpClient.delete<Boolean>(`${this.url}/${employeeId}`);
-  }
-
-  private prepareRequestBody(employee: Employee): URLSearchParams {
-    const requestBody = new URLSearchParams();
-
-    for (const key in employee) {
-        if (employee.hasOwnProperty(key)) {
-          const value = employee[key];
-          requestBody.set(`${key}`, value);
-        }
-    }
-    return requestBody;
-
+  deleteEmployee(employeeId: number[]): Observable<Boolean> {
+    employeeId.forEach((id) => this.httpBody.append('id[]', `${id}` ));
+    return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString());
   }
 
   displayEmployees(filter, sortColumn, sortOrder, pageNumber, pageSize): Observable<EmployeeViewModel> {
@@ -59,6 +48,18 @@ export class EmployeeApiService {
     });
   }
 
+  private prepareRequestBody(employee: Employee): URLSearchParams {
+    const requestBody = new URLSearchParams();
+
+    for (const key in employee) {
+        if (employee.hasOwnProperty(key)) {
+          const value = employee[key];
+          requestBody.set(`${key}`, value);
+        }
+    }
+    return requestBody;
+
+  }
 }
 
 

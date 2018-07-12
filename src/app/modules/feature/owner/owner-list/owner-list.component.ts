@@ -7,6 +7,7 @@ import { OwnerDataSource } from './owner-list-datasource';
 import { ActivatedRoute, Router } from '@angular/router';
 import { fromEvent, merge } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 
 const initialSelection = [];
@@ -77,10 +78,13 @@ this.selectedColumns = new FormControl(this.displayedColumns);
   deleteOwners(deletedOwners: Owner[]) {
     const deletedIds = [];
     deletedOwners.forEach((owner: Owner) => deletedIds.push(`${owner.OWNER_ID}`));
-    this.ownerService.deleteOwner(deletedIds).subscribe((result) => console.log(result));
-  }
+    this.ownerService.deleteOwner(deletedIds)
+                                          .subscribe((result: Boolean) => this.viewOwners(),
+                                                      (error: HttpErrorResponse) => console.log(error) );
+    }
 
   viewOwners() {
+    this.selection.clear();
     this.dataSource.loadOwners(this.input.nativeElement.value,
                               this.paginator.pageIndex,
                               this.paginator.pageSize,
@@ -112,8 +116,5 @@ this.selectedColumns = new FormControl(this.displayedColumns);
     this.router.navigate([`/update/owner/${selectedOwner.OWNER_ID}`]);
   }
 
-  deleteOwner(deletedVehicles: Owner[]) {
-
-  }
 
 }

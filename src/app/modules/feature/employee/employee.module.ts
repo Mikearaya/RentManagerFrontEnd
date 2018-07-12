@@ -7,6 +7,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, MatCardModule, MatTableModule,
   MatPaginatorModule, MatSortModule, MatSelectModule, MatCheckboxModule, MatProgressSpinnerModule } from '@angular/material';
 import { EmployeeViewComponent } from './employee-view/employee-view.component';
+import { EmployeeApiService } from './employee-api.service';
 
 @NgModule({
   imports: [
@@ -26,6 +27,7 @@ import { EmployeeViewComponent } from './employee-view/employee-view.component';
     MatSortModule
   ],
   declarations: [EmployeeFormComponent, EmployeeViewComponent],
-  exports: [EmployeeFormComponent, EmployeeViewComponent]
+  exports: [EmployeeFormComponent, EmployeeViewComponent],
+  providers: [EmployeeApiService]
 })
 export class EmployeeModule { }

@@ -61,7 +61,7 @@ export class CarService {
     }
 
     deleteCar(carIds: number[]): Observable<Boolean> {
-      carIds.forEach((id) => this.httpBody.append('VEHICLE_ID', `${id}` ));
+      carIds.forEach((id) => this.httpBody.append('id[]', `${id}` ));
       return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString());
     }
     displayVehicles(ownerId: number, filter = '', sortOrder = 'asc', sortColumn = '',

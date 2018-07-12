@@ -7,6 +7,7 @@ import { fromEvent, merge } from 'rxjs';
 import { debounceTime, distinctUntilChanged, tap } from 'rxjs/operators';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const allowMultiSelect = true;
 const initialSelection = [];
@@ -77,6 +78,7 @@ export class RentViewComponent implements OnInit, AfterViewInit {
   }
 
   viewRents() {
+    this.selection.clear();
     this.dataSource.loadRents(this.input.nativeElement.value,
                               this.paginator.pageIndex,
                               this.paginator.pageSize,
@@ -103,7 +105,11 @@ export class RentViewComponent implements OnInit, AfterViewInit {
     this.router.navigate([`/manage/vehicle/${selectedVehicle.VEHICLE_ID}`]);
   }
 
-  deleteVehicles(deletedVehicles: RentView[]) {
-
+  deleteRent(deletedRents: RentView[]) {
+    const deletedIds = [];
+    deletedRents.forEach((rent) => deletedIds.push( `${deletedIds}`));
+    this.rentService.deleteRent(deletedIds)
+                                    .subscribe((result: Boolean) => this.viewRents(),
+                                               (error: HttpErrorResponse) => console.log());
   }
 }

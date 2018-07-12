@@ -7,6 +7,7 @@ import { SelectionModel } from '@angular/cdk/collections';
 import { tap, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 import { merge, fromEvent } from 'rxjs';
 import { FormControl } from '@angular/forms';
+import { HttpErrorResponse } from '@angular/common/http';
 
 const initialSelection = [];
 const allowMultiSelect = true;
@@ -78,21 +79,17 @@ manageView(filteredColumns) {
   this.displayedColumns = ['select'];
   filteredColumns.forEach((col) => this.displayedColumns.push(col));
  }
-  deleteCar(deletedCars: Car[]) {
-    const deletedId = [];
-    deletedCars.forEach((car) => deletedId.push(`${car.VEHICLE_ID}`));
-    this.carService.deleteCar(deletedId).subscribe((result) => console.log(result));
-  }
+
 
     viewVehicles() {
-      this.selection.clear();
-    this.dataSource.loadVehicles(
-      this.ownerId,
-      this.input.nativeElement.value,
-      this.sort.direction,
-      this.sort.active,
-      this.paginator.pageIndex,
-      this.paginator.pageSize
+                this.selection.clear();
+          this.dataSource.loadVehicles(
+            this.ownerId,
+            this.input.nativeElement.value,
+            this.sort.direction,
+            this.sort.active,
+            this.paginator.pageIndex,
+            this.paginator.pageSize
     );
   }
 isSelfContained() {
@@ -114,7 +111,11 @@ isSelfContained() {
   }
 
   deleteVehicles(deletedVehicles: Car[]) {
-
+    const deletedId = [];
+    deletedVehicles.forEach((car) => deletedId.push(`${car.VEHICLE_ID}`));
+    this.carService.deleteCar(deletedId)
+                                    .subscribe((result: Boolean) => this.viewVehicles(),
+                                                (error: HttpErrorResponse) => console.log(error) );
   }
 
   rentVehicle(selectedVehicle: Car) {
