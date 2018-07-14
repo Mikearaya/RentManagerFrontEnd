@@ -7,7 +7,7 @@ import { AppRoutingModule } from './app-routing.module';
 import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { FeatureModule } from './modules/feature/feature.module';
-import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
+import { MatTableModule, MatPaginatorModule, MatSortModule} from '@angular/material';
 
 
 
@@ -21,7 +21,7 @@ import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/mate
     AppRoutingModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
   ],
   declarations: [ AppComponent],
   providers: [],
