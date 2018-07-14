@@ -4,7 +4,7 @@ import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { CustomerService } from './../customer.service';
 
 import { Component, OnInit, Input } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Customer } from '../customer.service';
 
@@ -22,7 +22,7 @@ export class CustomerFormComponent implements OnInit {
   private customerSelfContained: Boolean = false;
   private redirected: String = 'false';
   errorMessages: any;
-
+  @Input('isForeigner')  isForeigner: Boolean;
   constructor(private formBuilder: FormBuilder,
               private customerService: CustomerService,
               private activatedRoute: ActivatedRoute,
@@ -30,6 +30,7 @@ export class CustomerFormComponent implements OnInit {
               private router: Router,
               private snackBar: MatSnackBar) {
               this.generateForm();
+
 
             }
 
@@ -61,7 +62,7 @@ export class CustomerFormComponent implements OnInit {
       lastName: this.buildControl(currentCustomer.last_name, true),
       passportNumber: this.buildControl(currentCustomer.passport_number),
       drivingLicenceId: this.buildControl(currentCustomer.driving_licence_id, true),
-      nationality: this.buildControl(currentCustomer.nationality, true),
+      nationality: this.buildControl(currentCustomer.nationality),
       country: this.buildControl(currentCustomer.country, true),
       city: this.buildControl(currentCustomer.city, true),
       houseNo: this.buildControl(currentCustomer.house_no, true),

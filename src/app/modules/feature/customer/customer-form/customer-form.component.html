@@ -20,27 +20,32 @@
         </mat-form-field>
       </div>
     </div>
-    <div class="row">
+    <div class="row ">
       <div class="col">
-        <mat-form-field>
-          <mat-label for="passportNo">Passport Number</mat-label>
-          <input matInput type="text" placeholder="Passport Number" name="passportNo" id="passportNo" formControlName="passportNumber">
-        </mat-form-field>
+        <mat-slide-toggle #isForeigner  [labelPosition]="before"  [checked]="false" >
+        Is A Foreigner
+      </mat-slide-toggle>
       </div>
+    </div>
+    <div class="container bg-white " *ngIf="isForeigner.checked">
+    <div class="row" >
+        <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Nationality" id="nationality" name="nationality" formControlName="nationality" required autocomplete="on">
+              <mat-error *ngIf="form.get('nationality').errors">
+                  <div *ngIf="form.get('nationality').errors['required']">Nationality is Required</div>
+                </mat-error>
+            </mat-form-field>
+          </div>
       <div class="col">
         <mat-form-field>
-          <input matInput placeholder="Driving license ID Number" name="idNumber" id="idNumber" formControlName="drivingLicenceId"
-            required>
-            <mat-error *ngIf="form.get('drivingLicenceId').errors">
-                <div *ngIf="form.get('drivingLicenceId').errors['required']">Driving License ID is Required</div>
-              </mat-error>
+          <input matInput type="text" placeholder="Passport Number" name="passportNo" id="passportNo" formControlName="passportNumber">
         </mat-form-field>
       </div>
     </div>
     <div class="row">
       <div class="col">
         <mat-form-field>
-          <mat-label for="hotelName">Hotel Name</mat-label>
           <input matInput type="text" placeholder="Hotel Name" name="hotelName" id="hotelName" formControlName="hotelName">
         </mat-form-field>
       </div>
@@ -52,15 +57,17 @@
         </mat-form-field>
       </div>
     </div>
+  </div>
     <div class="row">
-      <div class="col">
-        <mat-form-field>
-          <input matInput placeholder="Nationality" id="nationality" name="nationality" formControlName="nationality" required autocomplete="on">
-          <mat-error *ngIf="form.get('nationality').errors">
-              <div *ngIf="form.get('nationality').errors['required']">Nationality is Required</div>
-            </mat-error>
-        </mat-form-field>
-      </div>
+        <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Driving license ID Number" name="idNumber" id="idNumber" formControlName="drivingLicenceId"
+                required>
+                <mat-error *ngIf="form.get('drivingLicenceId').errors">
+                    <div *ngIf="form.get('drivingLicenceId').errors['required']">Driving License ID is Required</div>
+                  </mat-error>
+            </mat-form-field>
+          </div>
       <div class="col">
         <mat-form-field>
           <input matInput placeholder="Country" name="country" id="country" formControlName="country" required autocomplete="on">

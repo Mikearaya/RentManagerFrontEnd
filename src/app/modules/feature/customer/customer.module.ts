@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { MatButtonModule, MatInputModule, MatFormFieldModule, MatTableModule,
-   MatPaginatorModule, MatSortModule, MatSelectModule, MatCheckboxModule, MatProgressSpinnerModule } from '@angular/material';
+   MatPaginatorModule, MatSortModule, MatSelectModule, MatCheckboxModule, MatProgressSpinnerModule,
+   MatSlideToggleModule } from '@angular/material';
 import { ReactiveFormsModule } from '@angular/forms';
 import { CustomerFormComponent } from './customer-form/customer-form.component';
 import { CustomerRoutingModule } from './customer-routing.module';
@@ -21,7 +22,8 @@ import { CustomerViewComponent } from './customer-view/customer-view.component';
     MatTableModule,
     MatProgressSpinnerModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSlideToggleModule
   ],
   declarations: [CustomerFormComponent, CustomerViewComponent],
   exports: [CustomerFormComponent, CustomerViewComponent],
