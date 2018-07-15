@@ -1,6 +1,6 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
 import { MatPaginator, MatSort } from '@angular/material';
-import { RentDataSource, RentView } from './rent-view-datasource';
+import { RentDataSource, RentView, RentDataModel } from './rent-view-datasource';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RentService, Rent } from '../rent.service';
 import { fromEvent, merge } from 'rxjs';
@@ -41,8 +41,11 @@ export class RentViewComponent implements OnInit, AfterViewInit {
                         {key: 'rented_By', humanReadable: 'Rent/Day' },
                         {key: 'total_days', humanReadable: 'Total Days' },
                       ];
-  displayedColumns = ['select', 'rented_by', 'plate_number', 'start_date', 'return_date', 'total_days' ];
+  displayedColumns = ['select', 'rented_by', 'plate_number', 'start_date', 'return_date', 'total_days', 'view' ];
 
+  viewRentDetail(selectedRent: Rent) {
+      this.router.navigate(['rent/detail', selectedRent.RENT_ID]);
+  }
   ngOnInit() {
     this.dataSource = new RentDataSource(this.rentService);
     this.rent = this.activatedRoute.snapshot.data['rent'];
@@ -68,8 +71,9 @@ export class RentViewComponent implements OnInit, AfterViewInit {
 
   } /* ngAfterViewInit End */
   manageView(filteredColumns) {
-    this.displayedColumns = ['select'];
-    filteredColumns.forEach((col) => this.displayedColumns.push(col));
+    this.displayedColumns = filteredColumns;
+    this.displayedColumns.splice(0, 0, 'select');
+    this.displayedColumns.push('view');
    }
   deleteRents(deletedRents: Rent[]) {
     const deletedIds = [];

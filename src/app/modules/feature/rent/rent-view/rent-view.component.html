@@ -32,6 +32,14 @@
       </mat-cell>
     </ng-container>
 
+    <ng-container matColumnDef="view">
+        <mat-header-cell *matHeaderCellDef> Detail </mat-header-cell>
+        <mat-cell *matCellDef="let row">
+              <button type="button" (click)="viewRentDetail(row)" mat-icon-button color="primary">
+                  <mat-icon aria-label="view rent detail">search</mat-icon>
+              </button> </mat-cell>
+      </ng-container>
+
     <!-- display all rent related columns dynamically-->
     <ng-container [matColumnDef]="column.key" *ngFor="let column of rentDetailColumns">
       <mat-header-cell *matHeaderCellDef mat-sort-header>{{ column.humanReadable }}</mat-header-cell>

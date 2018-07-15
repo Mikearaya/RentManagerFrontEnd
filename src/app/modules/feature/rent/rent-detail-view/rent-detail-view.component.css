@@ -1,0 +1,9 @@
+section > .row {
+  margin-top: 1em;
+}
+
+table.report-table  td, table.report-table  th {
+  font-size: 0.8em !important;
+  padding: .5rem !important;
+  text-align: center
+}

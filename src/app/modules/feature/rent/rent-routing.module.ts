@@ -1,3 +1,4 @@
+import { RentDetailViewComponent } from './rent-detail-view/rent-detail-view.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 import { RentViewComponent } from './rent-view/rent-view.component';
@@ -20,7 +21,11 @@ const routes: Routes = [
                     {path: 'rent/contrat/:rentId',
                         component: RentContratComponent,
                         data: { title: 'New Rent Contrat', selfContained: true}
-                      }
+                      },
+                      {path: 'rent/detail/:rentId',
+                      component: RentDetailViewComponent,
+                      data: { title: 'Rent Detail', selfContained: true}
+                    }
 ];
 
 @NgModule({

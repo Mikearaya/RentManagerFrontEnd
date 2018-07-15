@@ -1,0 +1,277 @@
+<section>
+
+    <div class="row">
+        <div class="col ">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Client Information</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <table class="table table-striped">
+                        <tbody>
+                            <tr>
+                                <th> Rented By </th>
+                                <td>{{currentRent.first_name}} {{currentRent.last_name}}</td>
+                            </tr>
+                            <tr>
+                                <th> Driving Licence </th>
+                                <td>{{currentRent.driving_licence_id}}</td>
+                            </tr>
+                            <tr>
+                                <th> Nationality </th>
+                                <td>{{currentRent.nationality}}</td>
+                            </tr>
+                            <tr *ngIf="currentRent.hotel_name">
+                                <th> Hotel Name </th>
+                                <td>{{currentRent.hotel_name}}</td>
+                            </tr>
+                            <tr *ngIf="currentRent.hotel_phone">
+                                <th> Hotel Phone </th>
+                                <td>{{currentRent.hotel_phone}}</td>
+                            </tr>
+                            <tr>
+                                <th> Address </th>
+                                <td>{{currentRent.city}}, {{currentRent.country}}</td>
+                            </tr>
+
+                            <tr>
+                                <th> House Number </th>
+                                <td>{{currentRent.house_no}}</td>
+                            </tr>
+                            <tr>
+                                <th> Mobile Number </th>
+                                <td>{{currentRent.mobile_number}}</td>
+                            </tr>
+                            <tr *ngIf="currentRent.other_phone">
+                                <th> Alternative Phone </th>
+                                <td>{{currentRent.other_phone}}</td>
+                            </tr>
+                        </tbody>
+
+                    </table>
+                </mat-card-content>
+            </mat-card>
+
+        </div>
+        <div class="col ">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Vehicle Infomation</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <table class="table table-condensed table-striped">
+                        <tbody>
+                            <tr>
+                                <th>Plate Number</th>
+                                <td>{{currentRent.plate_code}}-{{currentRent.plate_number}}</td>
+                            </tr>
+                            <tr>
+                                <th>Libre Number</th>
+                                <td>{{currentRent.libre_no}}</td>
+                            </tr>
+                            <tr>
+                                <th>Make</th>
+                                <td>{{currentRent.make}}</td>
+                            </tr>
+                            <tr>
+                                <th>Model</th>
+                                <td>{{currentRent.model}}</td>
+                            </tr>
+                            <tr>
+                                <th>Year Made</th>
+                                <td>{{currentRent.year_made}}</td>
+                            </tr>
+                            <tr>
+                                <th>Color</th>
+                                <td>{{currentRent.color}}</td>
+                            </tr>
+                            <tr>
+                                <th>Type</th>
+                                <td>{{currentRent.type}}</td>
+                            </tr>
+                            <tr>
+                                <th>Passanger Capacity</th>
+                                <td>{{currentRent.total_passanger}}</td>
+                            </tr>
+                            <tr>
+                                <th>CC</th>
+                                <td>{{currentRent.cc}}</td>
+                            </tr>
+                            <tr>
+                                <th>Motor Number</th>
+                                <td>{{currentRent.motor_number}}</td>
+                            </tr>
+                            <tr>
+                                <th>Chassis Number</th>
+                                <td>{{currentRent.chassis_number}}</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <mat-card>
+                <mat-card-header>
+                    <mat-card-title>Rent Detail</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <table class="table table-condensed report-table">
+                        <thead>
+                            <tr>
+                                <th>Days</th>
+                                <th>Owner Renting Price</th>
+                                <th>Rented Price</th>
+                                <th>Start</th>
+                                <th>End</th>
+                                <th>Initial Payment</th>
+                                <th>Total</th>
+                                <th>Remaining Payment</th>
+                                <th>Collateral</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>{{currentRent.duration}}</td>
+                                <td>{{currentRent.owner_renting_price}}</td>
+                                <td>{{currentRent.rented_price}}</td>
+                                <td>{{currentRent.start_date}}</td>
+                                <td>{{currentRent.return_date}}</td>
+                                <td>{{currentRent.initial_payment}}</td>
+                                <td>{{currentRent.total_payment}}</td>
+                                <td>{{currentRent.remaining_payment}}</td>
+                                <td>{{currentRent.colateral_deposit}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col ">
+            <mat-card>
+                <mat-card-header class="bg-info">
+                    <mat-card-title>Vehicle Accessories</mat-card-title>
+                </mat-card-header>
+                <mat-card-content>
+                    <table class="table table-striped  report-table">
+                        <thead>
+                            <tr>
+                                <th>Accessory</th>
+                                <th>Number</th>
+                                <th>Accessory</th>
+                                <th>Number</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <tr>
+                                <td>
+                                    <strong>Window Controllers</strong>
+                                </td>
+                                <td>{{currentRent.window_controller}}</td>
+                                <td>
+                                    <strong>Seat Belts </strong>
+                                </td>
+                                <td>{{currentRent.seat_belt}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Spare Tires</strong>
+                                </td>
+                                <td>{{currentRent.spare_tire}}</td>
+                                <td>
+                                    <strong>Wipers</strong>
+                                </td>
+                                <td>{{currentRent.wiper}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong> Crick Wrenchs </strong>
+                                </td>
+                                <td>{{currentRent.crick_wrench}}</td>
+                                <td>
+                                    <strong>Dashboard Close </strong>
+                                </td>
+                                <td>{{currentRent.dashboard_close}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Mude Protectors</strong>
+                                </td>
+                                <td>{{currentRent.mude_protecter}}</td>
+                                <td>
+                                    <strong>Outside Spokio </strong>
+                                </td>
+                                <td>{{currentRent.spokio_outer}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Inside Spokio </strong>
+                                </td>
+                                <td>{{currentRent.spokio_inner}}</td>
+                                <td>
+                                    <strong>Sun Visors </strong>
+                                </td>
+                                <td>{{currentRent.sun_visor}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Inside Mats </strong>
+                                </td>
+                                <td>{{currentRent.mat_inner}}</td>
+                                <td>
+                                    <strong>Wind Protecters </strong>
+                                </td>
+                                <td>{{currentRent.wind_protecter}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Blinkers </strong>
+                                </td>
+                                <td>{{currentRent.blinker}}</td>
+                                <td>
+                                    <strong>Cigaret Lighter </strong>
+                                </td>
+                                <td>{{currentRent.cigaret_lighter}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Fuiel Lid </strong>
+                                </td>
+                                <td>{{currentRent.fuiel_lid}}</td>
+                                <td>
+                                    <strong>Radiator Lid </strong>
+                                </td>
+                                <td>{{currentRent.radiator_lid}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Crick </strong>
+                                </td>
+                                <td>{{currentRent.crick}}</td>
+                                <td>
+                                    <strong>Total Kilometers </strong>
+                                </td>
+                                <td>{{currentRent.total_kilometer}}</td>
+                            </tr>
+                            <tr>
+                                <td>
+                                    <strong>Fuiel Level </strong>
+                                </td>
+                                <td>{{currentRent.fuiel_level}}</td>
+                                <td>
+                                    <strong>Radio </strong>
+                                </td>
+                                <td>{{currentRent.radio}}</td>
+                            </tr>
+                        </tbody>
+                    </table>
+                </mat-card-content>
+            </mat-card>
+        </div>
+    </div>
+</section>
