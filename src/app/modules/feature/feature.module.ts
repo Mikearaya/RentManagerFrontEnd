@@ -5,10 +5,14 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RentModule } from './rent/rent.module';
 import { CustomerModule } from './customer/customer.module';
+import { MatTableModule, MatPaginatorModule, MatSortModule } from '@angular/material';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatSortModule
   ],
   exports: [CarModule, RentModule, CustomerModule, OwnerModule, EmployeeModule],
   declarations: []

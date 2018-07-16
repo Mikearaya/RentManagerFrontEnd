@@ -15,7 +15,8 @@ export class NavigationComponent {
     {path: 'owners/', label: 'Partners', icon: 'contacts'},
     {path: 'customers/', label: 'Customers', icon: 'person_pin'},
     {path: 'rents/', label: 'Rents', icon: 'work'},
-    {path: 'employees', label: 'Employees', icon: 'people'}
+    {path: 'employees', label: 'Employees', icon: 'people'},
+    {path: 'rent/extend/', label: 'Extend Rent', icon: 'people'}
 
 
   ]

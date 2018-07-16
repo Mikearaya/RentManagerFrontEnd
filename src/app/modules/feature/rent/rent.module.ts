@@ -22,6 +22,7 @@ import { OwlDateTimeModule, OwlNativeDateTimeModule } from 'ng-pick-datetime';
 import { OWL_DATE_TIME_FORMATS} from 'ng-pick-datetime';
 import { OwlMomentDateTimeModule } from 'ng-pick-datetime-moment';
 import { RentDetailViewComponent } from './rent-detail-view/rent-detail-view.component';
+import { RentExtensionFormComponent } from './rent-extension-form/rent-extension-form.component';
 
 export const MY_MOMENT_FORMATS = {
   parseInput: 'YYYY-MM-DD',
@@ -63,13 +64,15 @@ export const MY_MOMENT_FORMATS = {
   declarations: [ RentFormComponent, RentViewComponent,
                   RentConditionFormComponent, RentDetailFormComponent,
                   RentContratComponent,
-                  RentDetailViewComponent],
+                  RentDetailViewComponent,
+                  RentExtensionFormComponent],
   exports: [  RentFormComponent,
               RentViewComponent,
               RentConditionFormComponent,
               RentDetailFormComponent,
               RentDetailViewComponent,
-              RentContratComponent
+              RentContratComponent,
+              RentExtensionFormComponent
             ],
   providers: [RentService,
     {provide: OWL_DATE_TIME_FORMATS, useValue: MY_MOMENT_FORMATS},

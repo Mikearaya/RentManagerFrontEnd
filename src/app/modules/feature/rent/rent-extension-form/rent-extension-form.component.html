@@ -1,0 +1,48 @@
+<section class="mat-elevation-z8">
+  <form [formGroup]="extensionForm" name="extendedRent" (ngSubmit)="onSubmit()">
+    <div class="row">
+      <div class="col">
+        <mat-form-field>
+          <input matInput type='number' placeholder="Days Extended" formControlName="extendedDays">
+          <mat-error *ngIf="extensionForm.get('extendedDays').errors">
+            <div *ngIf="extensionForm.get('extendedDays').errors['required']">Number of Days is Required</div>
+            <div *ngIf="extensionForm.get('extendedDays').errors['pattern']">Number of Days Should only be digits</div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+      <div class="col">
+        <mat-form-field>
+          <input matInput placeholder="Owners Renting Price" type="number" formControlName="ownerRentingPrice" >
+          <mat-error *ngIf="extensionForm.get('ownerRentingPrice').errors">
+            <div *ngIf="extensionForm.get('ownerRentingPrice').errors['required']">Owner Renting Price is Required</div>
+            <div *ngIf="extensionForm.get('ownerRentingPrice').errors['pattern']">Owner Renting Price Should only be number</div>
+          </mat-error>
+        </mat-form-field>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col">
+            <mat-form-field>
+              <input matInput placeholder="Actual Renting Price" type="number" formControlName="rentedPrice" >
+              <mat-error *ngIf="extensionForm.get('rentedPrice').errors">
+                <div *ngIf="extensionForm.get('rentedPrice').errors['required']">Rented Price is Required</div>
+                <div *ngIf="extensionForm.get('rentedPrice').errors['pattern']">Rented Price Should only be number</div>
+              </mat-error>
+            </mat-form-field>
+          </div>
+          <div class="col">
+              <mat-form-field>
+                <input matInput placeholder="Initial Payment" type="number" formControlName="initialPayment" >
+                <mat-error *ngIf="extensionForm.get('initialPayment').errors">
+                  <div *ngIf="extensionForm.get('initialPayment').errors['required']">Initial Payment is Required</div>
+                  <div *ngIf="extensionForm.get('initialPayment').errors['pattern']">Initial Payment Should only be number</div>
+                </mat-error>
+              </mat-form-field>
+            </div>
+    </div>
+    <div class="form-button-box">
+      <button type="submit" mat-raised-button [disabled]="extensionForm.invalid" color="primary">Save</button>
+      <button type="button" mat-raised-button color="accent">Cancel</button>
+    </div>
+  </form>
+</section>

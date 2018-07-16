@@ -46,6 +46,9 @@ export class RentViewComponent implements OnInit, AfterViewInit {
   viewRentDetail(selectedRent: Rent) {
       this.router.navigate(['rent/detail', selectedRent.RENT_ID]);
   }
+  extendRent(selectedRent: Rent) {
+    this.router.navigate(['rent/extend', selectedRent.RENT_ID]);
+}
   ngOnInit() {
     this.dataSource = new RentDataSource(this.rentService);
     this.rent = this.activatedRoute.snapshot.data['rent'];

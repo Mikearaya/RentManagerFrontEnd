@@ -4,6 +4,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { RentViewComponent } from './rent-view/rent-view.component';
 import { RentFormComponent } from './rent-form/rent-form.component';
 import { RentContratComponent } from './rent-contrat/rent-contrat.component';
+import { RentExtensionFormComponent } from './rent-extension-form/rent-extension-form.component';
 
 const routes: Routes = [
                     {path: 'rents',
@@ -24,6 +25,10 @@ const routes: Routes = [
                       },
                       {path: 'rent/detail/:rentId',
                       component: RentDetailViewComponent,
+                      data: { title: 'Rent Detail', selfContained: true}
+                    },
+                    {path: 'rent/extend/:rentId',
+                      component: RentExtensionFormComponent,
                       data: { title: 'Rent Detail', selfContained: true}
                     }
 ];

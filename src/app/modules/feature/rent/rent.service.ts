@@ -78,6 +78,17 @@ export class RentService {
     return requestBody;
 
   }
+
+  extendRent(extendedRent: any): Observable<Boolean> {
+
+    for (const key in extendedRent) {
+      if (extendedRent.hasOwnProperty(key)) {
+        const value = extendedRent[key];
+            this.httpBody.set(key, value);
+      }
+    }
+    return this.httpClient.post<Boolean>(`${this.url}/extend_rent/${extendedRent.RENT_ID}`, this.httpBody.toString() );
+  }
 }
 
 export class Rent {

@@ -37,6 +37,9 @@
         <mat-cell *matCellDef="let row">
               <button type="button" (click)="viewRentDetail(row)" mat-icon-button color="primary">
                   <mat-icon aria-label="view rent detail">search</mat-icon>
+              </button>
+              <button type="button" (click)="extendRent(row)" mat-icon-button color="primary">
+                  Extend
               </button> </mat-cell>
       </ng-container>
 

@@ -1,3 +1,4 @@
+import { MatSnackBar } from '@angular/material';
 import { Customer } from './../../customer/customer.service';
 import { EmployeeApiService } from './../../employee/employee-api.service';
 
@@ -39,13 +40,13 @@ function employeeValidator(value: AbstractControl): {[key: string]: boolean} | n
     return { 'validEmployee' : true };
   }
 }
+
+
 @Component({
   selector: 'app-rent-form',
   templateUrl: './rent-form.component.html',
   styleUrls: ['./rent-form.component.css']
 })
-
-
 export class RentFormComponent implements OnInit, AfterContentInit {
    @ViewChild(RentConditionFormComponent) conditionComponent: RentConditionFormComponent;
    @ViewChild(RentDetailFormComponent) rentDetailComponent: RentDetailFormComponent;
@@ -79,7 +80,8 @@ export class RentFormComponent implements OnInit, AfterContentInit {
               private carService: CarService,
               private employeeApiService: EmployeeApiService,
               private customerService: CustomerService,
-              private activatedRoute: ActivatedRoute) {
+              private activatedRoute: ActivatedRoute,
+            private snackBar: MatSnackBar) {
                 this.generateForm();
               }
 
@@ -218,10 +220,10 @@ export class RentFormComponent implements OnInit, AfterContentInit {
 
   handelResponse(result: any) {
     if (result) {
-      console.log(result);
+     this.snackBar.open('Rent Added Successfully');
       this.currentRentId = result;
     } else {
-      alert('failed');
+      this.snackBar.open('Error Occured while saving rent try Again');
     }
   }
 
