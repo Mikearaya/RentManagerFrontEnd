@@ -1,0 +1,40 @@
+<div class="mat-elevation-z8">
+  <div class="row">
+    <div class="col">
+      <mat-form-field>
+        <input matInput placeholder="Search Customer" #input>
+      </mat-form-field>
+    </div>
+    <div class="col">
+      <mat-form-field>
+        <mat-select placeholder="Filter Columns" [formControl]="selectedColumns" [multiple]="true" name="column-filter" (selectionChange)="manageView(selectedColumns.value)">
+          <mat-option *ngFor="let col of paymentColumns" [value]="col.key">{{col.humanReadable}}</mat-option>
+        </mat-select>
+      </mat-form-field>
+    </div>
+  </div>
+
+  <mat-spinner *ngIf="dataSource.loading$ | async"></mat-spinner>
+
+  <mat-table #table [dataSource]="dataSource" matSort aria-label="Rent Payments">
+    <ng-container [matColumnDef]="column.key" *ngFor="let column of paymentColumns">
+      <mat-header-cell *matHeaderCellDef mat-sort-header>{{column.humanReadable}}</mat-header-cell>
+      <mat-cell *matCellDef="let row;">{{row[column.key]}}</mat-cell>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+
+    <ng-container matColumnDef="action">
+      <mat-header-cell *matHeaderCellDef> Detail </mat-header-cell>
+      <mat-cell *matCellDef="let row">
+            <button type="button"  (click)="addPayment(row)" mat-icon-button color="primary">
+                <mat-icon aria-label="view rent detail">plus</mat-icon>
+            </button>
+       </mat-cell>
+    </ng-container>
+
+  </mat-table>
+
+  <mat-paginator #paginator [length]="dataSource.totalPayments$ | async" [pageSizeOptions]="[5, 10, 15, 20, 30]">
+  </mat-paginator>
+</div>

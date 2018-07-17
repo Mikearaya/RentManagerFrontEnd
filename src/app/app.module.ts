@@ -12,6 +12,7 @@ import { MatTableModule, MatPaginatorModule, MatSortModule} from '@angular/mater
 
 
 
+
 @NgModule({
   imports: [
     BrowserModule,
@@ -23,7 +24,7 @@ import { MatTableModule, MatPaginatorModule, MatSortModule} from '@angular/mater
     MatPaginatorModule,
     MatSortModule,
   ],
-  declarations: [ AppComponent],
+  declarations: [ AppComponent ],
   providers: [],
   bootstrap: [AppComponent]
 })

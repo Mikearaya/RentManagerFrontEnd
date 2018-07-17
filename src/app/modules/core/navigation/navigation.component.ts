@@ -16,10 +16,9 @@ export class NavigationComponent {
     {path: 'customers/', label: 'Customers', icon: 'person_pin'},
     {path: 'rents/', label: 'Rents', icon: 'work'},
     {path: 'employees', label: 'Employees', icon: 'people'},
-    {path: 'rent/extend/', label: 'Extend Rent', icon: 'people'}
+    {path: 'payments', label: 'Payments', icon: 'credit_card'}
+  ];
 
-
-  ]
   isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
     .pipe(
       map(result => result.matches)
