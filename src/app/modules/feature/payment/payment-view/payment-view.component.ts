@@ -1,7 +1,9 @@
-import { PaymentApiService, PaymentView } from './../payment-api.service';
+import { HttpErrorResponse } from '@angular/common/http';
+import { PaymentFormComponent } from './../payment-form/payment-form.component';
+import { PaymentApiService, PaymentView, Payment } from './../payment-api.service';
 
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatDialog, MatSnackBar } from '@angular/material';
 import { PaymentDataSource } from './payment-view-datasource';
 import { SelectionModel } from '@angular/cdk/collections';
 import { FormControl } from '@angular/forms';
@@ -23,7 +25,7 @@ export class PaymentViewComponent implements OnInit, AfterViewInit {
   @ViewChild(MatSort) sort: MatSort;
   @ViewChild('input') input: ElementRef;
   dataSource: PaymentDataSource;
-  private payment: PaymentView;
+  private payment: Payment;
   selection: SelectionModel<PaymentView>;
   selectedColumns: FormControl;
 
@@ -44,7 +46,9 @@ export class PaymentViewComponent implements OnInit, AfterViewInit {
 
   constructor(private activatedRoute: ActivatedRoute,
                private paymentApiService: PaymentApiService,
-              private router: Router) {
+              private router: Router,
+              private snackBar: MatSnackBar,
+            private dialog: MatDialog) {
       this.selectedColumns = new FormControl(this.displayedColumns);
 
   }
@@ -93,7 +97,32 @@ export class PaymentViewComponent implements OnInit, AfterViewInit {
   }
 
   addPayment(selectedPayment: PaymentView) {
-    this.router.navigate(['add/payment', {ownerId: selectedPayment.PAYMENT_ID}]);
+    this.payment = {
+      RENT_ID: selectedPayment.RENT_ID,
+      payment_amount: 0
+    };
+
+    const paymentDialogRef =  this.dialog.open(PaymentFormComponent, {
+      width: '450px',
+      data: {PAYMENT_ID: selectedPayment.plate_number, payment_amount: selectedPayment.rented_by}
+
+    });
+
+    paymentDialogRef.afterClosed().subscribe((paymentAmount) => {
+
+      if ( paymentAmount) {
+
+        this.payment.payment_amount = paymentAmount;
+
+        this.paymentApiService.addPayment(this.payment)
+                                  .subscribe((payment: Payment) => {
+                                              this.snackBar.open('Payment Saved Successfully');
+                                              this.viewPayments();
+                                              },
+                                            (error: HttpErrorResponse) => this.snackBar.open(error.error));
+        }
+    });
+    // this.router.navigate(['add/payment', {ownerId: selectedPayment.PAYMENT_ID}]);
   }
 
 

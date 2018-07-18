@@ -5,9 +5,11 @@ import { PaymentRoutingModule } from './payment-routing.module';
 import { PaymentFormComponent } from './payment-form/payment-form.component';
 import { PaymentViewComponent } from './payment-view/payment-view.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule, MatProgressSpinnerModule,
-  MatInputModule, MatSelectModule, MatIconModule, MatFormFieldModule } from '@angular/material';
+  MatInputModule, MatSelectModule, MatIconModule, MatFormFieldModule, MatButtonModule } from '@angular/material';
+  import {MatDialogModule} from '@angular/material/dialog';
 import { PaymentApiService } from './payment-api.service';
 import { ReactiveFormsModule } from '@angular/forms';
+
 
 @NgModule({
   imports: [
@@ -21,10 +23,14 @@ import { ReactiveFormsModule } from '@angular/forms';
     MatSelectModule,
     ReactiveFormsModule,
     MatIconModule,
-    PaymentRoutingModule
+    MatDialogModule,
+    MatButtonModule,
+    PaymentRoutingModule,
 
   ],
   declarations: [PaymentFormComponent, PaymentViewComponent],
-  providers: [PaymentApiService]
+  exports: [PaymentViewComponent],
+  providers: [PaymentApiService],
+  entryComponents: [PaymentFormComponent]
 })
 export class PaymentModule { }

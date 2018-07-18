@@ -1,3 +1,13 @@
-<p>
-  payment-form works!
-</p>
+
+    <h3 mat-dialog-title>Enter vehicle plate Payment<span class="text-info"> {{data.PAYMENT_ID}} </span></h3>
+    <mat-dialog-content>
+  <mat-form-field>
+
+    <input matInput type="number" tabindex="2" placeholder="Amount Recieved?" #amount>
+  </mat-form-field>
+
+</mat-dialog-content>
+<div class="form-button-box">
+    <button mat-button mat-raised-button color="primary" [mat-dialog-close]="amount.value">Save</button>
+    <button mat-button mat-dialog-close color="warn" >Cancel</button>
+  </div>

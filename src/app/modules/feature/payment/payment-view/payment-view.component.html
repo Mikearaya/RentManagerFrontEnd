@@ -25,10 +25,10 @@
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
 
     <ng-container matColumnDef="action">
-      <mat-header-cell *matHeaderCellDef> Detail </mat-header-cell>
+      <mat-header-cell *matHeaderCellDef>Action</mat-header-cell>
       <mat-cell *matCellDef="let row">
             <button type="button"  (click)="addPayment(row)" mat-icon-button color="primary">
-                <mat-icon aria-label="view rent detail">plus</mat-icon>
+                <mat-icon aria-label="view rent detail">attach_money</mat-icon>
             </button>
        </mat-cell>
     </ng-container>

@@ -15,3 +15,8 @@ mat-list
 mat-list mat-icon {
   margin-right: auto;
 }
+
+mat-icon {
+  position: absolute;
+  right: 0px;
+}

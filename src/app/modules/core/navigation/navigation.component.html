@@ -9,10 +9,10 @@
     <mat-toolbar color="primary">Menu</mat-toolbar>
     <mat-nav-list>
 
-      <a *ngFor="let navigation of naigationList; let lastIndex = last;" 
-      mat-list-item [routerLink]="navigation.path" routerLinkActive="active" >
-      {{navigation.label}} 
-      <i class="material-icons">{{navigation.icon}}</i></a>
+      <a *ngFor="let navigation of naigationList; let lastIndex = last;"
+      mat-list-item [routerLink]="navigation.path" routerLinkActive="active"  >
+      {{navigation.label}}
+      <mat-icon color="primary"  class="material-icons">{{navigation.icon}}</mat-icon></a>
       <mat-divider *ngIf="!lastIndex" ></mat-divider>
         </mat-nav-list>
 

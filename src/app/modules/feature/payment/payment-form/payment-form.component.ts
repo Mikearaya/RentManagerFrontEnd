@@ -1,4 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import { Payment } from './../payment-api.service';
+import { Component, OnInit, Inject } from '@angular/core';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
   selector: 'app-payment-form',
@@ -7,9 +9,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class PaymentFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private dialogRep: MatDialogRef<PaymentFormComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: Payment) { }
 
   ngOnInit() {
   }
 
 }
+

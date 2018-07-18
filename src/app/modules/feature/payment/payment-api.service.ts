@@ -14,7 +14,7 @@ export class PaymentApiService {
 
     addPayment(newPayment: Payment): Observable<Payment> {
       this.httpBody = this.prepareDataModel(newPayment);
-      return this.httpClient.post<Payment>(`${this.url}/`, this.httpBody);
+      return this.httpClient.post<Payment>(`${this.url}/`, this.httpBody.toString());
     }
 
   displayPayments(filter = '', pageIndex = 0, pageSize = 5, sortOrder = 'desc', sortColumn = ''): Observable<PaymentDataModel> {
