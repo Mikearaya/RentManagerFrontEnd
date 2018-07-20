@@ -1,11 +1,116 @@
+
 <div class="grid-container">
+
   <h1 class="mat-h1">Dashboard</h1>
+
+  <div class="container-fluid">
+      <div class="row">
+          <div class="col-lg-3 col-sm-6">
+              <div class="card">
+                  <div class="content">
+                      <div class="row">
+                          <div class="col-xs-5">
+                              <mat-icon>home</mat-icon>
+                          </div>
+                          <div class="col-xs-7">
+                              <div class="numbers">
+                                  <p>Customers</p>
+                                  {{totalCustomers}}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="footer">
+                          <hr />
+                          <div class="stats">
+                              <i class="ti-reload"></i> Updated now
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+              <div class="card">
+                  <div class="content">
+                      <div class="row">
+                          <div class="col-xs-5">
+                              <div class="icon-big icon-success text-center">
+                                  <i class="ti-wallet"></i>
+                              </div>
+                          </div>
+                          <div class="col-xs-7">
+                              <div class="numbers">
+                                  <p>Partners</p>
+                                  {{totalPartners}}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="footer">
+                          <hr />
+                          <div class="stats">
+                              <i class="ti-calendar"></i> Last day
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+              <div class="card">
+                  <div class="content">
+                      <div class="row">
+                          <div class="col-xs-5">
+                              <div class="icon-big icon-danger text-center">
+                                  <i class="ti-pulse"></i>
+                              </div>
+                          </div>
+                          <div class="col-xs-7">
+                              <div class="numbers">
+                                  <p>Available Vehicles</p>
+                                {{availableVehicles}}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="footer">
+                          <hr />
+                          <div class="stats">
+                              <i class="ti-timer"></i> In the last hour
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="col-lg-3 col-sm-6">
+              <div class="card">
+                  <div class="content">
+                      <div class="row">
+                          <div class="col-xs-5">
+                              <div class="icon-big icon-info text-center">
+                                  <i class="ti-twitter-alt"></i>
+                              </div>
+                          </div>
+                          <div class="col-xs-7">
+                              <div class="numbers">
+                                  <p>Rented Vehicles</p>
+                                {{rentdVehicles}}
+                              </div>
+                          </div>
+                      </div>
+                      <div class="footer">
+                          <hr />
+                          <div class="stats">
+                              <i class="ti-reload"></i> Updated now
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+      </div>
+
   <mat-grid-list cols="2" rowHeight="350px">
-    <mat-grid-tile *ngFor="let card of cards" [colspan]="card.cols" [rowspan]="card.rows">
+    <mat-grid-tile  colspan="1" rowspan="1">
       <mat-card class="dashboard-card">
         <mat-card-header>
           <mat-card-title>
-            {{card.title}}
             <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
               <mat-icon>more_vert</mat-icon>
             </button>
@@ -16,9 +121,51 @@
           </mat-card-title>
         </mat-card-header>
         <mat-card-content class="dashboard-card-content">
-          <div>Card Content Here</div>
+            <div class="row">
+                <div class="col">
+                  <div style="display: block;">
+          <canvas baseChart
+          [data]="pieChartData"
+          [labels]="pieChartLabels"
+          [chartType]="pieChartType"
+          (chartHover)="chartHovered($event)"
+          (chartClick)="chartClicked($event)"></canvas>
+</div>
+</div>
+</div>
         </mat-card-content>
       </mat-card>
     </mat-grid-tile>
-  </mat-grid-list>
+    <mat-grid-tile  [colspan]="1" [rowspan]="1">
+      <mat-card class="dashboard-card">
+        <mat-card-header>
+          <mat-card-title>
+            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
+              <mat-icon>more_vert</mat-icon>
+            </button>
+            <mat-menu #menu="matMenu" xPosition="before">
+              <button mat-menu-item>Expand</button>
+              <button mat-menu-item>Remove</button>
+            </mat-menu>
+          </mat-card-title>
+        </mat-card-header>
+        <mat-card-content class="dashboard-card-content">
+            <div class="row">
+                <div class="col">
+                  <div style="display: block;">
+          <canvas baseChart
+                [data]="lineChartData2"
+                [labels]="lineChartLabels2"
+                [options]="lineChartOptions"
+                chartType="bar"
+                (chartHover)="chartHovered($event)"
+                (chartClick)="chartClicked($event)"></canvas>
+</div>
+</div>
+</div>
+        </mat-card-content>
+      </mat-card>
+    </mat-grid-tile>
+    </mat-grid-list>
+
 </div>
