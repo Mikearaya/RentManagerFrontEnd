@@ -23,13 +23,14 @@ export class RentViewComponent implements OnInit, AfterViewInit {
   selection: SelectionModel<RentView>;
   dataSource: RentDataSource;
   private rent: RentView;
+  private currentCatagory: String;
   selectedColumns: FormControl;
 
   constructor(private activatedRoute: ActivatedRoute,
     private rentService: RentService,
   private router: Router) {
     this.selectedColumns = new FormControl(this.displayedColumns);
-
+    this.currentCatagory = 'active';
 }
 
   rentDetailColumns = [
@@ -78,6 +79,11 @@ export class RentViewComponent implements OnInit, AfterViewInit {
     this.displayedColumns.splice(0, 0, 'select');
     this.displayedColumns.push('view');
    }
+
+   currentView(data: string) {
+     this.currentCatagory = data;
+     this.viewRents();
+   }
   deleteRents(deletedRents: Rent[]) {
     const deletedIds = [];
     deletedRents.forEach((rent: Rent) => deletedIds.push(`${rent.RENT_ID}`));
@@ -86,7 +92,9 @@ export class RentViewComponent implements OnInit, AfterViewInit {
 
   viewRents() {
     this.selection.clear();
-    this.dataSource.loadRents(this.input.nativeElement.value,
+    this.dataSource.loadRents(
+                              this.currentCatagory,
+                              this.input.nativeElement.value,
                               this.paginator.pageIndex,
                               this.paginator.pageSize,
                               this.sort.direction,

@@ -8,20 +8,10 @@ import { DashboardApiService } from './dashboard-api.service';
   styleUrls: ['./dashboard.component.css']
 })
 export class DashboardComponent implements OnInit {
-  cards = [
-    { title: 'Card 1', cols: 2, rows: 1 },
-    { title: 'Card 2', cols: 1, rows: 1 },
-    { title: 'Card 3', cols: 1, rows: 2 },
-    { title: 'Card 4', cols: 2, rows: 1 }
-  ];
+
 
 
     // lineChart
-    public lineChartData: Array<any> = [
-      {data: [65, 59, 80, 81, 56, 55, 40], label: 'Series A'},
-      {data: [28, 48, 40, 19, 86, 27, 90], label: 'Series B'},
-      {data: [18, 48, 77, 9, 100, 27, 40], label: 'Series C'}
-    ];
     public lineChartLabels: Array<any> = [];
     public lineChartOptions: any = {
       responsive: true,
@@ -36,8 +26,8 @@ export class DashboardComponent implements OnInit {
     public pieChartType: String = 'pie';
 
     // Pie
-    public pieChartLabels: string[] = ['Total Payments', 'Remaining', 'Recieved'];
-    public pieChartData: number[] = [0, 0, 0];
+    public pieChartLabels: string[] = ['Remaining', 'Recieved'];
+    public pieChartData: number[] = [0, 0];
 
 
     public totalCustomers = 0;
@@ -55,9 +45,8 @@ export class DashboardComponent implements OnInit {
          this.totalCustomers = data.customers.total;
          this.totalPartners = data.partners.total;
          this.availableVehicles = data.vehicles.available;
-         this.rentdVehicles = data.vehicles.rented;
+         this.rentedVehicles = data.vehicles.rented;
         const arr = [
-          data.payment.total_amount,
           data.payment.remaining_amount,
           data.payment.paid_amount
         ];

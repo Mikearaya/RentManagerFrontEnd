@@ -26,12 +26,21 @@
       </mat-form-field>
     </div>
     <div class="col">
+      <mat-button-toggle-group color="accent" name="fontStyle" (change)="currentView($event.value)" aria-label="Font Style">
+        <mat-button-toggle [checked]="true"  value="all">All</mat-button-toggle>
+        <mat-button-toggle value="rented">Rented</mat-button-toggle>
+        <mat-button-toggle value="available">Available</mat-button-toggle>
+      </mat-button-toggle-group>
+
+    </div>
+    <div class="col">
       <mat-form-field>
         <mat-select placeholder="Filter Columns" [formControl]="selectedColumns" [multiple]="true" (selectionChange)="manageView(selectedColumns.value)">
           <mat-option *ngFor="let column of vehicleColumns" [value]="column.key">{{column.humanReadable}}</mat-option>
         </mat-select>
       </mat-form-field>
     </div>
+
   </div>
 
   <mat-spinner *ngIf="dataSource.loading$ | async"></mat-spinner>

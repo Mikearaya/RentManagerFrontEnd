@@ -36,9 +36,10 @@ export class RentService {
   }
 
 
-  displayRents(filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<RentDataModel> {
+  displayRents(catagory = 'active', filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<RentDataModel> {
     return this.httpClient.get<RentDataModel>(`${this.url}`,
                                           {params : new HttpParams()
+                                                        .set('catagory', catagory)
                                                         .set('filter', filter)
                                                         .set('pageIndex', pageIndex.toString() )
                                                         .set('pageSize', pageSize.toString())

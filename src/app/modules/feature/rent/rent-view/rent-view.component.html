@@ -9,6 +9,14 @@
       </mat-form-field>
     </div>
     <div class="col">
+      <mat-button-toggle-group color="accent" name="fontStyle" (change)="currentView($event.value)" aria-label="Rent Status">
+        <mat-button-toggle   value="all">All</mat-button-toggle>
+        <mat-button-toggle value="past">Past</mat-button-toggle>
+        <mat-button-toggle [checked]="true" value="active">Active</mat-button-toggle>
+      </mat-button-toggle-group>
+
+    </div>
+    <div class="col">
       <mat-form-field>
         <mat-select placeholder="Filter Columns" [formControl]="selectedColumns" [multiple]="true" (selectionChange)="manageView(selectedColumns.value)">
           <mat-option *ngFor="let column of rentDetailColumns" [value]="column.key">{{column.humanReadable}}</mat-option>

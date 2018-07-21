@@ -28,7 +28,7 @@ export class CarListComponent implements OnInit, AfterViewInit {
   title = '';
   private ownerId: number;
   private selfContained: Boolean = false;
-
+private currentCatagory: String;
 
 
   vehicleColumns = [{key: 'make', humanReadable : 'Make'},
@@ -46,6 +46,7 @@ export class CarListComponent implements OnInit, AfterViewInit {
                 private carService: CarService,
                 private router: Router) {
                   this.selectedColumns = new FormControl(this.displayedColumns);
+                  this.currentCatagory = 'all';
                 }
   ngOnInit() {
     this.title = this.activatedRoute.snapshot.data['title'];
@@ -85,6 +86,7 @@ manageView(filteredColumns) {
                 this.selection.clear();
           this.dataSource.loadVehicles(
             this.ownerId,
+            this.currentCatagory,
             this.input.nativeElement.value,
             this.sort.direction,
             this.sort.active,
@@ -94,6 +96,11 @@ manageView(filteredColumns) {
   }
 isSelfContained() {
   return this.selfContained;
+}
+
+currentView(data: string) {
+  this.currentCatagory = data;
+  this.viewVehicles();
 }
   isAllSelected() {
     const numSelected = this.selection.selected.length;

@@ -32,9 +32,9 @@ export class RentDataSource extends DataSource<RentView> {
   }
 
 
-  loadRents(filter = '', pageIndex = 0, pageSize = 5, sortOrder = 'DESC', sortColumn = 'added_on') {
+  loadRents(catagory = 'active', filter = '', pageIndex = 0, pageSize = 5, sortOrder = 'DESC', sortColumn = 'added_on') {
     this.loadingSubject.next(true);
-    this.rentService.displayRents(filter, pageIndex, pageSize, sortOrder, sortColumn).pipe(
+    this.rentService.displayRents(catagory, filter, pageIndex, pageSize, sortOrder, sortColumn).pipe(
       catchError(() => of([])),
       finalize(() => this.loadingSubject.next(false))
     ).subscribe((data: RentDataModel) => {

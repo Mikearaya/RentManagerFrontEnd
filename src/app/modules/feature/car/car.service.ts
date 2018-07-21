@@ -64,11 +64,12 @@ export class CarService {
       carIds.forEach((id) => this.httpBody.append('id[]', `${id}` ));
       return this.httpClient.post<Boolean>(`${this.url}/delete`, this.httpBody.toString());
     }
-    displayVehicles(ownerId: number, filter = '', sortOrder = 'asc', sortColumn = '',
+    displayVehicles(ownerId: number, catagory = 'all', filter = '', sortOrder = 'asc', sortColumn = '',
                        pageNumber = 0, pageSize = 3): Observable<VehicleDataModel> {
       return this.httpClient.get(`${this.url}/filter`, {
         params: new HttpParams()
                 .set('owner_id', ownerId.toString())
+                .set('catagory', catagory)
                 .set('filter', filter)
                 .set('sortOrder', sortOrder)
                 .set('pageNumber', pageNumber.toString())

@@ -31,12 +31,12 @@ export class VehicleDataSource extends DataSource<Car> {
           this.countingSubject.complete();
         }
 
-        loadVehicles(ownerId: number = 0, filter = '',
+        loadVehicles(ownerId: number = 0, catagory = 'all', filter = '',
         sortDirection = 'asc', sortColumn = '', pageIndex = 0, pageSize = 3) {
 
         this.loadingSubject.next(true);
 
-              this.carService.displayVehicles(ownerId, filter, sortDirection, sortColumn, pageIndex, pageSize).pipe(
+              this.carService.displayVehicles(ownerId, catagory, filter, sortDirection, sortColumn, pageIndex, pageSize).pipe(
                                 catchError(() => of([])),
                                 finalize(() => this.loadingSubject.next(false))
                                 )
