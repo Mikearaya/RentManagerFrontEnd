@@ -11,8 +11,11 @@
 
       <a *ngFor="let navigation of naigationList; let lastIndex = last;"
       mat-list-item [routerLink]="navigation.path" routerLinkActive="active"  >
+      <mat-icon color="primary"  class="material-icons">{{navigation.icon}}</mat-icon>
       {{navigation.label}}
-      <mat-icon color="primary"  class="material-icons">{{navigation.icon}}</mat-icon></a>
+      </a>
+
+
       <mat-divider *ngIf="!lastIndex" ></mat-divider>
         </mat-nav-list>
 

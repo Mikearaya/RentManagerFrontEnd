@@ -27,51 +27,23 @@ export class DashboardComponent implements OnInit {
       responsive: true,
       title: {
         display: true,
-        text: 'Custom Chart Title'
+        text: 'Monthly Total Rents'
   }
     };
     public lineChartData2: Array<any> = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
     public lineChartLabels2: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
     'August', 'September', 'October', 'November', 'December'];
-    public lineChartType: String = 'line';
     public pieChartType: String = 'pie';
 
     // Pie
     public pieChartLabels: string[] = ['Total Payments', 'Remaining', 'Recieved'];
     public pieChartData: number[] = [0, 0, 0];
 
-    public lineChartColors: Array<any> = [
-      { // grey
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-      },
-      { // dark grey
-        backgroundColor: 'rgba(77,83,96,0.2)',
-        borderColor: 'rgba(77,83,96,1)',
-        pointBackgroundColor: 'rgba(77,83,96,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(77,83,96,1)'
-      },
-      { // grey
-        backgroundColor: 'rgba(148,159,177,0.2)',
-        borderColor: 'rgba(148,159,177,1)',
-        pointBackgroundColor: 'rgba(148,159,177,1)',
-        pointBorderColor: '#fff',
-        pointHoverBackgroundColor: '#fff',
-        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
-      }
-    ];
-    public lineChartLegend = true;
-    public lineChartType2 = 'line';
+
     public totalCustomers = 0;
     public totalPartners = 0;
     public availableVehicles = 0;
-    public rentdVehicles = 0;
+    public rentedVehicles = 0;
 
        constructor(private dashboardApiService: DashboardApiService) {}
 

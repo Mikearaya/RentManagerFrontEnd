@@ -4,123 +4,61 @@
   <h1 class="mat-h1">Dashboard</h1>
 
   <div class="container-fluid">
-      <div class="row">
-          <div class="col-lg-3 col-sm-6">
-              <div class="card">
-                  <div class="content">
-                      <div class="row">
-                          <div class="col-xs-5">
-                              <mat-icon>home</mat-icon>
-                          </div>
-                          <div class="col-xs-7">
-                              <div class="numbers">
-                                  <p>Customers</p>
-                                  {{totalCustomers}}
-                              </div>
-                          </div>
-                      </div>
-                      <div class="footer">
-                          <hr />
-                          <div class="stats">
-                              <i class="ti-reload"></i> Updated now
-                          </div>
-                      </div>
+    <div class="row">
+        <div class="col-lg-3 col-md-6 col-sm-6" >
+          <mat-card class="card card-stats">
+            <mat-card-content class="card-header-info card-header-icon">
+                    <div class="card-icon">
+                        <i class="fa fa-handshake-o"></i>
+                    </div>
+                    <p class="card-category">Partners</p>
+                    <h3 class="card-title">{{totalPartners}}   </h3>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <mat-card class="card card-stats">
+            <mat-card-content class="card-header-info card-header-icon">
+                    <div class="card-icon">
+                      <i class="fa fa-user-o"></i>
+                    </div>
+                    <p class="card-category">Clients</p>
+                    <h3 class="card-title">{{totalCustomers}}</h3>
+                </mat-card-content>
+            </mat-card>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <mat-card class="card card-stats">
+            <mat-card-content class="card-header-info card-header-icon">
+                    <div class="card-icon">
+                      <i class="fa fa-car"></i>
+                    </div>
+                    <p class="card-category">Rented Vehicles</p>
+                    <h3 class="card-title">{{rentedVehicles}}</h3>
+                </mat-card-content>
+
+            </mat-card>
+        </div>
+        <div class="col-lg-3 col-md-6 col-sm-6">
+          <mat-card class="card card-stats">
+              <mat-card-content class="card-header-info card-header-icon">
+                  <div class="card-icon">
+                    <i class="fa fa-car"></i>
                   </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-              <div class="card">
-                  <div class="content">
-                      <div class="row">
-                          <div class="col-xs-5">
-                              <div class="icon-big icon-success text-center">
-                                  <i class="ti-wallet"></i>
-                              </div>
-                          </div>
-                          <div class="col-xs-7">
-                              <div class="numbers">
-                                  <p>Partners</p>
-                                  {{totalPartners}}
-                              </div>
-                          </div>
-                      </div>
-                      <div class="footer">
-                          <hr />
-                          <div class="stats">
-                              <i class="ti-calendar"></i> Last day
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-              <div class="card">
-                  <div class="content">
-                      <div class="row">
-                          <div class="col-xs-5">
-                              <div class="icon-big icon-danger text-center">
-                                  <i class="ti-pulse"></i>
-                              </div>
-                          </div>
-                          <div class="col-xs-7">
-                              <div class="numbers">
-                                  <p>Available Vehicles</p>
-                                {{availableVehicles}}
-                              </div>
-                          </div>
-                      </div>
-                      <div class="footer">
-                          <hr />
-                          <div class="stats">
-                              <i class="ti-timer"></i> In the last hour
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
-          <div class="col-lg-3 col-sm-6">
-              <div class="card">
-                  <div class="content">
-                      <div class="row">
-                          <div class="col-xs-5">
-                              <div class="icon-big icon-info text-center">
-                                  <i class="ti-twitter-alt"></i>
-                              </div>
-                          </div>
-                          <div class="col-xs-7">
-                              <div class="numbers">
-                                  <p>Rented Vehicles</p>
-                                {{rentdVehicles}}
-                              </div>
-                          </div>
-                      </div>
-                      <div class="footer">
-                          <hr />
-                          <div class="stats">
-                              <i class="ti-reload"></i> Updated now
-                          </div>
-                      </div>
-                  </div>
-              </div>
-          </div>
+                  <p class="card-category">Available Vehicles</p>
+                  <h3 class="card-title">{{availableVehicles}}</h3>
+              </mat-card-content>
+          </mat-card>
       </div>
-      </div>
+  </div>
+
+  </div>
+
 
   <mat-grid-list cols="2" rowHeight="350px">
     <mat-grid-tile  colspan="1" rowspan="1">
       <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
+        <mat-card-content >
             <div class="row">
                 <div class="col">
                   <div style="display: block;">
@@ -138,18 +76,7 @@
     </mat-grid-tile>
     <mat-grid-tile  [colspan]="1" [rowspan]="1">
       <mat-card class="dashboard-card">
-        <mat-card-header>
-          <mat-card-title>
-            <button mat-icon-button class="more-button" [matMenuTriggerFor]="menu" aria-label="Toggle menu">
-              <mat-icon>more_vert</mat-icon>
-            </button>
-            <mat-menu #menu="matMenu" xPosition="before">
-              <button mat-menu-item>Expand</button>
-              <button mat-menu-item>Remove</button>
-            </mat-menu>
-          </mat-card-title>
-        </mat-card-header>
-        <mat-card-content class="dashboard-card-content">
+        <mat-card-content >
             <div class="row">
                 <div class="col">
                   <div style="display: block;">
@@ -157,6 +84,7 @@
                 [data]="lineChartData2"
                 [labels]="lineChartLabels2"
                 [options]="lineChartOptions"
+                [legend]="barChartLegend"
                 chartType="bar"
                 (chartHover)="chartHovered($event)"
                 (chartClick)="chartClicked($event)"></canvas>
