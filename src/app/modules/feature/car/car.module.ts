@@ -6,7 +6,7 @@ import { CarRoutingModule } from './car-routing.module';
 import { CarFormComponent } from './car-form/car-form.component';
 import { MatTableModule, MatSortModule, MatPaginatorModule, MatCardModule, MatFormFieldModule, MatInputModule,
   MatSelectModule, MatIconModule, MatButtonModule, MatDatepickerModule, MatNativeDateModule, MatCheckboxModule,
-  MatProgressSpinnerModule, MatButtonToggleModule
+  MatProgressSpinnerModule, MatButtonToggleModule,
   MatAutocompleteModule} from '@angular/material';
 import { CarListComponent } from './car-list/car-list.component';
 import { ReactiveFormsModule } from '@angular/forms';
@@ -31,7 +31,7 @@ import { HttpClientModule } from '@angular/common/http';
     MatDatepickerModule,
     MatNativeDateModule,
     CarRoutingModule,
-    MatButtonToggleModule
+    MatButtonToggleModule,
     MatProgressSpinnerModule
   ],
   declarations: [CarFormComponent, CarListComponent],

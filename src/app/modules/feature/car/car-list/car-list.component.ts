@@ -28,7 +28,7 @@ export class CarListComponent implements OnInit, AfterViewInit {
   title = '';
   private ownerId: number;
   private selfContained: Boolean = false;
-private currentCatagory: String;
+private currentCatagory = '';
 
 
   vehicleColumns = [{key: 'make', humanReadable : 'Make'},
@@ -98,7 +98,7 @@ isSelfContained() {
   return this.selfContained;
 }
 
-currentView(data: string) {
+currentView(data) {
   this.currentCatagory = data;
   this.viewVehicles();
 }

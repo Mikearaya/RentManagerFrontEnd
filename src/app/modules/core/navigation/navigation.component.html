@@ -15,8 +15,6 @@
       {{navigation.label}}
       </a>
 
-
-      <mat-divider *ngIf="!lastIndex" ></mat-divider>
         </mat-nav-list>
 
   </mat-sidenav>
@@ -30,7 +28,7 @@
         *ngIf="isHandset$ | async">
         <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
       </button>
-      <span>Bionic Rent Manager</span>
+      <a   routerLink="/" class="home-link" style="color: white;" > <i class="fa fa-home"></i>  <span> Bionic Rent Manager</span>  </a>
     </mat-toolbar>
 
     <router-outlet></router-outlet>

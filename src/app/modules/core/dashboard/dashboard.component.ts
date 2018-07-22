@@ -9,8 +9,6 @@ import { DashboardApiService } from './dashboard-api.service';
 })
 export class DashboardComponent implements OnInit {
 
-
-
     // lineChart
     public lineChartLabels: Array<any> = [];
     public lineChartOptions: any = {
@@ -20,11 +18,20 @@ export class DashboardComponent implements OnInit {
         text: 'Monthly Total Rents'
   }
     };
-    public lineChartData2: Array<any> = [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ];
+    public lineChartData2: Array<any> = [ {data : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], label: 'Monthly Rent'}];
     public lineChartLabels2: Array<any> = ['January', 'February', 'March', 'April', 'May', 'June', 'July',
     'August', 'September', 'October', 'November', 'December'];
     public pieChartType: String = 'pie';
-
+    public lineChartColors: Array<any> = [
+      { // grey
+        backgroundColor: 'rgba(148,159,177,0.2)',
+        borderColor: 'rgba(148,159,177,1)',
+        pointBackgroundColor: 'rgba(148,159,177,1)',
+        pointBorderColor: '#fff',
+        pointHoverBackgroundColor: '#fff',
+        pointHoverBorderColor: 'rgba(148,159,177,0.8)'
+      }
+    ];
     // Pie
     public pieChartLabels: string[] = ['Remaining', 'Recieved'];
     public pieChartData: number[] = [0, 0];
@@ -34,11 +41,14 @@ export class DashboardComponent implements OnInit {
     public totalPartners = 0;
     public availableVehicles = 0;
     public rentedVehicles = 0;
+    public todayReturns = 0;
+    public weekReturns = 0;
 
        constructor(private dashboardApiService: DashboardApiService) {}
 
        ngOnInit() {
-         this.dashboardApiService.getDashboardNumbers().subscribe((data: any) => this.updateDashoboard(data));
+         this.dashboardApiService.getDashboardNumbers()
+                                .subscribe((data: any) => this.updateDashoboard(data));
        }
 
  updateDashoboard(data: any) {
@@ -46,32 +56,18 @@ export class DashboardComponent implements OnInit {
          this.totalPartners = data.partners.total;
          this.availableVehicles = data.vehicles.available;
          this.rentedVehicles = data.vehicles.rented;
+         this.weekReturns = data.vehicles.this_week_return;
+         this.todayReturns = data.vehicles.today_returns;
         const arr = [
           data.payment.remaining_amount,
           data.payment.paid_amount
         ];
+        const newData = [{data : [ 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 ], label: 'Monthly Rent'}];
         for ( let i = 0 ; i < data.monthRentCount.length; i++) {
-          console.log(data.monthRentCount[i].month);
-          this.lineChartData2[data.monthRentCount[i].month] = data.monthRentCount[i].total;
+          newData[0].data[data.monthRentCount[i].month] = data.monthRentCount[i].total;
         }
-         this.pieChartData = arr;
-       }
-    public randomize(): void {
-      const _lineChartData: Array<any> = new Array(this.lineChartData.length);
-      for (let i = 0; i < this.lineChartData.length; i++) {
-        _lineChartData[i] = {data: new Array(this.lineChartData[i].data.length), label: this.lineChartData[i].label};
-        for (let j = 0; j < this.lineChartData[i].data.length; j++) {
-          _lineChartData[i].data[j] = Math.floor((Math.random() * 100) + 1);
-        }
-      }
-      this.lineChartData = _lineChartData;
-    }
-
-   // lineChart
-
-  public randomizeType(): void {
-    this.lineChartType = this.lineChartType === 'line' ? 'bar' : 'line';
-    this.pieChartType = this.pieChartType === 'doughnut' ? 'pie' : 'doughnut';
+        this.lineChartData2 = newData;
+        this.pieChartData = arr;
   }
 
   public chartClicked(e: any): void {

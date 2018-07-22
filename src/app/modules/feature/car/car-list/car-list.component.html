@@ -1,24 +1,24 @@
 <div class="mat-elevation-z8">
 
-      <div class=" view-options-block" *ngIf="isSelfContained()">
-        <div class="left-aligned-button">
-        <button mat-raised-button color="primary"  (click)="rentVehicle(selection.selected[0])" [disabled]="selection.selected.length != 1">
-          Rent
-        </button>
-      </div>
+  <div class=" view-options-block" *ngIf="isSelfContained()">
+    <div class="left-aligned-button">
+      <button mat-raised-button color="primary" (click)="rentVehicle(selection.selected[0])" [disabled]="selection.selected.length != 1">
+        Rent
+      </button>
+    </div>
 
-        <button mat-raised-button color="primary" routerLink="/add/vehicle">
-          Add New
-        </button>
+    <button mat-raised-button color="primary" routerLink="/add/vehicle">
+      Add New
+    </button>
 
-        <button mat-raised-button color="primary" (click)="editVehicle(selection.selected[0]);" [disabled]="selection.selected.length != 1">
-          Edit
-        </button>
+    <button mat-raised-button color="primary" (click)="editVehicle(selection.selected[0]);" [disabled]="selection.selected.length != 1">
+      Edit
+    </button>
 
-        <button mat-raised-button color="warn" [disabled]="selection.selected.length == 0" (click)="deleteVehicles(selection.selected);">
-          Delete
-        </button>
-      </div>
+    <button mat-raised-button color="warn" [disabled]="selection.selected.length == 0" (click)="deleteVehicles(selection.selected);">
+      Delete
+    </button>
+  </div>
   <div class="row">
     <div class="col">
       <mat-form-field>
@@ -26,12 +26,11 @@
       </mat-form-field>
     </div>
     <div class="col">
-      <mat-button-toggle-group color="accent" name="fontStyle" (change)="currentView($event.value)" aria-label="Font Style">
-        <mat-button-toggle [checked]="true"  value="all">All</mat-button-toggle>
+      <mat-button-toggle-group color="accent" name="fontStyle" (change)="currentView($event.value)" aria-label="Vehicle Status">
+        <mat-button-toggle [checked]="true" value="all">All</mat-button-toggle>
         <mat-button-toggle value="rented">Rented</mat-button-toggle>
         <mat-button-toggle value="available">Available</mat-button-toggle>
       </mat-button-toggle-group>
-
     </div>
     <div class="col">
       <mat-form-field>

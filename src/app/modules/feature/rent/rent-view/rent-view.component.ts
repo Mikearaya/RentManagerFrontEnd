@@ -23,7 +23,7 @@ export class RentViewComponent implements OnInit, AfterViewInit {
   selection: SelectionModel<RentView>;
   dataSource: RentDataSource;
   private rent: RentView;
-  private currentCatagory: String;
+  private currentCatagory = '';
   selectedColumns: FormControl;
 
   constructor(private activatedRoute: ActivatedRoute,
@@ -102,7 +102,7 @@ export class RentViewComponent implements OnInit, AfterViewInit {
                                 );
   }
 
-  viewContrat(selectedRent: Rent) {
+  viewContrat(selectedRent: any) {
     this.router.navigate([`rent/contrat/${selectedRent.RENT_ID}`]);
   }
   isAllSelected() {
@@ -115,9 +115,6 @@ export class RentViewComponent implements OnInit, AfterViewInit {
     this.isAllSelected() ?
         this.selection.clear() : this.dataSource.data.forEach((row) => this.selection.select(row));
 
-  }
-  editRent(selectedVehicle: RentView) {
-    this.router.navigate([`/manage/vehicle/${selectedVehicle.VEHICLE_ID}`]);
   }
 
   deleteRent(deletedRents: RentView[]) {
