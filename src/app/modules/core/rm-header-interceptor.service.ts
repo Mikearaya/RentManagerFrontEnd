@@ -12,7 +12,6 @@ export class RmHeaderInterceptorService  implements HttpInterceptor {
       });
 
         if (request.method === 'GET') {
-          console.log(`returning non modified url for get request ${request.url}`);
           return next.handle(request);
         } else {
           return next.handle(modifiedRequest);

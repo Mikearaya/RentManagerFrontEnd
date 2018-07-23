@@ -41,7 +41,8 @@ export class RentViewComponent implements OnInit, AfterViewInit {
                         {key: 'paid', humanReadable: 'Payment Status' },
                         {key: 'rented_By', humanReadable: 'Rent/Day' },
                         {key: 'total_days', humanReadable: 'Total Days' },
-                        {key: 'remaining_days', humanReadable: 'Remaining' }
+                        {key: 'remaining_days', humanReadable: 'Remaining' },
+                        {key: 'status', humanReadable: 'Status' }
                       ];
   displayedColumns = ['select', 'rented_by', 'plate_number', 'start_date', 'return_date', 'total_days', 'remaining_days', 'view' ];
 

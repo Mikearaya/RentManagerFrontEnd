@@ -53,6 +53,7 @@ export class RentView {
   start_date: string;
   remaining_days: string;
   return_date: string;
+  status: string;
   full_name: string;
   plate_number: string;
   payment_status: string;
