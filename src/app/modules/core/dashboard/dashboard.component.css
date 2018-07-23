@@ -19,3 +19,7 @@
 .dashboard-card-content {
   text-align: center;
 }
+
+.main-chart-box {
+max-height: 250px;
+}

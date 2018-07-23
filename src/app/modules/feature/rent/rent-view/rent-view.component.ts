@@ -41,8 +41,9 @@ export class RentViewComponent implements OnInit, AfterViewInit {
                         {key: 'paid', humanReadable: 'Payment Status' },
                         {key: 'rented_By', humanReadable: 'Rent/Day' },
                         {key: 'total_days', humanReadable: 'Total Days' },
+                        {key: 'remaining_days', humanReadable: 'Remaining' }
                       ];
-  displayedColumns = ['select', 'rented_by', 'plate_number', 'start_date', 'return_date', 'total_days', 'view' ];
+  displayedColumns = ['select', 'rented_by', 'plate_number', 'start_date', 'return_date', 'total_days', 'remaining_days', 'view' ];
 
   viewRentDetail(selectedRent: Rent) {
       this.router.navigate(['rent/detail', selectedRent.RENT_ID]);

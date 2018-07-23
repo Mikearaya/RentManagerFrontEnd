@@ -51,6 +51,7 @@ export class RentView {
   VEHICLE_ID: number;
   rented_by: string;
   start_date: string;
+  remaining_days: string;
   return_date: string;
   full_name: string;
   plate_number: string;
