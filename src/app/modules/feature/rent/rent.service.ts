@@ -1,5 +1,5 @@
 import { Observable } from 'rxjs';
-import { HttpClient, HttpHeaders, HttpParams } from '@angular/common/http';
+import { HttpClient, HttpHeaders, HttpParams, HttpErrorResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { RentDataModel } from './rent-view/rent-view-datasource';
 import { Customer } from '../customer/customer.service';
@@ -36,7 +36,8 @@ export class RentService {
   }
 
 
-  displayRents(catagory = 'active', filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc', sortColumn = ''): Observable<RentDataModel> {
+  displayRents(catagory = 'active', filter = '', pageIndex = 0, pageSize = 3, sortOrder = 'asc',
+                    sortColumn = ''): Observable<RentDataModel> {
     return this.httpClient.get<RentDataModel>(`${this.url}`,
                                           {params : new HttpParams()
                                                         .set('catagory', catagory)
@@ -51,6 +52,10 @@ export class RentService {
 
   getRentContratData(rentId: number): any {
     return this.httpClient.get<any>(`${this.url}/contrat_info/${rentId}`);
+  }
+
+  closeRentContrat(rentId: number): Observable<Boolean> {
+    return this.httpClient.get<Boolean>(`${this.url}/close/${rentId}`);
   }
 
   private prepareRequestBody(currentRent: Rent): URLSearchParams {

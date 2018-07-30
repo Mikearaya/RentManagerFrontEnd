@@ -78,3 +78,24 @@ Rules for using icons as black on a light background.
 .material-icons.md-light { color: rgba(255, 255, 255, 1); }
 .material-icons.md-light.md-inactive { color: rgba(255, 255, 255, 0.3); }
 */
+
+
+@media print {
+  @page {
+    margin: 5px;
+    padding: 0px;
+    border: none;
+
+  }
+  mat-sidenav.sidenav {
+    display: none !important;
+    width: 0px;
+  }
+  mat-toolbar {
+    display: none;
+  }
+  .print-section {
+    position: fixed;
+    left:0;
+  }
+}

@@ -9,7 +9,8 @@ import { RentFormComponent } from './rent-form/rent-form.component';
 import { MatTableModule, MatPaginatorModule, MatSortModule, MatInputModule, MatFormFieldModule, MatStepperModule,
           MatIconModule, MatDatepickerModule, MatSelectModule, MatCardModule, MatButtonModule,
            MatProgressSpinnerModule, MatCheckboxModule, MatAutocompleteModule, MatListModule,
-           MatButtonToggleModule
+           MatButtonToggleModule,
+           MatMenuModule
         } from '@angular/material';
 import { RentViewComponent } from './rent-view/rent-view.component';
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
@@ -37,6 +38,7 @@ export const MY_MOMENT_FORMATS = {
 @NgModule({
   imports: [
     CommonModule,
+    MatMenuModule,
     RentRoutingModule,
     MatTableModule,
     MatPaginatorModule,

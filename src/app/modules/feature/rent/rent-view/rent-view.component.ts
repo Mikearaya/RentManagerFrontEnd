@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, AfterViewInit, ElementRef } from '@angular/core';
-import { MatPaginator, MatSort } from '@angular/material';
+import { MatPaginator, MatSort, MatSnackBar } from '@angular/material';
 import { RentDataSource, RentView, RentDataModel } from './rent-view-datasource';
 import { ActivatedRoute, Router } from '@angular/router';
 import { RentService, Rent } from '../rent.service';
@@ -27,8 +27,9 @@ export class RentViewComponent implements OnInit, AfterViewInit {
   selectedColumns: FormControl;
 
   constructor(private activatedRoute: ActivatedRoute,
-    private rentService: RentService,
-  private router: Router) {
+              private rentService: RentService,
+              private snackBar: MatSnackBar,
+              private router: Router) {
     this.selectedColumns = new FormControl(this.displayedColumns);
     this.currentCatagory = 'active';
 }
@@ -44,7 +45,15 @@ export class RentViewComponent implements OnInit, AfterViewInit {
                         {key: 'remaining_days', humanReadable: 'Remaining' },
                         {key: 'status', humanReadable: 'Status' }
                       ];
-  displayedColumns = ['select', 'rented_by', 'plate_number', 'start_date', 'return_date', 'total_days', 'remaining_days', 'view' ];
+  displayedColumns = ['select',
+                      'rented_by',
+                      'plate_number',
+                      'start_date',
+                      'return_date',
+                      'total_days',
+                      'remaining_days',
+                      'status',
+                      'view' ];
 
   viewRentDetail(selectedRent: Rent) {
       this.router.navigate(['rent/detail', selectedRent.RENT_ID]);
@@ -125,5 +134,13 @@ export class RentViewComponent implements OnInit, AfterViewInit {
     this.rentService.deleteRent(deletedIds)
                                     .subscribe((result: Boolean) => this.viewRents(),
                                                (error: HttpErrorResponse) => console.log());
+  }
+
+  closeContrat(closedRent: Rent) {
+    this.rentService.closeRentContrat(closedRent.RENT_ID)
+                                    .subscribe((success: Boolean) => this.snackBar.open('Rent Close Succesfuly!!!'),
+                                              (error: HttpErrorResponse) => this.snackBar.open('Failed To Close Rent Try Again!!!')
+
+                                    );
   }
 }

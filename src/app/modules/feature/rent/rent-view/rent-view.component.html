@@ -1,7 +1,4 @@
 <div class="mat-elevation-z8">
-
-      <button mat-raised-button color="primary" [disabled]="selection.selected.length != 1" (click)="viewContrat(selection.selected[0])">View Contrat</button>
-
   <div class="row">
     <div class="col">
       <mat-form-field>
@@ -9,7 +6,7 @@
       </mat-form-field>
     </div>
     <div class="col">
-      <mat-button-toggle-group color="accent" name="fontStyle" (change)="currentView($event.value)" aria-label="Rent Status">
+      <mat-button-toggle-group color="accent" #rentStatus name="fontStyle" (change)="currentView($event.value)" aria-label="Rent Status">
         <mat-button-toggle   value="all">All</mat-button-toggle>
         <mat-button-toggle value="past">Past</mat-button-toggle>
         <mat-button-toggle [checked]="true" value="active">Active</mat-button-toggle>
@@ -41,14 +38,30 @@
     </ng-container>
 
     <ng-container matColumnDef="view">
-        <mat-header-cell *matHeaderCellDef> Detail </mat-header-cell>
+        <mat-header-cell *matHeaderCellDef> Options </mat-header-cell>
         <mat-cell *matCellDef="let row">
-              <button type="button" (click)="viewRentDetail(row)" mat-icon-button color="primary">
-                  <mat-icon aria-label="view rent detail">search</mat-icon>
+            <button type="button" (click)="viewRentDetail(row)" mat-icon-button color="primary">
+                View
               </button>
-              <button type="button" (click)="extendRent(row)" mat-icon-button color="primary">
+          <!--
+              <button type="button"  mat-icon-button  color="primary">
                   Extend
-              </button> </mat-cell>
+              </button>
+              <button type="button"  mat-icon-button  color="primary">
+                    Close
+            </button>
+          -->
+          <mat-menu #appMenu="matMenu">
+              <button mat-menu-item (click)="viewContrat(row)" >View Contrat</button>
+            <button mat-menu-item (click)="extendRent(row)" >Extend</button>
+            <button mat-menu-item (click)="closeContrat(row)" >Close </button>
+          </mat-menu>
+
+          <button mat-icon-button [matMenuTriggerFor]="appMenu">
+            <mat-icon>more_vert</mat-icon>
+          </button>
+
+           </mat-cell>
       </ng-container>
 
     <!-- display all rent related columns dynamically-->
@@ -62,4 +75,5 @@
   </mat-table>
   <mat-paginator #paginator [length]="dataSource.totalRents$ | async" [pageSizeOptions]="[3,5, 10, 20, 30]">
   </mat-paginator>
+  {{ rentStatus.value | json }}
 </div>
