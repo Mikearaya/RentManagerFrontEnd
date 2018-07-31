@@ -60,6 +60,7 @@ export class RentConditionFormComponent implements OnInit, OnChanges {
         cigaretLighter: this.buildControl(condition.cigaret_lighter, true),
         fuielLid: this.buildControl(condition.fuielLid, true),
         radiatorLid: this.buildControl(condition.radiator_lid, true),
+        totalKM: this.buildControl(condition.total_kilometer, true),
         comment: this.buildControl(condition.comment)
       });
   }
@@ -88,7 +89,8 @@ export class RentConditionFormComponent implements OnInit, OnChanges {
       radiator_lid: formModel.radiatorLid,
       crick: formModel.crick,
       comment: formModel.comment,
-      cigaret_lighter: formModel.cigaretLighter
+      cigaret_lighter: formModel.cigaretLighter,
+      total_kilometer: formModel.totalKM
     };
 
     return dataModel;

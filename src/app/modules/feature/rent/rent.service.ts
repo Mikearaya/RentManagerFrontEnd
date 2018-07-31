@@ -135,6 +135,7 @@ fuiel_lid: number;
 cigaret_lighter: number;
 radiator_lid: number;
 crick: number;
+total_kilometer: number;
 comment: number;
 
 }

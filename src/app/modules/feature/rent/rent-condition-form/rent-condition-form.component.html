@@ -219,12 +219,21 @@
 
         </div>
       <div class="row">
-          <div class="col col-xs-12">
+          <div class="col col-xs-8">
               <mat-form-field>
                 <mat-label for="sterio"> Sterio</mat-label>
                 <input type="text" matInput placeholder="Sterio" name="sterio" id="sterio" formControlName="radio" required>
                 <mat-error *ngIf="form.get('radio').errors">
                     <div *ngIf="form.get('radio').errors['required']">Sterio is required</div>
+                  </mat-error>
+              </mat-form-field>
+            </div>
+            <div class="col col-xs-8">
+              <mat-form-field>
+                <mat-label for="totalKM"> Total Kilometers</mat-label>
+                <input type="number" matInput placeholder="Total Kilometer" name="totalKM" id="totalKM" formControlName="totalKM" required>
+                <mat-error *ngIf="form.get('totalKM').errors">
+                    <div *ngIf="form.get('totalKM').errors['required']">Vehicle total kilometer is required</div>
                   </mat-error>
               </mat-form-field>
             </div>
