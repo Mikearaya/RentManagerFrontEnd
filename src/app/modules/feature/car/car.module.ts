@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 import { CarService } from './car.service';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -9,30 +10,13 @@ import { MatTableModule, MatSortModule, MatPaginatorModule, MatCardModule, MatFo
   MatProgressSpinnerModule, MatButtonToggleModule,
   MatAutocompleteModule} from '@angular/material';
 import { CarListComponent } from './car-list/car-list.component';
-import { ReactiveFormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
+
 
 @NgModule({
-  imports: [
-    CommonModule,
-    MatTableModule,
-    MatSortModule,
-    MatCardModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
-    ReactiveFormsModule,
-    HttpClientModule,
-    MatInputModule,
-    MatCheckboxModule,
-    MatSelectModule,
-    MatIconModule,
-    MatButtonModule,
-    MatPaginatorModule,
-    MatDatepickerModule,
-    MatNativeDateModule,
-    CarRoutingModule,
-    MatButtonToggleModule,
-    MatProgressSpinnerModule
+  imports: [ SharedModule,
+              CarRoutingModule,
+
+
   ],
   declarations: [CarFormComponent, CarListComponent],
   exports: [CarFormComponent, CarListComponent],

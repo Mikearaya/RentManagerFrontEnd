@@ -162,9 +162,6 @@
                 <div *ngFor="let error of errorMessages"> {{error}}</div>
             </output>
         </mat-card-content>
-        <div class="form-button-box">
-            <button mat-button mat-raised-button type="submit" color="primary">Save</button>
-            <button mat-button mat-raised-button color="warn">Cancel</button>
-        </div>
+        <app-form-options [submitDisabled]="carForm.invalid"  ></app-form-options>
     </form>
 </mat-card>

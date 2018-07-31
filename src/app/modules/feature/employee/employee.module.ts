@@ -8,23 +8,12 @@ import { MatFormFieldModule, MatInputModule, MatButtonModule, MatIconModule, Mat
   MatPaginatorModule, MatSortModule, MatSelectModule, MatCheckboxModule, MatProgressSpinnerModule } from '@angular/material';
 import { EmployeeViewComponent } from './employee-view/employee-view.component';
 import { EmployeeApiService } from './employee-api.service';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
-    ReactiveFormsModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatCheckboxModule,
-    MatProgressSpinnerModule,
-    MatCardModule,
-    MatInputModule,
-    MatButtonModule,
-    MatIconModule,
-    EmployeeRoutingModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule
+            SharedModule,
+            EmployeeRoutingModule,
   ],
   declarations: [EmployeeFormComponent, EmployeeViewComponent],
   exports: [EmployeeFormComponent, EmployeeViewComponent],

@@ -122,11 +122,6 @@
               {{error}}
           </div>
         </output>
-    <div class="row" *ngIf="isSelfContained()">
-      <div class="form-button-box">
-        <button mat-raised-button type="submit" [disabled]="form.invalid"  color="primary">Submit</button>
-        <button mat-raised-button type="button" (click)="cancel()" color="warn">Cancel</button>
-      </div>
-    </div>
+        <app-form-options [submitDisabled]="form.invalid" [isSelfContained]="isSelfContained()" > </app-form-options>
   </form>
 </section>

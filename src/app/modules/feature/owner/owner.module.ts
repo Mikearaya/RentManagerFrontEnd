@@ -10,23 +10,11 @@ import { MatTableModule, MatPaginatorModule, MatSortModule, MatFormFieldModule, 
 import { ReactiveFormsModule } from '@angular/forms';
 import { OwnerService } from './owner.service';
 import { HttpClientModule } from '@angular/common/http';
+import { SharedModule } from '../../shared/shared.module';
 
 @NgModule({
   imports: [
-    CommonModule,
-    MatTableModule,
-    ReactiveFormsModule,
-    MatPaginatorModule,
-    MatProgressSpinnerModule,
-    MatSortModule,
-    HttpClientModule,
-    MatFormFieldModule,
-    MatCardModule,
-    MatCheckboxModule,
-    MatInputModule,
-    MatIconModule,
-    MatSelectModule,
-    MatButtonModule,
+    SharedModule,
     OwnerRoutingModule
   ],
   declarations: [OwnerFormComponent, OwnerListComponent],

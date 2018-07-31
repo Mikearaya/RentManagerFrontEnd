@@ -1,3 +1,4 @@
+import { MatDialogModule } from '@angular/material/dialog';
 
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -6,28 +7,54 @@ import { LayoutModule } from '@angular/cdk/layout';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MatToolbarModule, MatButtonModule, MatDividerModule, MatSidenavModule,
           MatIconModule, MatListModule, MatGridListModule, MatMenuModule,
-          MatExpansionModule, MatCardModule
+          MatExpansionModule, MatCardModule, MatFormFieldModule, MatSelectModule, MatInputModule,
+          MatCheckboxModule, MatTableModule, MatProgressSpinnerModule, MatPaginatorModule,
+          MatSortModule, MatSlideToggleModule, MatAutocompleteModule, MatDatepickerModule, MatNativeDateModule, MatButtonToggleModule
         } from '@angular/material';
+import { FormOptionsComponent } from './form-options/form-options.component';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   imports: [
-
+    CommonModule,
+    MatButtonModule
   ],
-  declarations: [],
+  declarations: [FormOptionsComponent],
   exports: [  CommonModule,
-              CustomDatePickerModule,
+              ReactiveFormsModule,
               LayoutModule,
               BrowserAnimationsModule,
-              MatToolbarModule,
+
+              CustomDatePickerModule,
+              FormOptionsComponent,
+
+              MatTableModule,
+              MatDialogModule,
+              MatSortModule,
+              MatCardModule,
+              MatAutocompleteModule,
+              MatFormFieldModule,
+              ReactiveFormsModule,
+              HttpClientModule,
+              MatInputModule,
+              MatCheckboxModule,
+              MatSelectModule,
+              MatIconModule,
               MatButtonModule,
+              MatPaginatorModule,
+              MatDatepickerModule,
+              MatNativeDateModule,
+              MatButtonToggleModule,
+              MatProgressSpinnerModule,
+              MatToolbarModule,
               MatDividerModule,
               MatSidenavModule,
-              MatIconModule,
               MatListModule,
               MatGridListModule,
-              MatCardModule,
               MatMenuModule,
-              MatExpansionModule
+              MatExpansionModule,
+              MatSlideToggleModule,
             ]
 })
 export class SharedModule { }

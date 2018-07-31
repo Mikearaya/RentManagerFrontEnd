@@ -1,3 +1,4 @@
+import { SharedModule } from './../../shared/shared.module';
 
 import { CarModule } from './../car/car.module';
 import { HttpClientModule } from '@angular/common/http';
@@ -37,30 +38,11 @@ export const MY_MOMENT_FORMATS = {
 };
 @NgModule({
   imports: [
-    CommonModule,
-    MatMenuModule,
+    SharedModule,
     RentRoutingModule,
-    MatTableModule,
-    MatPaginatorModule,
-    MatSortModule,
-    MatAutocompleteModule,
-    MatFormFieldModule,
     MatStepperModule,
-    MatInputModule,
-    MatButtonToggleModule,
-    MatIconModule,
-    MatListModule,
-    MatProgressSpinnerModule,
-    CustomDatePickerModule,
-    MatButtonModule,
-    MatDatepickerModule,
-    HttpClientModule,
-    MatSelectModule,
     OwlDateTimeModule,
     OwlNativeDateTimeModule,
-    MatCardModule,
-    MatCheckboxModule,
-    ReactiveFormsModule,
     OwlDateTimeModule, OwlMomentDateTimeModule,
     CarModule,
     CustomerModule

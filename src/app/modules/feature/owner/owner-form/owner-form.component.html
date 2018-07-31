@@ -72,10 +72,6 @@
           </ul>
        </output>
     </mat-card-content>
-    <div class="form-button-box">
-      <button mat-button mat-raised-button type="submit" [disabled]="ownerForm.invalid" color="primary">Save</button>
-      <button mat-button mat-raised-button color="warn">Cancel</button>
-
-    </div>
+    <app-form-options [submitDisabled]="ownerForm.invalid" [isSelfContained]="isSelfContained()" ></app-form-options>
   </form>
 </mat-card>
