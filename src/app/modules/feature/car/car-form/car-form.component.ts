@@ -17,10 +17,12 @@ import { HttpErrorResponse } from '@angular/common/http';
   templateUrl: './car-form.component.html',
   styleUrls: ['./car-form.component.css']
 })
+
 export class CarFormComponent implements OnInit {
   private car: Car;
   private currentId: number;
   errorMessages: string[];
+  YEARS: number[] = [];
   filteredOwners$: Observable<Owner[]>;
   COLORS = ['Red', 'Green', 'Blue', 'White', 'Silver' , 'Brown', 'Black'];
   CAR_TYPES = ['Automobile', '4 Wheel Drive', 'Sedan', 'Hatch Back', 'Limosine', 'Pickup'];
@@ -37,6 +39,11 @@ private currentOwnerId: number;
               private snackBar: MatSnackBar,
               private router: Router
             ) {
+              const date = new Date()
+              const year = date.getFullYear();
+              for (let i = year; i > year - 40; i--) {
+                this.YEARS.push(i);
+              }
               this.generateForm();
             }
 
@@ -92,6 +99,7 @@ private currentOwnerId: number;
       libre: this.buildControl(currentVehicle.libre_no, true),
       plateCode: this.buildControl(currentVehicle.plate_code, true),
       plateNumber: this.buildControl(currentVehicle.plate_number, true),
+      transmission: this.buildControl(currentVehicle.transmission, true),
     });
 
   }
@@ -103,7 +111,7 @@ private currentOwnerId: number;
           OWNER_ID: carInfo.owner.OWNER_ID,
           make: carInfo.make,
           model: carInfo.model,
-          year_made: carInfo.yearMade.getFullYear(),
+          year_made: carInfo.yearMade,
           color: carInfo.color,
           type: carInfo.type,
           chassis_number: carInfo.chassisNo,
@@ -114,7 +122,8 @@ private currentOwnerId: number;
           cylinder_count: carInfo.cylinder,
           libre_no: carInfo.libre,
           plate_code: carInfo.plateCode,
-          plate_number: carInfo.plateNumber
+          plate_number: carInfo.plateNumber,
+          transmission: carInfo.transmission
 
       };
     return dataModel;

@@ -43,16 +43,26 @@
                     </mat-form-field>
                 </div>
                 <div class="col">
-                    <mat-form-field>
-                        <input matInput [matDatepicker]="yearMade" placeholder="Year Made" name="yearMade" id="yearMade" required formControlName="yearMade">
-                        <mat-error *ngIf="carForm.get('yearMade').errors">
-                            <div *ngIf="carForm.get('yearMade').errors['required']">Year of the car made is Required </div>
-                        </mat-error>
-                        <mat-datepicker-toggle matSuffix [for]="yearMade"></mat-datepicker-toggle>
-                        <mat-datepicker #yearMade startView="multi-year"></mat-datepicker>
-
-                    </mat-form-field>
-                </div>
+                  <mat-form-field>
+                      <mat-select placeholder="Year Made" name="year" id="year" required formControlName="yearMade">
+                          <mat-option *ngFor="let year of YEARS" [value]="year" >{{year}}</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="carForm.get('yearMade').errors">
+                          <div *ngIf="carForm.get('yearMade').errors['required']">Year Made is required </div>
+                      </mat-error>
+                  </mat-form-field>
+              </div>
+                <div class="col">
+                  <mat-form-field>
+                      <mat-select placeholder="Gear" name="gear" id="gear" required formControlName="transmission">
+                          <mat-option value="AUTOMATIC">AUTOMATIC</mat-option>
+                          <mat-option value="MANUAL">MANUAL</mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="carForm.get('transmission').errors">
+                          <div *ngIf="carForm.get('transmission').errors['required']">Gear type is required </div>
+                      </mat-error>
+                  </mat-form-field>
+              </div>
             </div>
             <div class="row">
                 <div class="col">

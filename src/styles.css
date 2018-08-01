@@ -82,20 +82,29 @@ Rules for using icons as black on a light background.
 
 @media print {
   @page {
-    margin: 5px;
-    padding: 0px;
-    border: none;
+    margin: 5px !important;
+    padding: 0px !important;
+    border: none !important;
 
   }
   mat-sidenav.sidenav {
     display: none !important;
-    width: 0px;
+    width: 0px !important;
   }
   mat-toolbar {
-    display: none;
+    display: none !important;
   }
   .print-section {
-    position: fixed;
-    left:0;
+    position: fixed !important;
+    left:0 !important;
   }
+}
+
+.mat-cell, .mat-footer-cell {
+  font-size: .8em;
+}
+
+.mat-column-select.cdk-column-select {
+  flex: none !important;
+  margin-right: 2em !important;
 }

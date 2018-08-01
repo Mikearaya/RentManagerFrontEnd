@@ -26,6 +26,7 @@ export class Car {
   libre_no: string;
   plate_code: number;
   plate_number: string;
+  transmission: string;
 }
 
 

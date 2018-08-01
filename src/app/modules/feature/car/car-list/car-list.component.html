@@ -47,7 +47,7 @@
   <mat-table #table [dataSource]="dataSource" aria-label="Vehicles" matSort matSortDirection="asc" matSortDisableClear>
     <!-- Selection Checkboxes -->
     <ng-container matColumnDef="select">
-      <mat-header-cell *matHeaderCellDef>
+      <mat-header-cell *matHeaderCellDef >
         <mat-checkbox (change)="$event ? masterToggle() : null" [checked]="selection.hasValue() && isAllSelected()" [indeterminate]="selection.hasValue() && !isAllSelected()">
         </mat-checkbox>
       </mat-header-cell>

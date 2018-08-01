@@ -36,11 +36,12 @@ private currentCatagory = '';
                     {key: 'color', humanReadable : 'Color'},
                     {key: 'type', humanReadable : 'Type'},
                     {key: 'fuiel_type', humanReadable : 'Fuiel Type'},
+                    {key: 'transmission', humanReadable : 'Gear'},
                     {key: 'plate_number', humanReadable : 'Plate Number'},
                     {key: 'cc', humanReadable : 'C.C.'},
                     {key: 'total_passanger', humanReadable : 'Passanger Capacity'}
                   ];
-  displayedColumns = ['select', 'make', 'model', 'color',  'type', 'fuiel_type', 'plate_number',
+  displayedColumns = ['select', 'make', 'model', 'color',  'type', 'fuiel_type', 'plate_number', 'transmission',
                         'cc', 'total_passanger'];
     constructor(private activatedRoute: ActivatedRoute,
                 private carService: CarService,
