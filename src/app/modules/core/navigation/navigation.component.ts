@@ -1,5 +1,9 @@
 import { Component } from '@angular/core';
-import { BreakpointObserver, Breakpoints, BreakpointState } from '@angular/cdk/layout';
+import {
+  BreakpointObserver,
+  Breakpoints,
+  BreakpointState
+} from '@angular/cdk/layout';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
@@ -10,19 +14,23 @@ import { map } from 'rxjs/operators';
 })
 export class NavigationComponent {
   naigationList = [
-    {path: 'rent/vehicle/', label: 'New Rent', icon: 'fiber_new' },
-    {path: 'vehicles/' , label: 'Vehicles', icon: 'directions_car'},
-    {path: 'owners/', label: 'Partners', icon: 'contacts'},
-    {path: 'customers/', label: 'Customers', icon: 'person_pin'},
-    {path: 'rents/', label: 'Rents', icon: 'work'},
-    {path: 'employees', label: 'Employees', icon: 'people'},
-    {path: 'payments', label: 'Payments', icon: 'credit_card'}
+    { path: 'rent/vehicle/', label: 'New Rent', icon: 'fiber_new' },
+    { path: 'vehicles/', label: 'Vehicles', icon: 'directions_car' },
+    { path: 'owners/', label: 'Partners', icon: 'contacts' },
+    { path: 'customers/', label: 'Customers', icon: 'person_pin' },
+    { path: 'rents/', label: 'Rents', icon: 'work' },
+    { path: 'employees', label: 'Employees', icon: 'people' },
+    { path: 'payments', label: 'Payments', icon: 'credit_card' },
+    {
+      path: 'parnters/payments',
+      label: 'Partner Payments',
+      icon: 'credit_card'
+    }
   ];
 
-  isHandset$: Observable<boolean> = this.breakpointObserver.observe(Breakpoints.Handset)
-    .pipe(
-      map(result => result.matches)
-    );
+  isHandset$: Observable<boolean> = this.breakpointObserver
+    .observe(Breakpoints.Handset)
+    .pipe(map(result => result.matches));
 
   constructor(private breakpointObserver: BreakpointObserver) {}
-  }
+}
